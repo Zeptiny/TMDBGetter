@@ -17,6 +17,7 @@ from .tv_series import (
     TVSeriesTranslation, SimilarTVSeries, ExternalIdTVSeries
 )
 from .state import ProcessingState, DailyDump
+from .query import SavedQuery
 
 __all__ = [
     "Base", "engine", "get_db", "init_db",
@@ -28,5 +29,5 @@ __all__ = [
     "TVSeries", "TVSeriesCast", "TVSeriesCrew", "TVSeriesCreator",
     "TVSeason", "TVEpisodeInfo", "TVSeriesWatchProvider",
     "TVSeriesTranslation", "SimilarTVSeries", "ExternalIdTVSeries",
-    "ProcessingState", "DailyDump",
+    "ProcessingState", "DailyDump", "SavedQuery",
 ]

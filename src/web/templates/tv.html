@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}TV Series{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">TV Series</h1>
+</div>
+
+<div class="card">
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search TV series by name...">
+        <button class="btn btn-primary" onclick="search()">Search</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>First Air Date</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody id="tvList">
+                <tr><td colspan="4" class="loading">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <button class="btn" id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
+        <span style="color: var(--text-secondary);">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+        <button class="btn" id="nextBtn" onclick="changePage(1)" disabled>Next</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let currentPage = 1;
+    let currentQuery = '';
+
+    async function loadTV(page = 1, query = '') {
+        try {
+            const resp = await fetch(`/api/tv_series?page=${page}&q=${encodeURIComponent(query)}`);
+            const data = await resp.json();
+
+            const html = data.items.map(t => `
+                <tr>
+                    <td>${t.id}</td>
+                    <td style="font-weight: 500; color: var(--text-primary);">${t.name || 'Unknown'}</td>
+                    <td>${t.first_air_date || '-'}</td>
+                    <td>${formatDate(t.updated_at)}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('tvList').innerHTML = html || '<tr><td colspan="4" style="text-align:center; padding: 40px;">No TV series found</td></tr>';
+
+            // Update pagination
+            currentPage = data.pagination.page;
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = data.pagination.pages;
+            
+            document.getElementById('prevBtn').disabled = currentPage <= 1;
+            document.getElementById('nextBtn').disabled = currentPage >= data.pagination.pages;
+
+        } catch (e) {
+            console.error(e);
+            document.getElementById('tvList').innerHTML = '<tr><td colspan="4" style="color: var(--danger); text-align: center;">Error loading data</td></tr>';
+        }
+    }
+
+    function search() {
+        currentQuery = document.getElementById('searchInput').value;
+        currentPage = 1;
+        loadTV(currentPage, currentQuery);
+    }
+
+    function changePage(delta) {
+        loadTV(currentPage + delta, currentQuery);
+    }
+
+    // Handle enter key in search
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') search();
+    });
+
+    loadTV();
+</script>
+{% endblock %}

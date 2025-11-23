@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">Dashboard Overview</h1>
+    <button class="btn btn-primary" onclick="loadStats()">
+        <i data-feather="refresh-cw"></i> Refresh
+    </button>
+</div>
+
+<div class="grid-4" style="margin-bottom: 30px;">
+    <div class="card">
+        <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 8px;">TOTAL MOVIES</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--accent);" id="totalMovies">-</div>
+        <div style="margin-top: 12px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;">
+            <div id="movieProgress" style="width: 0%; height: 100%; background: var(--success); transition: width 0.5s;"></div>
+        </div>
+        <div style="margin-top: 8px; font-size: 0.875rem; color: var(--text-secondary); display: flex; justify-content: space-between;">
+            <span><span id="movieCompletion">-</span> completed</span>
+            <span id="movieRemaining">- remaining</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 8px;">TOTAL TV SERIES</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--accent);" id="totalTV">-</div>
+        <div style="margin-top: 12px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;">
+            <div id="tvProgress" style="width: 0%; height: 100%; background: var(--success); transition: width 0.5s;"></div>
+        </div>
+        <div style="margin-top: 8px; font-size: 0.875rem; color: var(--text-secondary); display: flex; justify-content: space-between;">
+            <span><span id="tvCompletion">-</span> completed</span>
+            <span id="tvRemaining">- remaining</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 8px;">DATABASE SIZE</div>
+        <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">
+            <div id="totalPeople" style="font-size: 1.25rem;">- People</div>
+            <div id="totalCompanies" style="font-size: 1.25rem; margin-top: 4px;">- Companies</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 8px;">SYSTEM STATUS</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--danger);" id="failedItems">-</div>
+        <div style="color: var(--text-secondary); font-size: 0.875rem;">Failed Items</div>
+        <div style="margin-top: 12px;">
+            <a href="/failed" class="btn" style="font-size: 0.8rem; padding: 6px 12px; background: var(--bg-primary);">View Failed</a>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-bottom: 30px;">
+    <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Daily Dumps</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Total IDs</th>
+                    <th>Processed</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="dailyDumps">
+                <tr><td colspan="5" class="loading">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Recent Movies</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Updated</th>
+                    </tr>
+                </thead>
+                <tbody id="recentMovies">
+                    <tr><td colspan="2" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 16px; text-align: center;">
+            <a href="/movies" class="btn" style="background: var(--bg-primary); font-size: 0.875rem;">View All Movies</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Recent TV Series</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Updated</th>
+                    </tr>
+                </thead>
+                <tbody id="recentTV">
+                    <tr><td colspan="2" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 16px; text-align: center;">
+            <a href="/tv" class="btn" style="background: var(--bg-primary); font-size: 0.875rem;">View All TV Series</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    async function loadStats() {
+        try {
+            const resp = await fetch('/api/stats');
+            const data = await resp.json();
+
+            // Update counts
+            document.getElementById('totalMovies').textContent = data.database.total_movies.toLocaleString();
+            document.getElementById('totalTV').textContent = data.database.total_tv_series.toLocaleString();
+            document.getElementById('totalPeople').textContent = data.database.total_people.toLocaleString() + ' People';
+            document.getElementById('totalCompanies').textContent = data.database.total_companies.toLocaleString() + ' Companies';
+            
+            // Update progress
+            document.getElementById('movieProgress').style.width = data.processing.movies.completion_rate + '%';
+            document.getElementById('tvProgress').style.width = data.processing.tv_series.completion_rate + '%';
+            
+            document.getElementById('movieCompletion').textContent = data.processing.movies.completion_rate.toFixed(1) + '%';
+            document.getElementById('tvCompletion').textContent = data.processing.tv_series.completion_rate.toFixed(1) + '%';
+
+            // Update remaining
+            const movieTotal = data.processing.movies.total || 0;
+            const movieProcessed = data.processing.movies.processed || 0;
+            document.getElementById('movieRemaining').textContent = (movieTotal - movieProcessed).toLocaleString() + ' remaining';
+
+            const tvTotal = data.processing.tv_series.total || 0;
+            const tvProcessed = data.processing.tv_series.processed || 0;
+            document.getElementById('tvRemaining').textContent = (tvTotal - tvProcessed).toLocaleString() + ' remaining';
+
+            // Failed items
+            const failedCount = data.processing.movies.failed + data.processing.tv_series.failed;
+            const failedEl = document.getElementById('failedItems');
+            failedEl.textContent = failedCount.toLocaleString();
+            failedEl.style.color = failedCount > 0 ? 'var(--danger)' : 'var(--success)';
+
+            // Daily Dumps
+            const dumpsHTML = data.daily_dumps.map(d => `
+                <tr>
+                    <td>${d.date}</td>
+                    <td><span class="status-badge status-success">${d.type}</span></td>
+                    <td>${d.total.toLocaleString()}</td>
+                    <td>${d.processed.toLocaleString()}</td>
+                    <td><span class="status-badge ${d.status === 'completed' ? 'status-success' : 'status-warning'}">${d.status}</span></td>
+                </tr>
+            `).join('');
+            document.getElementById('dailyDumps').innerHTML = dumpsHTML || '<tr><td colspan="5">No dumps found</td></tr>';
+
+            // Recent Activity
+            const moviesHTML = data.recent_activity.movies.map(m => `
+                <tr>
+                    <td>${m.title || 'Unknown'}</td>
+                    <td>${formatDate(m.updated_at)}</td>
+                </tr>
+            `).join('');
+            document.getElementById('recentMovies').innerHTML = moviesHTML || '<tr><td colspan="2">No data</td></tr>';
+
+            const tvHTML = data.recent_activity.tv_series.map(t => `
+                <tr>
+                    <td>${t.name || 'Unknown'}</td>
+                    <td>${formatDate(t.updated_at)}</td>
+                </tr>
+            `).join('');
+            document.getElementById('recentTV').innerHTML = tvHTML || '<tr><td colspan="2">No data</td></tr>';
+            
+            feather.replace();
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    loadStats();
+    setInterval(loadStats, 30000);
+</script>
+{% endblock %}

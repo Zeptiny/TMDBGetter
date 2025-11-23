@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}System Status{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">System Status</h1>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Database Information</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-label">Database Size</div>
+                <div class="stat-value" id="dbSize">-</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Connection Status</div>
+                <div class="stat-value" id="dbStatus" style="color: #4ade80;">-</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Last Update</div>
+                <div class="stat-value" id="lastUpdate">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Database Management</h2>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+            <p style="color: var(--text-secondary);">Download a complete dump of the PostgreSQL database.</p>
+            <div>
+                <a href="/api/db/download" class="btn btn-primary">
+                    <i data-feather="download"></i> Download Database Dump
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    async function loadSystemStats() {
+        try {
+            const resp = await fetch('/api/system/stats');
+            const data = await resp.json();
+            
+            document.getElementById('dbSize').textContent = data.db_size;
+            document.getElementById('dbStatus').textContent = data.status;
+            document.getElementById('lastUpdate').textContent = new Date(data.last_update).toLocaleString();
+            
+        } catch (e) {
+            console.error('System stats error:', e);
+            document.getElementById('dbStatus').textContent = 'Error';
+            document.getElementById('dbStatus').style.color = '#ef4444';
+        }
+    }
+
+    loadSystemStats();
+</script>
+{% endblock %}

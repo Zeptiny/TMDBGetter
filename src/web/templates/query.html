@@ -1,0 +1,307 @@
+{% extends "layout.html" %}
+
+{% block title %}SQL Lab{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">SQL Lab</h1>
+</div>
+
+<div style="display: grid; grid-template-columns: 350px 1fr; gap: 24px; height: calc(100vh - 140px);">
+    <!-- Schema & Saved Queries Sidebar -->
+    <div style="display: flex; flex-direction: column; gap: 16px; overflow: hidden;">
+        <!-- Database Schema -->
+        <div class="card" style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+            <h2 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--accent);">Database Schema</h2>
+            <div style="overflow-y: auto; flex: 1;" id="schemaContainer">
+                <div class="loading">Loading schema...</div>
+            </div>
+        </div>
+
+        <!-- Saved Queries -->
+        <div class="card" style="flex: 0 0 auto; max-height: 300px; display: flex; flex-direction: column; overflow: hidden;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h2 style="font-size: 1.1rem; color: var(--accent);">Saved Queries</h2>
+                <button onclick="refreshSavedQueries()" class="btn" style="padding: 4px 8px; font-size: 0.75rem; background: var(--bg-primary);">
+                    <i data-feather="refresh-cw" style="width: 14px; height: 14px;"></i>
+                </button>
+            </div>
+            <div style="overflow-y: auto; flex: 1;" id="savedQueriesContainer">
+                <div class="loading" style="padding: 20px;">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Query Area -->
+    <div style="display: flex; flex-direction: column; gap: 24px; overflow: hidden;">
+        <div class="card" style="flex: 0 0 auto;">
+            <div style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-size: 1.1rem; color: var(--accent);">Query Editor</h2>
+                <div style="display: flex; gap: 8px;">
+                    <button onclick="saveQuery()" class="btn" style="background: var(--bg-primary);">
+                        <i data-feather="save"></i> Save Query
+                    </button>
+                    <button onclick="runQuery()" class="btn btn-primary" id="runBtn">
+                        <i data-feather="play"></i> Run Query
+                    </button>
+                </div>
+            </div>
+            <textarea id="sqlEditor" 
+                style="width: 100%; height: 150px; background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-primary); padding: 12px; border-radius: 6px; font-family: monospace; resize: vertical;"
+                placeholder="SELECT * FROM movies LIMIT 10;"></textarea>
+            <div style="margin-top: 8px; font-size: 0.85rem; color: var(--text-secondary);">
+                <i data-feather="info" style="width: 12px; height: 12px;"></i> Read-only mode. Only SELECT queries are allowed.
+            </div>
+        </div>
+
+        <div class="card" style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+            <div style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-size: 1.1rem; color: var(--accent);">Results</h2>
+                <span id="resultCount" style="font-size: 0.9rem; color: var(--text-secondary);"></span>
+            </div>
+            <div class="table-container" style="flex: 1; overflow: auto;">
+                <table id="resultsTable">
+                    <thead>
+                        <tr><th>Results will appear here</th></tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="errorMessage" style="display: none; color: var(--danger); padding: 12px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; margin-top: 16px;"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Load Schema
+    async function loadSchema() {
+        try {
+            const resp = await fetch('/api/query/schema');
+            const data = await resp.json();
+            
+            const html = data.tables.map(table => `
+                <details style="margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                    <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px; outline: none; list-style: none;">
+                        <i data-feather="chevron-right" style="width: 14px; height: 14px;"></i>
+                        <span style="display: flex; align-items: center; gap: 6px;">
+                            <i data-feather="table" style="width: 14px; height: 14px; color: var(--accent);"></i> 
+                            ${table.name}
+                        </span>
+                    </summary>
+                    <div style="margin-top: 8px; overflow-x: auto;">
+                        <table style="width: 100%; font-size: 0.75rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <th style="padding: 4px; text-align: left; color: var(--text-secondary);">Name</th>
+                                    <th style="padding: 4px; text-align: left; color: var(--text-secondary);">Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${table.columns.map(col => `
+                                    <tr>
+                                        <td style="padding: 4px; font-family: monospace; color: var(--text-primary); word-break: break-all;">${col.name}</td>
+                                        <td style="padding: 4px; font-family: monospace; color: var(--text-muted); word-break: break-all;">${col.type}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            `).join('');
+            
+            document.getElementById('schemaContainer').innerHTML = html;
+            feather.replace();
+        } catch (e) {
+            document.getElementById('schemaContainer').innerHTML = '<div style="color: var(--danger)">Error loading schema</div>';
+        }
+    }
+
+    async function runQuery() {
+        const sql = document.getElementById('sqlEditor').value;
+        if (!sql.trim()) return;
+
+        const btn = document.getElementById('runBtn');
+        const errorDiv = document.getElementById('errorMessage');
+        const table = document.getElementById('resultsTable');
+        const countSpan = document.getElementById('resultCount');
+
+        btn.disabled = true;
+        btn.innerHTML = '<i data-feather="loader" class="spin"></i> Running...';
+        feather.replace();
+        
+        errorDiv.style.display = 'none';
+        table.style.opacity = '0.5';
+
+        try {
+            const resp = await fetch('/api/query/run', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ sql })
+            });
+            
+            const data = await resp.json();
+
+            if (data.error) {
+                errorDiv.textContent = data.error;
+                errorDiv.style.display = 'block';
+                table.innerHTML = '<thead><tr><th>Error</th></tr></thead><tbody></tbody>';
+                countSpan.textContent = '';
+            } else {
+                // Render headers
+                if (data.columns && data.columns.length > 0) {
+                    const thead = `<tr>${data.columns.map(c => `<th>${c}</th>`).join('')}</tr>`;
+                    
+                    // Render rows
+                    const tbody = data.rows.map(row => 
+                        `<tr>${row.map(cell => `<td>${cell === null ? '<span style="color: var(--text-muted)">NULL</span>' : cell}</td>`).join('')}</tr>`
+                    ).join('');
+                    
+                    table.innerHTML = `<thead>${thead}</thead><tbody>${tbody}</tbody>`;
+                    countSpan.textContent = `${data.rows.length} rows found`;
+                } else {
+                    table.innerHTML = '<thead><tr><th>No results</th></tr></thead><tbody></tbody>';
+                    countSpan.textContent = '0 rows';
+                }
+            }
+        } catch (e) {
+            errorDiv.textContent = 'Network error occurred';
+            errorDiv.style.display = 'block';
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i data-feather="play"></i> Run Query';
+            table.style.opacity = '1';
+            feather.replace();
+        }
+    }
+
+    loadSchema();
+    loadSavedQueries();
+
+    async function loadSavedQueries() {
+        try {
+            const resp = await fetch('/api/query/saved');
+            const data = await resp.json();
+            
+            if (data.queries.length === 0) {
+                document.getElementById('savedQueriesContainer').innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-secondary); font-size: 0.85rem;">No saved queries</div>';
+                return;
+            }
+            
+            const html = data.queries.map(q => `
+                <div style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s;" 
+                     onmouseover="this.style.borderColor='var(--accent)'" 
+                     onmouseout="this.style.borderColor='var(--border)'">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 4px;">
+                        <div style="flex: 1;" onclick="loadQueryIntoEditor('${q.id}')">
+                            <div style="font-weight: 600; color: var(--text-primary); font-size: 0.9rem; margin-bottom: 4px;">${q.name}</div>
+                            ${q.description ? `<div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 6px;">${q.description}</div>` : ''}
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">${new Date(q.updated_at).toLocaleDateString()}</div>
+                        </div>
+                        <button onclick="event.stopPropagation(); deleteQuery(${q.id})" style="background: none; border: none; color: var(--danger); cursor: pointer; padding: 4px;">
+                            <i data-feather="trash-2" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('savedQueriesContainer').innerHTML = html;
+            feather.replace();
+        } catch (e) {
+            console.error('Error loading saved queries:', e);
+            document.getElementById('savedQueriesContainer').innerHTML = '<div style="color: var(--danger); padding: 20px;">Error loading queries</div>';
+        }
+    }
+
+    async function loadQueryIntoEditor(queryId) {
+        try {
+            const resp = await fetch('/api/query/saved');
+            const data = await resp.json();
+            const query = data.queries.find(q => q.id == queryId);
+            
+            if (query) {
+                document.getElementById('sqlEditor').value = query.query_text;
+            }
+        } catch (e) {
+            console.error('Error loading query:', e);
+        }
+    }
+
+    async function saveQuery() {
+        const sql = document.getElementById('sqlEditor').value.trim();
+        if (!sql) {
+            alert('Please enter a query first');
+            return;
+        }
+
+        const name = prompt('Enter a name for this query:');
+        if (!name) return;
+
+        const description = prompt('Enter a description (optional):');
+
+        try {
+            const resp = await fetch('/api/query/saved', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name,
+                    description: description,
+                    query_text: sql
+                })
+            });
+
+            const data = await resp.json();
+
+            if (data.error) {
+                alert('Error saving query: ' + data.error);
+            } else {
+                loadSavedQueries();
+                alert('Query saved successfully!');
+            }
+        } catch (e) {
+            alert('Network error occurred');
+        }
+    }
+
+    async function deleteQuery(queryId) {
+        if (!confirm('Are you sure you want to delete this query?')) {
+            return;
+        }
+
+        try {
+            const resp = await fetch(`/api/query/saved/${queryId}`, {
+                method: 'DELETE'
+            });
+
+            const data = await resp.json();
+
+            if (data.error) {
+                alert('Error deleting query: ' + data.error);
+            } else {
+                loadSavedQueries();
+            }
+        } catch (e) {
+            alert('Network error occurred');
+        }
+    }
+
+    function refreshSavedQueries() {
+        loadSavedQueries();
+    }
+</script>
+
+<style>
+    .spin { animation: spin 1s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    
+    details[open] summary i[data-feather="chevron-right"] {
+        transform: rotate(90deg);
+        transition: transform 0.2s;
+    }
+    summary::-webkit-details-marker {
+        display: none;
+    }
+</style>
+{% endblock %}

@@ -161,6 +161,11 @@
 
         <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
 
+        <div style="display:flex;gap:12px;margin:20px 0;align-items:center;">
+            <input id="globalSearch" placeholder="Search movies or TV series" style="flex:1;padding:12px;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#e2e8f0;" />
+            <button class="refresh-btn" onclick="doSearch()">🔎 Search</button>
+        </div>
+
         <div class="stats-grid" id="statsGrid">
             <div class="stat-card">
                 <div class="stat-label">Total Movies</div>
@@ -218,6 +223,42 @@
         </div>
 
         <div class="section">
+            <h2 class="section-title">Search Results</h2>
+            <div style="margin-bottom:12px;color:#94a3b8;font-size:0.9rem;">Showing <span id="searchCount">-</span> results</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title / Name</th>
+                        <th>Type</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody id="searchResults">
+                    <tr><td colspan="3" class="loading">Use the search box above to find movies or TV series.</td></tr>
+                </tbody>
+            </table>
+            <div style="display:flex;justify-content:center;gap:8px;margin-top:12px;">
+                <button id="prevPage" class="refresh-btn" onclick="changePage(-1)">Prev</button>
+                <div style="align-self:center;color:#94a3b8;">Page <span id="currentPage">1</span> / <span id="totalPages">1</span></div>
+                <button id="nextPage" class="refresh-btn" onclick="changePage(1)">Next</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Analysis</h2>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;">
+                <div style="flex:1;min-width:320px;">
+                    <h3 style="color:#94a3b8;margin-bottom:8px;font-size:1rem;">Top Genres</h3>
+                    <canvas id="genreChart" width="400" height="250"></canvas>
+                </div>
+                <div style="flex:1;min-width:320px;">
+                    <h3 style="color:#94a3b8;margin-bottom:8px;font-size:1rem;">Top People (by appearances)</h3>
+                    <ol id="topPeople" style="padding-left:18px;color:#e2e8f0"></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
             <h2 class="section-title">Recent TV Series</h2>
             <table>
                 <thead>
@@ -258,12 +299,18 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         function formatDate(dateStr) {
             if (!dateStr) return '-';
             const date = new Date(dateStr);
             return date.toLocaleString();
         }
+
+        // Search state
+        let searchPage = 1;
+        let searchPerPage = 10;
+        let lastQuery = '';
 
         async function loadData() {
             try {
@@ -347,9 +394,83 @@
                 console.error('Failed to load data:', error);
             }
         }
+        async function doSearch(q) {
+            const query = (q !== undefined) ? q : document.getElementById('globalSearch').value.trim();
+            lastQuery = query;
+            searchPage = 1;
+            await fetchSearch();
+        }
 
-        // Load data on page load
+        async function fetchSearch() {
+            const q = encodeURIComponent(lastQuery || '');
+            const resp = await fetch(`/api/movies?q=${q}&page=${searchPage}&per_page=${searchPerPage}`);
+            const data = await resp.json();
+
+            document.getElementById('searchCount').textContent = data.pagination.total.toLocaleString();
+            document.getElementById('currentPage').textContent = data.pagination.page;
+            document.getElementById('totalPages').textContent = data.pagination.pages || 1;
+
+            const rows = data.items.map(it => `
+                <tr>
+                    <td>${it.title || it.name || '—'}</td>
+                    <td>Movie</td>
+                    <td>${formatDate(it.updated_at)}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('searchResults').innerHTML = rows || '<tr><td colspan="3" style="text-align:center;color:#64748b;">No results</td></tr>';
+        }
+
+        function changePage(delta) {
+            const pages = parseInt(document.getElementById('totalPages').textContent || '1', 10);
+            let next = searchPage + delta;
+            if (next < 1) next = 1;
+            if (next > pages) next = pages;
+            if (next === searchPage) return;
+            searchPage = next;
+            fetchSearch();
+        }
+
+        async function fetchAnalysis() {
+            // Genres
+            try {
+                const gresp = await fetch('/api/analysis/genres');
+                const gdata = await gresp.json();
+                const labels = gdata.genres.map(g => g.name);
+                const counts = gdata.genres.map(g => g.count);
+
+                const ctx = document.getElementById('genreChart').getContext('2d');
+                if (window.genreChart) window.genreChart.destroy();
+                window.genreChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Movie count',
+                            data: counts,
+                            backgroundColor: 'rgba(59,130,246,0.7)'
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { display: false } },
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            } catch (e) { console.error('Genre analysis failed', e); }
+
+            // Top people
+            try {
+                const presp = await fetch('/api/analysis/people');
+                const pdata = await presp.json();
+                const ol = document.getElementById('topPeople');
+                ol.innerHTML = pdata.people.map(p => `<li>${p.name} — ${p.count}</li>`).join('');
+            } catch (e) { console.error('People analysis failed', e); }
+        }
+
+        // Load data and analysis on page load
         loadData();
+        fetchAnalysis();
 
         // Auto-refresh every 30 seconds
         setInterval(loadData, 30000);

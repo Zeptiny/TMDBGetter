@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+
+{% block title %}Failed Items{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">Failed Items</h1>
+</div>
+
+<div class="card">
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by ID or Error message...">
+        <button class="btn btn-primary" onclick="search()">Search</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>ID</th>
+                    <th>Attempts</th>
+                    <th>Last Error</th>
+                    <th>Last Attempt</th>
+                </tr>
+            </thead>
+            <tbody id="itemsList">
+                <tr><td colspan="5" class="loading">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination" id="pagination">
+        <!-- Pagination controls will be inserted here -->
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let currentPage = 1;
+    let currentSearch = '';
+
+    async function loadItems(page = 1, search = '') {
+        currentPage = page;
+        currentSearch = search;
+        
+        const tbody = document.getElementById('itemsList');
+        tbody.innerHTML = '<tr><td colspan="5" class="loading">Loading...</td></tr>';
+
+        try {
+            const params = new URLSearchParams({
+                page: page,
+                q: search
+            });
+            
+            const resp = await fetch(`/api/failed?${params}`);
+            const data = await resp.json();
+            
+            if (data.items.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No failed items found.</td></tr>';
+            } else {
+                tbody.innerHTML = data.items.map(item => `
+                    <tr>
+                        <td><span class="status-badge status-warning">${item.type}</span></td>
+                        <td>${item.id}</td>
+                        <td>${item.attempts}</td>
+                        <td style="color: var(--danger); font-size: 0.9em;">${item.last_error || 'Unknown'}</td>
+                        <td>${formatDate(item.last_attempt_at)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            renderPagination(data.pagination);
+        } catch (e) {
+            console.error(e);
+            tbody.innerHTML = '<tr><td colspan="5" style="color: var(--danger);">Error loading data</td></tr>';
+        }
+    }
+
+    function renderPagination(pagination) {
+        const container = document.getElementById('pagination');
+        let html = '';
+        
+        if (pagination.page > 1) {
+            html += `<button class="btn" onclick="loadItems(${pagination.page - 1}, '${currentSearch}')">Previous</button>`;
+        }
+        
+        html += `<span style="color: var(--text-secondary);">Page ${pagination.page} of ${pagination.pages}</span>`;
+        
+        if (pagination.page < pagination.pages) {
+            html += `<button class="btn" onclick="loadItems(${pagination.page + 1}, '${currentSearch}')">Next</button>`;
+        }
+        
+        container.innerHTML = html;
+    }
+
+    function search() {
+        const q = document.getElementById('searchInput').value;
+        loadItems(1, q);
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            search();
+        }
+    });
+
+    loadItems();
+</script>
+{% endblock %}

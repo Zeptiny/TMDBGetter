@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+
+{% block title %}Analysis{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">Data Analysis</h1>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Genres</h2>
+        <div style="height: 400px;">
+            <canvas id="genreChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Most Prolific People</h2>
+        <div class="table-container" style="height: 400px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Movie Count</th>
+                    </tr>
+                </thead>
+                <tbody id="peopleList">
+                    <tr><td colspan="3" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Movies by Year</h2>
+        <div style="height: 400px;">
+            <canvas id="yearChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Rating Distribution</h2>
+        <div style="height: 400px;">
+            <canvas id="ratingChart"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    async function loadAnalysis() {
+        // Load Genres
+        try {
+            const resp = await fetch('/api/analysis/genres');
+            const data = await resp.json();
+            
+            const ctx = document.getElementById('genreChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.genres.map(g => g.name),
+                    datasets: [{
+                        label: 'Number of Movies',
+                        data: data.genres.map(g => g.count),
+                        backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                        borderColor: 'rgba(56, 189, 248, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        } catch (e) { console.error('Genre chart error:', e); }
+
+        // Load People
+        try {
+            const resp = await fetch('/api/analysis/people');
+            const data = await resp.json();
+            
+            const html = data.people.map((p, i) => `
+                <tr>
+                    <td style="color: var(--text-secondary);">#${i + 1}</td>
+                    <td style="font-weight: 500;">${p.name}</td>
+                    <td>${p.count.toLocaleString()}</td>
+                </tr>
+            `).join('');
+            
+            document.getElementById('peopleList').innerHTML = html;
+        } catch (e) { console.error('People list error:', e); }
+
+        // Load Years
+        try {
+            const resp = await fetch('/api/analysis/years');
+            const data = await resp.json();
+            
+            const ctx = document.getElementById('yearChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.years.map(y => y.year),
+                    datasets: [{
+                        label: 'Movies Released',
+                        data: data.years.map(y => y.count),
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        } catch (e) { console.error('Year chart error:', e); }
+
+        // Load Ratings
+        try {
+            const resp = await fetch('/api/analysis/ratings');
+            const data = await resp.json();
+            
+            const ctx = document.getElementById('ratingChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.ratings.map(r => r.rating),
+                    datasets: [{
+                        label: 'Movies',
+                        data: data.ratings.map(r => r.count),
+                        backgroundColor: 'rgba(234, 179, 8, 0.6)',
+                        borderColor: 'rgba(234, 179, 8, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        } catch (e) { console.error('Rating chart error:', e); }
+    }
+
+    loadAnalysis();
+</script>
+{% endblock %}
