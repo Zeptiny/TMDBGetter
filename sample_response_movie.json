@@ -1,0 +1,4223 @@
+{
+  "adult": false,
+  "backdrop_path": "/4QpKxH614YFIsmiIBVUbsnG2H8w.jpg",
+  "belongs_to_collection": null,
+  "budget": 0,
+  "genres": [
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    },
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 14,
+      "name": "Fantasy"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    }
+  ],
+  "homepage": "https://www.netflix.com/title/81444554",
+  "id": 961323,
+  "imdb_id": "tt19500164",
+  "origin_country": [
+    "US"
+  ],
+  "original_language": "en",
+  "original_title": "Nimona",
+  "overview": "A knight framed for a tragic crime teams with a scrappy, shape-shifting teen to prove his innocence.",
+  "popularity": 3.1929,
+  "poster_path": "/2NQljeavtfl22207D1kxLpa4LS3.jpg",
+  "production_companies": [
+    {
+      "id": 13184,
+      "logo_path": "/pfUB1a62jSMIqp4Xmaq6z2cgW0B.png",
+      "name": "Annapurna Pictures",
+      "origin_country": "US"
+    },
+    {
+      "id": 31922,
+      "logo_path": "/omWPoru2LNayUOBqjMBLP9KrFrP.png",
+      "name": "DNEG",
+      "origin_country": "GB"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "release_date": "2023-06-23",
+  "revenue": 0,
+  "runtime": 101,
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ],
+  "status": "Released",
+  "tagline": "A new hero takes shape.",
+  "title": "Nimona",
+  "video": false,
+  "vote_average": 7.868,
+  "vote_count": 1271,
+  "credits": {
+    "cast": [
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 56734,
+        "known_for_department": "Acting",
+        "name": "Chloë Grace Moretz",
+        "original_name": "Chloë Grace Moretz",
+        "popularity": 4.9228,
+        "profile_path": "/j9d4i2xsLGUhwpuy5y0fkx1qAcz.jpg",
+        "cast_id": 2,
+        "character": "Nimona (voice)",
+        "credit_id": "625438a33f8ede0067567630",
+        "order": 0
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 53240,
+        "known_for_department": "Acting",
+        "name": "Riz Ahmed",
+        "original_name": "Riz Ahmed",
+        "popularity": 2.313,
+        "profile_path": "/1uP9RaX7BGVx7XGTEmwObBJJzsC.jpg",
+        "cast_id": 3,
+        "character": "Ballister Boldheart (voice)",
+        "credit_id": "625438c2a0b6b51c58a00fcf",
+        "order": 1
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1745968,
+        "known_for_department": "Acting",
+        "name": "Eugene Lee Yang",
+        "original_name": "Eugene Lee Yang",
+        "popularity": 0.778,
+        "profile_path": "/2NSmyWPyUExWn6MrICMSJiP4XnZ.jpg",
+        "cast_id": 4,
+        "character": "Ambrosius Goldenloin (voice)",
+        "credit_id": "62543935357c00004f8b1716",
+        "order": 2
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 4432,
+        "known_for_department": "Acting",
+        "name": "Frances Conroy",
+        "original_name": "Frances Conroy",
+        "popularity": 2.4615,
+        "profile_path": "/aJRQAkO24L6bH8qkkE5Iv1nA3gf.jpg",
+        "cast_id": 42,
+        "character": "The Director (voice)",
+        "credit_id": "6447d3ac21118f02fcf36c45",
+        "order": 3
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 81726,
+        "known_for_department": "Acting",
+        "name": "Lorraine Toussaint",
+        "original_name": "Lorraine Toussaint",
+        "popularity": 1.0475,
+        "profile_path": "/ali9XSMkZ0uAQLkmK0PoHXhJS0t.jpg",
+        "cast_id": 43,
+        "character": "Queen Valerin (voice)",
+        "credit_id": "6447d3bc397df004be4c0cee",
+        "order": 4
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1180696,
+        "known_for_department": "Acting",
+        "name": "Beck Bennett",
+        "original_name": "Beck Bennett",
+        "popularity": 0.6341,
+        "profile_path": "/xbcVvJ1a7qUIdyYb4PJewFlNFu4.jpg",
+        "cast_id": 44,
+        "character": "Sir Thoddeus Sureblade (voice)",
+        "credit_id": "6447d3c9397df0046a4c0bf4",
+        "order": 5
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 78589,
+        "known_for_department": "Acting",
+        "name": "RuPaul",
+        "original_name": "RuPaul",
+        "popularity": 0.7561,
+        "profile_path": "/aqmub88LK5Cic8yZwwfcDqIQQqk.jpg",
+        "cast_id": 45,
+        "character": "Nate Knight (voice)",
+        "credit_id": "6447d3de02576404fc27791b",
+        "order": 6
+      },
+      {
+        "adult": false,
+        "gender": 3,
+        "id": 1789788,
+        "known_for_department": "Acting",
+        "name": "Indya Moore",
+        "original_name": "Indya Moore",
+        "popularity": 0.7768,
+        "profile_path": "/uIRHpgbj9DfjMksigXmi497xRqU.jpg",
+        "cast_id": 46,
+        "character": "Alamzapam Davis (voice)",
+        "credit_id": "6447d3ebef9d720527a6b867",
+        "order": 7
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1659144,
+        "known_for_department": "Acting",
+        "name": "Julio Torres",
+        "original_name": "Julio Torres",
+        "popularity": 0.3894,
+        "profile_path": "/oveoXN7fZFIeL5G1fJ7Dk5SJeNc.jpg",
+        "cast_id": 47,
+        "character": "Diego the Squire (voice)",
+        "credit_id": "6447d3f9397df004404c0cb0",
+        "order": 8
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 2198504,
+        "known_for_department": "Acting",
+        "name": "Sarah Sherman",
+        "original_name": "Sarah Sherman",
+        "popularity": 0.7719,
+        "profile_path": "/5BwGUREK2H6acSH5Inqmy2hFpGY.jpg",
+        "cast_id": 48,
+        "character": "Coriander Cadaverish (voice)",
+        "credit_id": "6447d40721118f048ff370a0",
+        "order": 9
+      },
+      {
+        "adult": false,
+        "gender": 3,
+        "id": 1907841,
+        "known_for_department": "Writing",
+        "name": "ND Stevenson",
+        "original_name": "ND Stevenson",
+        "popularity": 0.2367,
+        "profile_path": "/uuy8AfU56ebd5DJOEXZIvzMXBY9.jpg",
+        "cast_id": 55,
+        "character": "Kwispy Dwagon (voice)",
+        "credit_id": "649f59468c0a48011e1bb093",
+        "order": 10
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 4139433,
+        "known_for_department": "Acting",
+        "name": "Mia Collins",
+        "original_name": "Mia Collins",
+        "popularity": 0.0719,
+        "profile_path": null,
+        "cast_id": 56,
+        "character": "Demon Baby (voice)",
+        "credit_id": "649f595dc390c500eb3424bd",
+        "order": 11
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 4139434,
+        "known_for_department": "Acting",
+        "name": "Zayaan Kunwar",
+        "original_name": "Zayaan Kunwar",
+        "popularity": 0.0554,
+        "profile_path": null,
+        "cast_id": 57,
+        "character": "Young Ballister (voice)",
+        "credit_id": "649f597b81da3900c9ec412e",
+        "order": 12
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 4139435,
+        "known_for_department": "Acting",
+        "name": "Charlotte Aldrich",
+        "original_name": "Charlotte Aldrich",
+        "popularity": 0.0511,
+        "profile_path": null,
+        "cast_id": 58,
+        "character": "Young Gloreth / Additional Voices (voice)",
+        "credit_id": "649f5982c390c5010c61b6bb",
+        "order": 13
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 1252292,
+        "known_for_department": "Production",
+        "name": "Karen Ryan",
+        "original_name": "Karen Ryan",
+        "popularity": 0.2195,
+        "profile_path": "/catOqmpo1peUtXH6ogQDJ7Jpij9.jpg",
+        "cast_id": 120,
+        "character": "Gloreth / Sir Kahren Reehyan / Additional Voices (voice)",
+        "credit_id": "659998fdbd588b009391c6af",
+        "order": 14
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1745178,
+        "known_for_department": "Directing",
+        "name": "Nick Bruno",
+        "original_name": "Nick Bruno",
+        "popularity": 0.5072,
+        "profile_path": "/A1jpfgXP2muxY0EkEygvStlCVzl.jpg",
+        "cast_id": 60,
+        "character": "Sir Nicholas Brun / Additional Voices (voice)",
+        "credit_id": "649f59f84a52f80145dd8781",
+        "order": 15
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 587699,
+        "known_for_department": "Directing",
+        "name": "Troy Quane",
+        "original_name": "Troy Quane",
+        "popularity": 0.2616,
+        "profile_path": "/vX50drpiPKbY6ZNqIGPREyAWjLH.jpg",
+        "cast_id": 61,
+        "character": "Sir Troy Quartermane / Additional Voices (voice)",
+        "credit_id": "649f5a0dd5191f00ac91919f",
+        "order": 16
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 2109572,
+        "known_for_department": "Production",
+        "name": "Julie Zackary",
+        "original_name": "Julie Zackary",
+        "popularity": 0.1564,
+        "profile_path": "/edzKuAXGtIWQHB9VZ99dGWzb8Ty.jpg",
+        "cast_id": 62,
+        "character": "Sir Jule Zakaria / Additional Voices (voice)",
+        "credit_id": "649f5a1e0cb335011bcadb5e",
+        "order": 17
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1536577,
+        "known_for_department": "Editing",
+        "name": "Randy Trager",
+        "original_name": "Randy Trager",
+        "popularity": 0.0681,
+        "profile_path": null,
+        "cast_id": 63,
+        "character": "Sir Randall Editus / Additional Voices (voice)",
+        "credit_id": "649f5a3681da3900c9ec4148",
+        "order": 18
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1315615,
+        "known_for_department": "Crew",
+        "name": "Christopher Campbell",
+        "original_name": "Christopher Campbell",
+        "popularity": 0.1513,
+        "profile_path": null,
+        "cast_id": 64,
+        "character": "Sir Gottem Lilmush (voice)",
+        "credit_id": "649f5a83d5191f00ac9191cb",
+        "order": 19
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 1785576,
+        "known_for_department": "Acting",
+        "name": "Cindy Slattery",
+        "original_name": "Cindy Slattery",
+        "popularity": 0.2201,
+        "profile_path": null,
+        "cast_id": 65,
+        "character": "Syntheya - Voice of the Kingdom / Additional Voices (voice)",
+        "credit_id": "649f5a9d81da39012c6e586d",
+        "order": 20
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1239270,
+        "known_for_department": "Visual Effects",
+        "name": "Matthew J. Munn",
+        "original_name": "Matthew J. Munn",
+        "popularity": 0.1182,
+        "profile_path": null,
+        "cast_id": 66,
+        "character": "Announcer (voice)",
+        "credit_id": "649f5ad4c390c500caff0495",
+        "order": 21
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139457,
+        "known_for_department": "Acting",
+        "name": "Sommersill Tarabek",
+        "original_name": "Sommersill Tarabek",
+        "popularity": 0.0619,
+        "profile_path": null,
+        "cast_id": 67,
+        "character": "Institute Analyst / Additional Voices (voice)",
+        "credit_id": "649f5aef8c0a4800ae2360d2",
+        "order": 22
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139459,
+        "known_for_department": "Acting",
+        "name": "Sebastian Trager",
+        "original_name": "Sebastian Trager",
+        "popularity": 0.0347,
+        "profile_path": null,
+        "cast_id": 68,
+        "character": "Danks Kid (voice)",
+        "credit_id": "649f5af5d5191f00c5058c4c",
+        "order": 23
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139461,
+        "known_for_department": "Acting",
+        "name": "Sadie Trager",
+        "original_name": "Sadie Trager",
+        "popularity": 0.0521,
+        "profile_path": null,
+        "cast_id": 69,
+        "character": "Concerned Citizen #1 (voice)",
+        "credit_id": "649f5b030cb33500e1948630",
+        "order": 24
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139463,
+        "known_for_department": "Acting",
+        "name": "Taryn Bruno",
+        "original_name": "Taryn Bruno",
+        "popularity": 0.0521,
+        "profile_path": null,
+        "cast_id": 70,
+        "character": "Concerned Citizen #2 (voice)",
+        "credit_id": "649f5b0b0cb3350138fbeee7",
+        "order": 25
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139465,
+        "known_for_department": "Acting",
+        "name": "Lincoln Davis",
+        "original_name": "Lincoln Davis",
+        "popularity": 0.0268,
+        "profile_path": null,
+        "cast_id": 71,
+        "character": "Goldenloin Fan #1 (voice)",
+        "credit_id": "649f5b29c390c500eb34253e",
+        "order": 26
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4089412,
+        "known_for_department": "Acting",
+        "name": "Lylianna Eugene",
+        "original_name": "Lylianna Eugene",
+        "popularity": 0.0836,
+        "profile_path": null,
+        "cast_id": 72,
+        "character": "Patience / Additional Voices (voice)",
+        "credit_id": "649f5b308c0a4800ae2360e1",
+        "order": 27
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 15768,
+        "known_for_department": "Editing",
+        "name": "Tim Nordquist",
+        "original_name": "Tim Nordquist",
+        "popularity": 0.3828,
+        "profile_path": null,
+        "cast_id": 73,
+        "character": "Zombie Movie Voice #1 (voice)",
+        "credit_id": "649f5b3ec390c5014e3b96ff",
+        "order": 28
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 2001825,
+        "known_for_department": "Editing",
+        "name": "Maurissa Horwitz",
+        "original_name": "Maurissa Horwitz",
+        "popularity": 0.2438,
+        "profile_path": "/m5A3pGcnI4URO8dMtDbjsSYwhCc.jpg",
+        "cast_id": 74,
+        "character": "Zombie Movie Voice #2 / Additional Voices (voice)",
+        "credit_id": "649f5b46c390c500eb34254b",
+        "order": 29
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139466,
+        "known_for_department": "Acting",
+        "name": "Jake Bruno",
+        "original_name": "Jake Bruno",
+        "popularity": 0.0409,
+        "profile_path": null,
+        "cast_id": 75,
+        "character": "Game Commercial Kid #1 / Additional Voices (voice)",
+        "credit_id": "649f5b5081da39014d491192",
+        "order": 30
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2699331,
+        "known_for_department": "Acting",
+        "name": "Jarrett Bruno",
+        "original_name": "Jarrett Bruno",
+        "popularity": 0.0311,
+        "profile_path": null,
+        "cast_id": 76,
+        "character": "Game Commercial Kid #2 / Additional Voices (voice)",
+        "credit_id": "649f5b580cb33500ab9698ca",
+        "order": 31
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139468,
+        "known_for_department": "Acting",
+        "name": "Wesley Turner",
+        "original_name": "Wesley Turner",
+        "popularity": 0.0143,
+        "profile_path": null,
+        "cast_id": 77,
+        "character": "Additional Voices (voice)",
+        "credit_id": "649f5b900cb33500e194865e",
+        "order": 32
+      }
+    ],
+    "crew": [
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 2109572,
+        "known_for_department": "Production",
+        "name": "Julie Zackary",
+        "original_name": "Julie Zackary",
+        "popularity": 0.1564,
+        "profile_path": "/edzKuAXGtIWQHB9VZ99dGWzb8Ty.jpg",
+        "credit_id": "62543a00447f9c68aa4da511",
+        "department": "Production",
+        "job": "Producer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 2009610,
+        "known_for_department": "Production",
+        "name": "Andrew Millstein",
+        "original_name": "Andrew Millstein",
+        "popularity": 0.0686,
+        "profile_path": null,
+        "credit_id": "62543a4a357c00004f8b1dcd",
+        "department": "Production",
+        "job": "Executive Producer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 587699,
+        "known_for_department": "Directing",
+        "name": "Troy Quane",
+        "original_name": "Troy Quane",
+        "popularity": 0.2616,
+        "profile_path": "/vX50drpiPKbY6ZNqIGPREyAWjLH.jpg",
+        "credit_id": "62543986a0b6b51c58a01455",
+        "department": "Directing",
+        "job": "Director"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 7931,
+        "known_for_department": "Writing",
+        "name": "Robert L. Baird",
+        "original_name": "Robert L. Baird",
+        "popularity": 0.2163,
+        "profile_path": "/okdPZRcL1eZCxBb5BqkLRlTgK5v.jpg",
+        "credit_id": "62543a20447f9c7113a654eb",
+        "department": "Production",
+        "job": "Executive Producer"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 1252292,
+        "known_for_department": "Production",
+        "name": "Karen Ryan",
+        "original_name": "Karen Ryan",
+        "popularity": 0.2195,
+        "profile_path": "/catOqmpo1peUtXH6ogQDJ7Jpij9.jpg",
+        "credit_id": "625439f2ab68490654996226",
+        "department": "Production",
+        "job": "Producer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 21036,
+        "known_for_department": "Production",
+        "name": "Roy Lee",
+        "original_name": "Roy Lee",
+        "popularity": 0.6613,
+        "profile_path": "/fMY0MiVyrGaK44ejqWzT2txcRVI.jpg",
+        "credit_id": "625439e4ab68490613199967",
+        "department": "Production",
+        "job": "Producer"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 1027025,
+        "known_for_department": "Production",
+        "name": "Megan Ellison",
+        "original_name": "Megan Ellison",
+        "popularity": 0.626,
+        "profile_path": "/sZwZJ6Ma9cO5K2VtpOofinbhwtE.jpg",
+        "credit_id": "62543a326ee3d7009e5235a9",
+        "department": "Production",
+        "job": "Executive Producer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1745178,
+        "known_for_department": "Directing",
+        "name": "Nick Bruno",
+        "original_name": "Nick Bruno",
+        "popularity": 0.5072,
+        "profile_path": "/A1jpfgXP2muxY0EkEygvStlCVzl.jpg",
+        "credit_id": "625439688e2e001cfe3c30b7",
+        "department": "Directing",
+        "job": "Director"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4224252,
+        "known_for_department": "Production",
+        "name": "Haley Brooks Pascarella",
+        "original_name": "Haley Brooks Pascarella",
+        "popularity": 0.0214,
+        "profile_path": null,
+        "credit_id": "64e1a10fe19de900adfd4143",
+        "department": "Production",
+        "job": "Production Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 1785576,
+        "known_for_department": "Acting",
+        "name": "Cindy Slattery",
+        "original_name": "Cindy Slattery",
+        "popularity": 0.2201,
+        "profile_path": null,
+        "credit_id": "64e1a117e19de90100e92abc",
+        "department": "Production",
+        "job": "Production Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4224251,
+        "known_for_department": "Production",
+        "name": "Kaitlyn Jorge Czepiga",
+        "original_name": "Kaitlyn Jorge Czepiga",
+        "popularity": 0.0168,
+        "profile_path": null,
+        "credit_id": "64e1a102da9ef2013c5e1ea8",
+        "department": "Production",
+        "job": "Production Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1112515,
+        "known_for_department": "Art",
+        "name": "Jeff Turley",
+        "original_name": "Jeff Turley",
+        "popularity": 0.0311,
+        "profile_path": null,
+        "credit_id": "64e1a089aaec7103f9985879",
+        "department": "Art",
+        "job": "Production Design"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1530088,
+        "known_for_department": "Sound",
+        "name": "Kier Lehman",
+        "original_name": "Kier Lehman",
+        "popularity": 0.4814,
+        "profile_path": null,
+        "credit_id": "64e1a0b14a52f8013bd3e48b",
+        "department": "Sound",
+        "job": "Music Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 40816,
+        "known_for_department": "Sound",
+        "name": "Ben Barker",
+        "original_name": "Ben Barker",
+        "popularity": 0.0614,
+        "profile_path": null,
+        "credit_id": "64e1a0d8a3b5e601d63ae856",
+        "department": "Sound",
+        "job": "Other"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 4149035,
+        "known_for_department": "Art",
+        "name": "Aidan Sugano",
+        "original_name": "Aidan Sugano",
+        "popularity": 0.0168,
+        "profile_path": null,
+        "credit_id": "64e1a07b37109701394927a3",
+        "department": "Art",
+        "job": "Production Design"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 3972008,
+        "known_for_department": "Production",
+        "name": "Erica Ashley Pulcini",
+        "original_name": "Erica Ashley Pulcini",
+        "popularity": 0.0382,
+        "profile_path": null,
+        "credit_id": "64e1a128da9ef200c8595c90",
+        "department": "Production",
+        "job": "Other"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4224260,
+        "known_for_department": "Writing",
+        "name": "Heather Larkin",
+        "original_name": "Heather Larkin",
+        "popularity": 0.0409,
+        "profile_path": null,
+        "credit_id": "64e1a238da9ef2011fe48dec",
+        "department": "Writing",
+        "job": "Story Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4224284,
+        "known_for_department": "Production",
+        "name": "Ian Jude Mcintosh",
+        "original_name": "Ian Jude Mcintosh",
+        "popularity": 0.0168,
+        "profile_path": null,
+        "credit_id": "64e1a50eda9ef200af53cf2f",
+        "department": "Production",
+        "job": "Production Manager"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 1232621,
+        "known_for_department": "Writing",
+        "name": "Pamela Ribon",
+        "original_name": "Pamela Ribon",
+        "popularity": 0.4843,
+        "profile_path": "/st45pOlgjQgi7GNUx6HJMuVC043.jpg",
+        "credit_id": "64e1a26c076ce8011d15ad54",
+        "department": "Writing",
+        "job": "Other"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1533986,
+        "known_for_department": "Writing",
+        "name": "Ian Southwood",
+        "original_name": "Ian Southwood",
+        "popularity": 0.0977,
+        "profile_path": null,
+        "credit_id": "64e1a2802495ab00ae838028",
+        "department": "Writing",
+        "job": "Other"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2013386,
+        "known_for_department": "Visual Effects",
+        "name": "Yancy Lindquist",
+        "original_name": "Yancy Lindquist",
+        "popularity": 0.0368,
+        "profile_path": null,
+        "credit_id": "64e1a1525ab81a00ffc2a9a8",
+        "department": "Visual Effects",
+        "job": "Visual Effects Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 3,
+        "id": 1907841,
+        "known_for_department": "Writing",
+        "name": "ND Stevenson",
+        "original_name": "ND Stevenson",
+        "popularity": 0.2367,
+        "profile_path": "/uuy8AfU56ebd5DJOEXZIvzMXBY9.jpg",
+        "credit_id": "64e1a2752495ab013a08b517",
+        "department": "Writing",
+        "job": "Other"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4224286,
+        "known_for_department": "Production",
+        "name": "Sharmila Venugopal",
+        "original_name": "Sharmila Venugopal",
+        "popularity": 0.0311,
+        "profile_path": null,
+        "credit_id": "64e1a53d076ce800e313c656",
+        "department": "Production",
+        "job": "Production Manager"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 7,
+        "known_for_department": "Writing",
+        "name": "Andrew Stanton",
+        "original_name": "Andrew Stanton",
+        "popularity": 1.0358,
+        "profile_path": "/fo6ePCWEVB0L1sccrvB99Iaoqcg.jpg",
+        "credit_id": "65a21454297338012112c326",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 56678,
+        "known_for_department": "Editing",
+        "name": "Clare Knight",
+        "original_name": "Clare Knight",
+        "popularity": 0.0513,
+        "profile_path": null,
+        "credit_id": "65a2140049756001319aef9d",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4478428,
+        "known_for_department": "Crew",
+        "name": "Calvin Q. Lam",
+        "original_name": "Calvin Q. Lam",
+        "popularity": 0.0327,
+        "profile_path": null,
+        "credit_id": "65a214122385130122624bde",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 5713,
+        "known_for_department": "Acting",
+        "name": "Chris Wedge",
+        "original_name": "Chris Wedge",
+        "popularity": 0.5291,
+        "profile_path": "/bYiy2vcXgJq5XZdZ15uIhBhnBF8.jpg",
+        "credit_id": "65a2145e1941860123498c84",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 70238,
+        "known_for_department": "Directing",
+        "name": "Chris Williams",
+        "original_name": "Chris Williams",
+        "popularity": 0.3219,
+        "profile_path": "/eE2NDdeKN1DC3XuV6L4xuEbVaS.jpg",
+        "credit_id": "65a214673081310128fcb3e0",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 87055,
+        "known_for_department": "Acting",
+        "name": "Karen Disher",
+        "original_name": "Karen Disher",
+        "popularity": 0.3617,
+        "profile_path": "/p60sCN6m5aKO8OLCrmWfPFurt6y.jpg",
+        "credit_id": "65a213d5d35dea0123d49c3b",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4478427,
+        "known_for_department": "Crew",
+        "name": "Kendall Holly",
+        "original_name": "Kendall Holly",
+        "popularity": 0.0256,
+        "profile_path": null,
+        "credit_id": "65a213ef5690b50126afdcc6",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 4478430,
+        "known_for_department": "Crew",
+        "name": "Rebecca McVeigh",
+        "original_name": "Rebecca McVeigh",
+        "popularity": 0.0218,
+        "profile_path": null,
+        "credit_id": "65a214322385130122624bf0",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4478426,
+        "known_for_department": "Crew",
+        "name": "Roberto Calvo",
+        "original_name": "Roberto Calvo",
+        "popularity": 0.0286,
+        "profile_path": null,
+        "credit_id": "65a213b9497560012b9aef17",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 69797,
+        "known_for_department": "Directing",
+        "name": "Dean DeBlois",
+        "original_name": "Dean DeBlois",
+        "popularity": 0.6493,
+        "profile_path": "/nnaiwvrJdfjpsdqjuyYlq9S0uMA.jpg",
+        "credit_id": "65a213c7c3926601253dcc9b",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2017208,
+        "known_for_department": "Production",
+        "name": "Effie Fradelakis",
+        "original_name": "Effie Fradelakis",
+        "popularity": 0.0639,
+        "profile_path": null,
+        "credit_id": "65a213e33081310125fcb391",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 71729,
+        "known_for_department": "Directing",
+        "name": "Steve Martino",
+        "original_name": "Steve Martino",
+        "popularity": 0.1615,
+        "profile_path": "/qFHxW7VKZgrmNOZQDyNY6Y7wn3k.jpg",
+        "credit_id": "65a21422308131012efcb407",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 83522,
+        "known_for_department": "Acting",
+        "name": "Tito Ortiz",
+        "original_name": "Tito Ortiz",
+        "popularity": 0.2377,
+        "profile_path": "/ivG0rCc5FE1XWdh6CIBTWfeIgBk.jpg",
+        "credit_id": "65a2144b39549a0129103eb2",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4478425,
+        "known_for_department": "Crew",
+        "name": "Spencer Bacon",
+        "original_name": "Spencer Bacon",
+        "popularity": 0.0168,
+        "profile_path": null,
+        "credit_id": "65a213ac297338012712c378",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 1232621,
+        "known_for_department": "Writing",
+        "name": "Pamela Ribon",
+        "original_name": "Pamela Ribon",
+        "popularity": 0.4843,
+        "profile_path": "/st45pOlgjQgi7GNUx6HJMuVC043.jpg",
+        "credit_id": "63fb7a2996e30b00be5a1d1c",
+        "department": "Writing",
+        "job": "Story"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 60215,
+        "known_for_department": "Writing",
+        "name": "Lloyd Taylor",
+        "original_name": "Lloyd Taylor",
+        "popularity": 0.1338,
+        "profile_path": "/xIS0hLwpgcAgwgmC6VTKEiLlgHa.jpg",
+        "credit_id": "63fb79af57176f008544973e",
+        "department": "Writing",
+        "job": "Screenplay"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 60215,
+        "known_for_department": "Writing",
+        "name": "Lloyd Taylor",
+        "original_name": "Lloyd Taylor",
+        "popularity": 0.1338,
+        "profile_path": "/xIS0hLwpgcAgwgmC6VTKEiLlgHa.jpg",
+        "credit_id": "63fb79f296e30b009fca2769",
+        "department": "Writing",
+        "job": "Story"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 587699,
+        "known_for_department": "Directing",
+        "name": "Troy Quane",
+        "original_name": "Troy Quane",
+        "popularity": 0.2616,
+        "profile_path": "/vX50drpiPKbY6ZNqIGPREyAWjLH.jpg",
+        "credit_id": "63fb7a7b84f24900ef61ac02",
+        "department": "Writing",
+        "job": "Story"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 7931,
+        "known_for_department": "Writing",
+        "name": "Robert L. Baird",
+        "original_name": "Robert L. Baird",
+        "popularity": 0.2163,
+        "profile_path": "/okdPZRcL1eZCxBb5BqkLRlTgK5v.jpg",
+        "credit_id": "63fb798b6aa8e000f0b6f38d",
+        "department": "Writing",
+        "job": "Screenplay"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1745178,
+        "known_for_department": "Directing",
+        "name": "Nick Bruno",
+        "original_name": "Nick Bruno",
+        "popularity": 0.5072,
+        "profile_path": "/A1jpfgXP2muxY0EkEygvStlCVzl.jpg",
+        "credit_id": "63fb7a6b57176f00bcc02191",
+        "department": "Writing",
+        "job": "Story"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 7931,
+        "known_for_department": "Writing",
+        "name": "Robert L. Baird",
+        "original_name": "Robert L. Baird",
+        "popularity": 0.2163,
+        "profile_path": "/okdPZRcL1eZCxBb5BqkLRlTgK5v.jpg",
+        "credit_id": "63fb79d496e30b00be5a1d00",
+        "department": "Writing",
+        "job": "Story"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1378767,
+        "known_for_department": "Writing",
+        "name": "Keith Bunin",
+        "original_name": "Keith Bunin",
+        "popularity": 0.282,
+        "profile_path": null,
+        "credit_id": "63fb7a8c6aa8e000c62cb850",
+        "department": "Writing",
+        "job": "Story"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1536577,
+        "known_for_department": "Editing",
+        "name": "Randy Trager",
+        "original_name": "Randy Trager",
+        "popularity": 0.0681,
+        "profile_path": null,
+        "credit_id": "63fb7e956aa8e0007c03eff4",
+        "department": "Editing",
+        "job": "Editor"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1364881,
+        "known_for_department": "Directing",
+        "name": "Patrick Osborne",
+        "original_name": "Patrick Osborne",
+        "popularity": 0.2235,
+        "profile_path": "/yg4u7BpEpJc8Ag6pTZoXQvhPWWL.jpg",
+        "credit_id": "63fb7c8196e30b00dd70b78d",
+        "department": "Production",
+        "job": "Co-Producer"
+      },
+      {
+        "adult": false,
+        "gender": 3,
+        "id": 1907841,
+        "known_for_department": "Writing",
+        "name": "ND Stevenson",
+        "original_name": "ND Stevenson",
+        "popularity": 0.2367,
+        "profile_path": "/uuy8AfU56ebd5DJOEXZIvzMXBY9.jpg",
+        "credit_id": "63fb7d2b57176f0081d654d2",
+        "department": "Production",
+        "job": "Co-Producer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 3034045,
+        "known_for_department": "Production",
+        "name": "Andrew Childs",
+        "original_name": "Andrew Childs",
+        "popularity": 0.0368,
+        "profile_path": null,
+        "credit_id": "63fb7b1d7646fd00a2846e94",
+        "department": "Production",
+        "job": "Co-Producer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1402866,
+        "known_for_department": "Writing",
+        "name": "Marc Haimes",
+        "original_name": "Marc Haimes",
+        "popularity": 0.3837,
+        "profile_path": null,
+        "credit_id": "63fb7ab67646fd007dd2eba9",
+        "department": "Writing",
+        "job": "Story"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1276559,
+        "known_for_department": "Production",
+        "name": "John Powers Middleton",
+        "original_name": "John Powers Middleton",
+        "popularity": 0.2523,
+        "profile_path": "/l1h0ZfBBCzCzbHnD9LF1YM0M2Ho.jpg",
+        "credit_id": "63fb7bd596e30b00dd70b759",
+        "department": "Production",
+        "job": "Executive Producer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2003376,
+        "known_for_department": "Production",
+        "name": "Aditya Deosthale",
+        "original_name": "Aditya Deosthale",
+        "popularity": 0.0404,
+        "profile_path": null,
+        "credit_id": "63fb7eb284f24900ccd1fb17",
+        "department": "Production",
+        "job": "Production Manager"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1718661,
+        "known_for_department": "Visual Effects",
+        "name": "Corey Turner",
+        "original_name": "Corey Turner",
+        "popularity": 0.0412,
+        "profile_path": null,
+        "credit_id": "63fb7dbf6aa8e0007c03efa4",
+        "department": "Production",
+        "job": "Associate Producer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2004341,
+        "known_for_department": "Crew",
+        "name": "Tansal Arnas",
+        "original_name": "Tansal Arnas",
+        "popularity": 0.0813,
+        "profile_path": null,
+        "credit_id": "663977e6358da7012a5733f8",
+        "department": "Crew",
+        "job": "Thanks"
+      },
+      {
+        "adult": false,
+        "gender": 3,
+        "id": 1907841,
+        "known_for_department": "Writing",
+        "name": "ND Stevenson",
+        "original_name": "ND Stevenson",
+        "popularity": 0.2367,
+        "profile_path": "/uuy8AfU56ebd5DJOEXZIvzMXBY9.jpg",
+        "credit_id": "64485c820e4fc8048bfe8d52",
+        "department": "Writing",
+        "job": "Graphic Novel"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 23486,
+        "known_for_department": "Sound",
+        "name": "Christophe Beck",
+        "original_name": "Christophe Beck",
+        "popularity": 0.4743,
+        "profile_path": "/n3U0OPETTZGTx4mgsrryARKphR4.jpg",
+        "credit_id": "644c20f1fba62504dad5f7b4",
+        "department": "Sound",
+        "job": "Original Music Composer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1740807,
+        "known_for_department": "Acting",
+        "name": "David Pimentel",
+        "original_name": "David Pimentel",
+        "popularity": 0.0475,
+        "profile_path": null,
+        "credit_id": "66511e4e0111aa010e9061d0",
+        "department": "Writing",
+        "job": "Story Artist"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 40810,
+        "known_for_department": "Sound",
+        "name": "Glenn Freemantle",
+        "original_name": "Glenn Freemantle",
+        "popularity": 0.2421,
+        "profile_path": "/qbPg2w1AoSVrbHJbQUbs9P5jD8y.jpg",
+        "credit_id": "64676578a5046e018940bf6f",
+        "department": "Sound",
+        "job": "Supervising Sound Editor"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1338969,
+        "known_for_department": "Sound",
+        "name": "Niv Adiri",
+        "original_name": "Niv Adiri",
+        "popularity": 0.1338,
+        "profile_path": null,
+        "credit_id": "64676568d185720101974ac6",
+        "department": "Sound",
+        "job": "Sound Re-Recording Mixer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 40810,
+        "known_for_department": "Sound",
+        "name": "Glenn Freemantle",
+        "original_name": "Glenn Freemantle",
+        "popularity": 0.2421,
+        "profile_path": "/qbPg2w1AoSVrbHJbQUbs9P5jD8y.jpg",
+        "credit_id": "6467657ea5046e0124672a4d",
+        "department": "Sound",
+        "job": "Sound Designer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1504989,
+        "known_for_department": "Sound",
+        "name": "Richard Spooner",
+        "original_name": "Richard Spooner",
+        "popularity": 0.0465,
+        "profile_path": null,
+        "credit_id": "6467658ad185720140303596",
+        "department": "Sound",
+        "job": "Sound Re-Recording Mixer"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 2499932,
+        "known_for_department": "Production",
+        "name": "Kate Hansen-Birnbaum",
+        "original_name": "Kate Hansen-Birnbaum",
+        "popularity": 0.0574,
+        "profile_path": null,
+        "credit_id": "649f5ba48c0a48010175cdf9",
+        "department": "Production",
+        "job": "Casting Associate"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139482,
+        "known_for_department": "Visual Effects",
+        "name": "Michael Lee",
+        "original_name": "Michael Lee",
+        "popularity": 0.0588,
+        "profile_path": null,
+        "credit_id": "649f5c5681da39012c6e58e3",
+        "department": "Visual Effects",
+        "job": "Color Designer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1809042,
+        "known_for_department": "Visual Effects",
+        "name": "Esteban Bravo",
+        "original_name": "Esteban Bravo",
+        "popularity": 0.0457,
+        "profile_path": null,
+        "credit_id": "649f5befc390c500caff04d3",
+        "department": "Writing",
+        "job": "Story Artist"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1451220,
+        "known_for_department": "Visual Effects",
+        "name": "Travis Blaise",
+        "original_name": "Travis Blaise",
+        "popularity": 0.0339,
+        "profile_path": null,
+        "credit_id": "649f5bfb81da39010b8a5060",
+        "department": "Writing",
+        "job": "Story Artist"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 3463962,
+        "known_for_department": "Production",
+        "name": "Lexi Diamond",
+        "original_name": "Lexi Diamond",
+        "popularity": 0.1351,
+        "profile_path": null,
+        "credit_id": "649f5bb30cb3350138fbef0c",
+        "department": "Production",
+        "job": "Casting Assistant"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2012850,
+        "known_for_department": "Visual Effects",
+        "name": "Jason Sadler",
+        "original_name": "Jason Sadler",
+        "popularity": 0.2468,
+        "profile_path": null,
+        "credit_id": "649f5c304a52f8012693c2b5",
+        "department": "Visual Effects",
+        "job": "Character Designer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2016405,
+        "known_for_department": "Visual Effects",
+        "name": "Dan Seddon",
+        "original_name": "Dan Seddon",
+        "popularity": 0.1837,
+        "profile_path": null,
+        "credit_id": "649f5c348c0a48011e1bb154",
+        "department": "Visual Effects",
+        "job": "Character Designer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139480,
+        "known_for_department": "Visual Effects",
+        "name": "James Gilliard",
+        "original_name": "James Gilliard",
+        "popularity": 0.0261,
+        "profile_path": null,
+        "credit_id": "649f5c4dd5191f00ff8b0226",
+        "department": "Visual Effects",
+        "job": "Color Designer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139484,
+        "known_for_department": "Visual Effects",
+        "name": "Hyesung Park",
+        "original_name": "Hyesung Park",
+        "popularity": 0.0286,
+        "profile_path": null,
+        "credit_id": "649f5c5f8c0a4800e477d082",
+        "department": "Visual Effects",
+        "job": "Color Designer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2015020,
+        "known_for_department": "Visual Effects",
+        "name": "José Manuel Fernández Oli",
+        "original_name": "José Manuel Fernández Oli",
+        "popularity": 0.0357,
+        "profile_path": null,
+        "credit_id": "649f5c2cc390c500aeb017fb",
+        "department": "Visual Effects",
+        "job": "Character Designer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2017652,
+        "known_for_department": "Visual Effects",
+        "name": "Ron DeFelice",
+        "original_name": "Ron DeFelice",
+        "popularity": 0.0071,
+        "profile_path": null,
+        "credit_id": "649f5c4681da39012c6e58d8",
+        "department": "Visual Effects",
+        "job": "Color Designer"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4139479,
+        "known_for_department": "Visual Effects",
+        "name": "Annlyn Huang",
+        "original_name": "Annlyn Huang",
+        "popularity": 0.0214,
+        "profile_path": null,
+        "credit_id": "649f5c3b8c0a48011e1bb15e",
+        "department": "Visual Effects",
+        "job": "Character Designer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 2017641,
+        "known_for_department": "Visual Effects",
+        "name": "B.J. Crawford",
+        "original_name": "B.J. Crawford",
+        "popularity": 0.0362,
+        "profile_path": null,
+        "credit_id": "649f5c21c390c5012d157e53",
+        "department": "Visual Effects",
+        "job": "Character Designer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 2147022,
+        "known_for_department": "Visual Effects",
+        "name": "Aziz Kocanaogullari",
+        "original_name": "Aziz Kocanaogullari",
+        "popularity": 0.0635,
+        "profile_path": null,
+        "credit_id": "649f5d0f8c0a48013b3c994b",
+        "department": "Visual Effects",
+        "job": "Animation"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1907848,
+        "known_for_department": "Editing",
+        "name": "Erin Crackel",
+        "original_name": "Erin Crackel",
+        "popularity": 0.0281,
+        "profile_path": null,
+        "credit_id": "64a6252bc3bffe0106f33588",
+        "department": "Editing",
+        "job": "Editor"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 2085351,
+        "known_for_department": "Production",
+        "name": "Libby Thomas Dickey",
+        "original_name": "Libby Thomas Dickey",
+        "popularity": 0.1581,
+        "profile_path": null,
+        "credit_id": "64a6262a724de100c5e93f52",
+        "department": "Production",
+        "job": "Casting"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 963497,
+        "known_for_department": "Production",
+        "name": "Natalie Lyon",
+        "original_name": "Natalie Lyon",
+        "popularity": 0.0418,
+        "profile_path": null,
+        "credit_id": "64a6261ec3bffe00e78e0630",
+        "department": "Production",
+        "job": "Casting"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 4149023,
+        "known_for_department": "Writing",
+        "name": "Jony Chandra",
+        "original_name": "Jony Chandra",
+        "popularity": 0.0659,
+        "profile_path": null,
+        "credit_id": "64a6223a0398ab00ebee86b1",
+        "department": "Writing",
+        "job": "Head of Story"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 57673,
+        "known_for_department": "Production",
+        "name": "Kevin Reher",
+        "original_name": "Kevin Reher",
+        "popularity": 0.1433,
+        "profile_path": "/ulnGGeHrys0tkTq9vFBSmHpdCQX.jpg",
+        "credit_id": "64a62612c3bffe00e78e0625",
+        "department": "Production",
+        "job": "Casting"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1994278,
+        "known_for_department": "Lighting",
+        "name": "Anthony Kemp",
+        "original_name": "Anthony Kemp",
+        "popularity": 0.0264,
+        "profile_path": null,
+        "credit_id": "64a626bacae63200af746b11",
+        "department": "Crew",
+        "job": "Digital Producer"
+      },
+      {
+        "adult": false,
+        "gender": 2,
+        "id": 1777884,
+        "known_for_department": "Visual Effects",
+        "name": "Theodore Anthony Lee Ty",
+        "original_name": "Theodore Anthony Lee Ty",
+        "popularity": 0.2698,
+        "profile_path": "/9MzAKiSJbutHQvoTpNVm3XCtOnH.jpg",
+        "credit_id": "64a62670c3bffe00c86b7f5f",
+        "department": "Visual Effects",
+        "job": "Animation Director"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 1999717,
+        "known_for_department": "Lighting",
+        "name": "Archie Donato",
+        "original_name": "Archie Donato",
+        "popularity": 0.0286,
+        "profile_path": null,
+        "credit_id": "64ac9ef966a0d300ade953d0",
+        "department": "Visual Effects",
+        "job": "Visual Effects Supervisor"
+      },
+      {
+        "adult": false,
+        "gender": 1,
+        "id": 4182130,
+        "known_for_department": "Sound",
+        "name": "K.Flay",
+        "original_name": "K.Flay",
+        "popularity": 0.0559,
+        "profile_path": "/zvbEAdKVLMTDTNrC302R9zhKMaD.jpg",
+        "credit_id": "64c198c6097c4900e3f364ec",
+        "department": "Sound",
+        "job": "Songs"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2006114,
+        "known_for_department": "Visual Effects",
+        "name": "François Bonneville",
+        "original_name": "François Bonneville",
+        "popularity": 0.0071,
+        "profile_path": null,
+        "credit_id": "686e904be43369073151ee6c",
+        "department": "Visual Effects",
+        "job": "Animation"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2063478,
+        "known_for_department": "Visual Effects",
+        "name": "Alex Angelis",
+        "original_name": "Alex Angelis",
+        "popularity": 0.0412,
+        "profile_path": null,
+        "credit_id": "686e905633dc7bf3fb6e8df8",
+        "department": "Visual Effects",
+        "job": "Animation"
+      },
+      {
+        "adult": false,
+        "gender": 0,
+        "id": 2017410,
+        "known_for_department": "Visual Effects",
+        "name": "Dimitrios Aspros",
+        "original_name": "Dimitrios Aspros",
+        "popularity": 0.0214,
+        "profile_path": null,
+        "credit_id": "686e905b5cfab44819ed6729",
+        "department": "Visual Effects",
+        "job": "Animation"
+      }
+    ]
+  },
+  "external_ids": {
+    "imdb_id": "tt19500164",
+    "wikidata_id": "Q111165179",
+    "facebook_id": null,
+    "instagram_id": null,
+    "twitter_id": null
+  },
+  "keywords": {
+    "keywords": [
+      {
+        "id": 1299,
+        "name": "monster"
+      },
+      {
+        "id": 6152,
+        "name": "supernatural"
+      },
+      {
+        "id": 10562,
+        "name": "on the run"
+      },
+      {
+        "id": 10466,
+        "name": "knight"
+      },
+      {
+        "id": 18712,
+        "name": "based on graphic novel"
+      },
+      {
+        "id": 158276,
+        "name": "metamorphosis"
+      },
+      {
+        "id": 158718,
+        "name": "lgbt"
+      },
+      {
+        "id": 162532,
+        "name": "shape shifter"
+      },
+      {
+        "id": 167982,
+        "name": "unlikely friendship"
+      },
+      {
+        "id": 171176,
+        "name": "girl power"
+      },
+      {
+        "id": 230631,
+        "name": "imaginative"
+      },
+      {
+        "id": 276775,
+        "name": "irreverent"
+      },
+      {
+        "id": 287476,
+        "name": "heartfelt"
+      },
+      {
+        "id": 296608,
+        "name": "teenager"
+      },
+      {
+        "id": 298517,
+        "name": "science fantasy"
+      }
+    ]
+  },
+  "watch/providers": {
+    "results": {
+      "AD": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AD",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 31
+          }
+        ]
+      },
+      "AE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "AG": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AG",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "AL": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AL",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "AO": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AO",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 3
+          }
+        ]
+      },
+      "AR": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AR",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "AT": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AT",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 154
+          }
+        ]
+      },
+      "AU": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AU",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 2
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 50
+          }
+        ]
+      },
+      "AZ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=AZ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 2
+          }
+        ]
+      },
+      "BA": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BA",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "BB": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BB",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "BE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "BG": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BG",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "BH": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BH",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "BM": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BM",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "BO": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BO",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "BR": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BR",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 41
+          }
+        ]
+      },
+      "BS": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BS",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "BY": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BY",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 12
+          }
+        ]
+      },
+      "BZ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=BZ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 6
+          }
+        ]
+      },
+      "CA": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CA",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 94
+          }
+        ]
+      },
+      "CH": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CH",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "CI": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CI",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "CL": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CL",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 2
+          }
+        ]
+      },
+      "CM": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CM",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 3
+          }
+        ]
+      },
+      "CO": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CO",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "CR": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CR",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "CU": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CU",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "CV": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CV",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "CY": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CY",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 6
+          }
+        ]
+      },
+      "CZ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=CZ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "DE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=DE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 84
+          }
+        ]
+      },
+      "DK": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=DK",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "DO": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=DO",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "DZ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=DZ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "EC": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=EC",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "EE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=EE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "EG": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=EG",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "ES": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=ES",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 51
+          }
+        ]
+      },
+      "FI": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=FI",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "FJ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=FJ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "FR": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=FR",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 58
+          }
+        ]
+      },
+      "GB": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=GB",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 87
+          }
+        ]
+      },
+      "GF": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=GF",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "GG": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=GG",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "GH": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=GH",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "GI": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=GI",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "GQ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=GQ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "GR": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=GR",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "GT": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=GT",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "HK": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=HK",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "HN": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=HN",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "HR": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=HR",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "HU": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=HU",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "ID": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=ID",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "IE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=IE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "IL": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=IL",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "IN": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=IN",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "IQ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=IQ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "IS": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=IS",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "IT": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=IT",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "JM": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=JM",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "JO": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=JO",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "JP": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=JP",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 24
+          }
+        ]
+      },
+      "KE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=KE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "KR": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=KR",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 26
+          }
+        ]
+      },
+      "KW": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=KW",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "LB": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=LB",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "LC": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=LC",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "LI": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=LI",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "LT": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=LT",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "LU": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=LU",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 7
+          }
+        ]
+      },
+      "LV": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=LV",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "LY": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=LY",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "MA": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MA",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "MC": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MC",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "MD": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MD",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "ME": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=ME",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 3
+          }
+        ]
+      },
+      "MG": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MG",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 3
+          }
+        ]
+      },
+      "MK": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MK",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "ML": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=ML",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 4
+          }
+        ]
+      },
+      "MT": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MT",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "MU": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MU",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "MX": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MX",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 7
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 39
+          }
+        ]
+      },
+      "MY": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MY",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "MZ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=MZ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "NE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=NE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "NG": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=NG",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "NI": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=NI",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 10
+          }
+        ]
+      },
+      "NL": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=NL",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 2
+          }
+        ]
+      },
+      "NO": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=NO",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "NZ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=NZ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "OM": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=OM",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "PA": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PA",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "PE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "PF": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PF",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "PH": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PH",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "PK": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PK",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "PL": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PL",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "PS": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PS",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "PT": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PT",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "PY": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=PY",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "QA": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=QA",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "RO": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=RO",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "RS": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=RS",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "SA": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SA",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "SC": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SC",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "SE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "SG": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SG",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "SI": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SI",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "SK": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SK",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "SM": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SM",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "SN": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SN",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "SV": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=SV",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "TC": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=TC",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "TD": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=TD",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 3
+          }
+        ]
+      },
+      "TH": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=TH",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          }
+        ]
+      },
+      "TN": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=TN",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "TR": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=TR",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 2
+          }
+        ]
+      },
+      "TT": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=TT",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "TW": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=TW",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "TZ": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=TZ",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "UA": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=UA",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "UG": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=UG",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "US": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=US",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 1
+          },
+          {
+            "logo_path": "/dpR8r13zWDeUR0QkzWidrdMxa56.jpg",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 157
+          }
+        ]
+      },
+      "UY": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=UY",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "VE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=VE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "YE": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=YE",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "ZA": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=ZA",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "ZM": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=ZM",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 0
+          }
+        ]
+      },
+      "ZW": {
+        "link": "https://www.themoviedb.org/movie/961323-nimona/watch?locale=ZW",
+        "flatrate": [
+          {
+            "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 4
+          }
+        ]
+      }
+    }
+  },
+  "translations": {
+    "translations": [
+      {
+        "iso_3166_1": "US",
+        "iso_639_1": "en",
+        "name": "English",
+        "english_name": "English",
+        "data": {
+          "homepage": "https://www.netflix.com/title/81444554",
+          "overview": "A knight framed for a tragic crime teams with a scrappy, shape-shifting teen to prove his innocence.",
+          "runtime": 101,
+          "tagline": "A new hero takes shape.",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "KR",
+        "iso_639_1": "ko",
+        "name": "한국어/조선말",
+        "english_name": "Korean",
+        "data": {
+          "homepage": "https://www.netflix.com/kr/title/81444554",
+          "overview": "끔찍한 범죄를 저질렀다는 누명을 쓴 기사. 산만하지만 자유자재로 변신할 수 있는 10대 소녀와 손잡고 자신의 결백을 밝히려 한다. 그런데 그녀의 정체가 기사가 없애버리겠다고 다짐한 몬스터라면?",
+          "runtime": 101,
+          "tagline": "",
+          "title": "니모나"
+        }
+      },
+      {
+        "iso_3166_1": "FR",
+        "iso_639_1": "fr",
+        "name": "Français",
+        "english_name": "French",
+        "data": {
+          "homepage": "https://www.netflix.com/fr/title/81444554",
+          "overview": "Pour se disculper, un chevalier accusé d'un crime tragique fait équipe avec une adolescente bagarreuse et métamorphe qui pourrait bien être le monstre qu'il a juré de détruire.",
+          "runtime": 101,
+          "tagline": "Un peu rebelle, un peu héroïne.",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "TH",
+        "iso_639_1": "th",
+        "name": "ภาษาไทย",
+        "english_name": "Thai",
+        "data": {
+          "homepage": "https://www.netflix.com/th/title/81444554",
+          "overview": "อัศวินผู้ถูกปรักปรำว่าเป็นต้นเหตุของโศกนาฏกรรมโศกสลด ต้องผนึกกำลังกับเด็กสาวใจเด็ดที่มีพลังแปลงกายเพื่อล้างมลทินให้ตนเอง แต่เธออาจเป็นอสุรกายที่เขามีหน้าที่ต้องกำราบ",
+          "runtime": 101,
+          "tagline": "",
+          "title": "นิโมนา"
+        }
+      },
+      {
+        "iso_3166_1": "ES",
+        "iso_639_1": "es",
+        "name": "Español",
+        "english_name": "Spanish",
+        "data": {
+          "homepage": "https://www.netflix.com/es/title/81444554",
+          "overview": "Un caballero acusado de un trágico crimen se alía con una peleona joven metamorfa para demostrar su inocencia. Pero ¿podría ser ella el monstruo al que juró destruir?",
+          "runtime": 101,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "UA",
+        "iso_639_1": "uk",
+        "name": "Український",
+        "english_name": "Ukrainian",
+        "data": {
+          "homepage": "https://www.netflix.com/ua/title/81444554",
+          "overview": "Лицаря звинувачують у жахливому злочині. Щоб довести свою непричетність, він об’єднується з дівчиною-перевертнем. Але що як вона — той монстр, якого він поклявся знищити?",
+          "runtime": 101,
+          "tagline": "З’являється новий герой.",
+          "title": "Німона"
+        }
+      },
+      {
+        "iso_3166_1": "MX",
+        "iso_639_1": "es",
+        "name": "Español",
+        "english_name": "Spanish",
+        "data": {
+          "homepage": "https://www.netflix.com/mx/title/81444554",
+          "overview": "Un caballero acusado de un trágico crimen se alía con una audaz adolescente con poderes metamórficos para probar su inocencia. ¿Y si ella fuera el monstruo al que juró destruir?",
+          "runtime": 101,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "BR",
+        "iso_639_1": "pt",
+        "name": "Português",
+        "english_name": "Portuguese",
+        "data": {
+          "homepage": "https://www.netflix.com/br/title/81444554",
+          "overview": "Acusado de um crime trágico, um cavaleiro pede ajuda a uma adolescente para conseguir provar sua inocência. Mas o que acontecerá se ela for o monstro que ele jurou matar?",
+          "runtime": 101,
+          "tagline": "Uma nova heroína toma forma.",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "RU",
+        "iso_639_1": "ru",
+        "name": "Pусский",
+        "english_name": "Russian",
+        "data": {
+          "homepage": "https://www.netflix.com/ru/title/81444554",
+          "overview": "Рыцаря обвиняют в ужасном преступлении. Он объединяется с девочкой-оборотнем, чтобы доказать свою невиновность. Но вдруг она и есть тот монстр, которого он поклялся уничтожить?",
+          "runtime": 101,
+          "tagline": "",
+          "title": "Нимона"
+        }
+      },
+      {
+        "iso_3166_1": "PL",
+        "iso_639_1": "pl",
+        "name": "Polski",
+        "english_name": "Polish",
+        "data": {
+          "homepage": "https://www.netflix.com/pl/title/81444554",
+          "overview": "Rycerz wplątany w tragiczną zbrodnię łączy siły z waleczną zmiennokształtną nastolatką, aby oczyścić swoje imię. Ale co jeśli to ona jest potworem, którego ma zgładzić?",
+          "runtime": 101,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "DE",
+        "iso_639_1": "de",
+        "name": "Deutsch",
+        "english_name": "German",
+        "data": {
+          "homepage": "https://www.netflix.com/de/title/81444554",
+          "overview": "Ein Ritter, der eines Verbrechens bezichtigt wird, will seine Unschuld mithilfe einer gestaltwandelnden Teenagerin beweisen. Doch ist Nimona etwa das Monster, das er töten soll?",
+          "runtime": 101,
+          "tagline": "Ein neuer Held nimmt Gestalt an.",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "IT",
+        "iso_639_1": "it",
+        "name": "Italiano",
+        "english_name": "Italian",
+        "data": {
+          "homepage": "https://www.netflix.com/it/title/81444554",
+          "overview": "Per dimostrare la propria innocenza un cavaliere accusato di un crimine unisce le forze con un'adolescente mutaforma. Ma se fosse lei il mostro che ha giurato di distruggere?",
+          "runtime": 101,
+          "tagline": "Un nuovo eroe prende forma.",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "JP",
+        "iso_639_1": "ja",
+        "name": "日本語",
+        "english_name": "Japanese",
+        "data": {
+          "homepage": "https://www.netflix.com/jp/title/81444554",
+          "overview": "ぬれぎぬを着せられた騎士は、自由自在に変身できる元気いっぱいのニモーナと手を組んで真犯人さがしに乗り出す。でもこのニモーナこそ、自分が退治すると誓ったモンスターかもしれず...。",
+          "runtime": 101,
+          "tagline": "",
+          "title": "ニモーナ"
+        }
+      },
+      {
+        "iso_3166_1": "CZ",
+        "iso_639_1": "cs",
+        "name": "Český",
+        "english_name": "Czech",
+        "data": {
+          "homepage": "https://www.netflix.com/cz/title/81444554",
+          "overview": "Rytíř chce po křivém obvinění prokázat svoji nevinu, a tak spojí síly s holkou, co umí měnit podobu. Ta je ale ve skutečnosti příšera, kterou má on za úkol zničit.",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "HK",
+        "iso_639_1": "zh",
+        "name": "普通话",
+        "english_name": "Mandarin",
+        "data": {
+          "homepage": "https://www.netflix.com/hk/title/81444554",
+          "overview": "騎士在悲慘罪案發生後遭到誣陷，於是去找一位能變形的好強少女，請她證明自己清白。但如果對方正是他立誓要消滅的那種怪物，他又該如何是好？",
+          "runtime": 0,
+          "tagline": "",
+          "title": "怪物少女妮莫娜"
+        }
+      },
+      {
+        "iso_3166_1": "VN",
+        "iso_639_1": "vi",
+        "name": "Tiếng Việt",
+        "english_name": "Vietnamese",
+        "data": {
+          "homepage": "https://www.netflix.com/vn/title/81444554",
+          "overview": "Bị đổ oan tội ác bi thảm, hiệp sĩ nọ bắt tay với một thiếu nữ kiên cường, có khả năng thay đổi hình dạng để minh oan. Nhưng sẽ ra sao nếu cô là con quái vật anh thề sẽ tiêu diệt?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "CN",
+        "iso_639_1": "zh",
+        "name": "普通话",
+        "english_name": "Mandarin",
+        "data": {
+          "homepage": "",
+          "overview": "为了证明自己的清白，一名被诬陷犯下重罪的骑士与擅长变形的好斗少女联手。但如果这名少女正是他曾立誓要消灭的怪物，他又该如何是好？",
+          "runtime": 0,
+          "tagline": "一个新英雄的诞生。",
+          "title": "怪物少女妮莫娜"
+        }
+      },
+      {
+        "iso_3166_1": "HU",
+        "iso_639_1": "hu",
+        "name": "Magyar",
+        "english_name": "Hungarian",
+        "data": {
+          "homepage": "https://www.netflix.com/hu/title/81444554",
+          "overview": "Egy tragikus bűnténnyel vádolt lovag összefog egy bohém, alakváltó tinivel, hogy bizonyítsa ártatlanságát. És ha a lány maga a szörny, akinek a megölésére felesküdött?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "RS",
+        "iso_639_1": "sr",
+        "name": "Srpski",
+        "english_name": "Serbian",
+        "data": {
+          "homepage": "",
+          "overview": "Витез коме је смештено за трагичне злочине удружује се са борбеном тинејџерком која мења облике како би доказао своју невиност. Али шта ако је она чудовиште које се заклео да ће уништити?",
+          "runtime": 0,
+          "tagline": "",
+          "title": "Нимона"
+        }
+      },
+      {
+        "iso_3166_1": "PT",
+        "iso_639_1": "pt",
+        "name": "Português",
+        "english_name": "Portuguese",
+        "data": {
+          "homepage": "https://www.netflix.com/pt/title/81444554",
+          "overview": "Um cavaleiro é acusado de um crime e, para provar a sua inocência, alia-se a uma aguerrida adolescente que muda de forma. Mas e se ela é o monstro que ele jurou destruir?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "TR",
+        "iso_639_1": "tr",
+        "name": "Türkçe",
+        "english_name": "Turkish",
+        "data": {
+          "homepage": "https://www.netflix.com/tr/title/81444554",
+          "overview": "Üstüne trajik bir suç atılan şövalye, şekil değiştiren mücadeleci bir genç kızla el ele verip masumiyetini kanıtlamaya çalışır. Peki ama ya bu kız, öldürmeye ant içtiği canavarsa?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "TW",
+        "iso_639_1": "zh",
+        "name": "普通话",
+        "english_name": "Mandarin",
+        "data": {
+          "homepage": "https://www.netflix.com/tw/title/81444554",
+          "overview": "騎士在悲慘罪案發生後遭到誣陷，於是去找一位能變形的好強少女，請她證明自己清白。但如果對方正是他立誓要消滅的那種怪物，他又該如何是好？",
+          "runtime": 0,
+          "tagline": "可愛又迷人的反派小英雄",
+          "title": "怪物少女妮莫娜"
+        }
+      },
+      {
+        "iso_3166_1": "IL",
+        "iso_639_1": "he",
+        "name": "עִבְרִית",
+        "english_name": "Hebrew",
+        "data": {
+          "homepage": "https://www.netflix.com/il/title/81444554",
+          "overview": "אביר שמופלל בפשע טרגי מבקש להוכיח את חפותו וחובר לשם כך למתבגרת דעתנית שיכולה לשנות צורה. אבל מה אם היא המפלצת שהוא נשבע להשמיד?",
+          "runtime": 101,
+          "tagline": "",
+          "title": "נימונה"
+        }
+      },
+      {
+        "iso_3166_1": "SA",
+        "iso_639_1": "ar",
+        "name": "العربية",
+        "english_name": "Arabic",
+        "data": {
+          "homepage": "https://www.netflix.com/sa/title/81444554",
+          "overview": "ينضم فارس، لُفقت له جريمة مأساوية، إلى مراهقة مشاكسة ذات هيئة متحولة لإثبات براءته... ولكن ماذا لو كانت هي الوحش الذي أقسم على تدميره؟",
+          "runtime": 0,
+          "tagline": "",
+          "title": "نيمونا"
+        }
+      },
+      {
+        "iso_3166_1": "BG",
+        "iso_639_1": "bg",
+        "name": "български език",
+        "english_name": "Bulgarian",
+        "data": {
+          "homepage": "",
+          "overview": "Рицар, който е натопен за трагично престъпление, се съюзява с дръзка тийнейджърка, която умее да променя формата си, за да докаже невинността си.",
+          "runtime": 101,
+          "tagline": "Формирането на нов герой.",
+          "title": "Нимона"
+        }
+      },
+      {
+        "iso_3166_1": "SE",
+        "iso_639_1": "sv",
+        "name": "svenska",
+        "english_name": "Swedish",
+        "data": {
+          "homepage": "https://www.netflix.com/se/title/81444554",
+          "overview": "En riddare anklagad för ett tragiskt brott tar hjälp av en skepnadsskiftande tonåring för att bevisa sin oskuld. Men tänk om hon är monstret han svurit att förgöra?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "NL",
+        "iso_639_1": "nl",
+        "name": "Nederlands",
+        "english_name": "Dutch",
+        "data": {
+          "homepage": "https://www.netflix.com/nl/title/81444554",
+          "overview": "Een vals beschuldigde ridder probeert samen met een gedaanteverwisselende tiener zijn onschuld te bewijzen. Maar wat als zij het monster is dat hij moet vernietigen?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "FI",
+        "iso_639_1": "fi",
+        "name": "suomi",
+        "english_name": "Finnish",
+        "data": {
+          "homepage": "https://www.netflix.com/fi/title/81444554",
+          "overview": "Kun ritari lavastetaan syylliseksi traagiseen rikokseen, hän liittoutuu muotoa muuttavan teinin kanssa. Mutta mitä jos tyttö onkin se hirviö, joka ritarin pitäisi tuhota?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "LT",
+        "iso_639_1": "lt",
+        "name": "Lietuvių",
+        "english_name": "Lithuanian",
+        "data": {
+          "homepage": "",
+          "overview": "Kai futuristinio viduramžių pasaulio riteris Balisteris Drąsuolis apkaltinamas nusikaltimu, kurio nepadarė, vienintelis žmogus, galintis jam padėti įrodyti savo nekaltumą, yra Nimona - išdykusi paauglė, mėgstanti kelti sumaištį ir pavidalus keičianti būtybė, kurią Balisteris buvo apmokytas sunaikinti.  Tačiau nors visa karalystė siekia ją sučiupti, Nimona yra geriausia (ir vienintelė) pagalbininkė, kurios Balisteris gali tikėtis. Kai ribos tarp didvyrių, piktadarių ir pabaisų ima nykti, jiedu išsiruošia į kelionę, kad sukeltų rimtą sumaištį - Balisteris kartą ir visiems laikams atstatytų savo reputaciją, o Nimona... ji tiesiog dievina chaosą.",
+          "runtime": 0,
+          "tagline": "",
+          "title": "Nimona"
+        }
+      },
+      {
+        "iso_3166_1": "ES",
+        "iso_639_1": "ca",
+        "name": "Català",
+        "english_name": "Catalan",
+        "data": {
+          "homepage": "",
+          "overview": "En Ballister és falsament acusat d’un crim que no ha comès i una adolescent caòtica, la Nimona, aconseguirà que pugui netejar el seu nom. Tot està ambientat a una societat medieval futurista on cavalls robot i espases làser es barregen amb éssers mitològics.",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "GR",
+        "iso_639_1": "el",
+        "name": "ελληνικά",
+        "english_name": "Greek",
+        "data": {
+          "homepage": "https://www.netflix.com/gr/title/81444554",
+          "overview": "Ένας ιππότης κατηγορείται άδικα για ένα έγκλημα και συνεργάζεται με μια έφηβη κοπέλα, τη Νιμόνα, που αλλάζει μορφές. Κι αν αυτή είναι το τέρας που ορκίστηκε να σκοτώσει;",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "ES",
+        "iso_639_1": "eu",
+        "name": "euskera",
+        "english_name": "Basque",
+        "data": {
+          "homepage": "",
+          "overview": "Erdi Aroko mundu futurista batean, Ballister Bihotzausart zaldunari egin ez duen krimen bat leporatzen diote, eta bere errugabetasuna frogatzen lagun diezaiokeen pertsona bakarra Nimona da, kaoserako joera duen nerabe bihurria... Gainera, bera suntsitzeko ardura duena. Baina erresuma osoa bere atzetik dabilenez, Nimona da Ballisterrek izan dezakeen aliaturik onena (edo, hobeto esanda, bakarra). Beraz, heroi, bilau eta munstroen arteko lerroa lausotzen ari den bitartean, bikoteak triskantza handiak eragiten ditu Ballisterrek bere izena garbitu ahal izan dezan.",
+          "runtime": 0,
+          "tagline": "",
+          "title": "Nimona"
+        }
+      },
+      {
+        "iso_3166_1": "CA",
+        "iso_639_1": "fr",
+        "name": "Français",
+        "english_name": "French",
+        "data": {
+          "homepage": "https://www.netflix.com/ca-fr/title/81444554",
+          "overview": "Un chevalier accusé à tort d'un crime tragique unit ses forces à celles d'une ado métamorphe pour prouver son innocence. Mais ne serait-elle pas le monstre qu'il a juré d'anéantir?",
+          "runtime": 101,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "IR",
+        "iso_639_1": "fa",
+        "name": "فارسی",
+        "english_name": "Persian",
+        "data": {
+          "homepage": "",
+          "overview": "داستان نوجوانی با قدرت تغییر شکل به نام نیمونا است که یک شوالیه قسم خورده او را نابود کند. اما ماموریت شوالیه برای کشتن نیمونا زمانی پیچیده می‌شود که او به جنایتی که مرتکب نشده، متهم شده و متوجه می‌شود تنها کسی که می‌تواند به او برای اثبات بی‌گناهی‌اش کمک کند، نیمونا است…",
+          "runtime": 0,
+          "tagline": "",
+          "title": "نیمونا"
+        }
+      },
+      {
+        "iso_3166_1": "AE",
+        "iso_639_1": "ar",
+        "name": "العربية",
+        "english_name": "Arabic",
+        "data": {
+          "homepage": "https://www.netflix.com/ae/title/81444554",
+          "overview": "ينضم فارس، لُفقت له جريمة مأساوية، إلى مراهقة مشاكسة ذات هيئة متحولة لإثبات براءته... ولكن ماذا لو كانت هي الوحش الذي أقسم على تدميره؟",
+          "runtime": 0,
+          "tagline": "",
+          "title": "نيمونا"
+        }
+      },
+      {
+        "iso_3166_1": "SG",
+        "iso_639_1": "zh",
+        "name": "普通话",
+        "english_name": "Mandarin",
+        "data": {
+          "homepage": "https://www.netflix.com/sg-zh/title/81444554",
+          "overview": "为了证明自己的清白，一名被诬陷犯下重罪的骑士与擅长变形的好斗少女联手。但如果这名少女正是他曾立誓要消灭的怪物呢？",
+          "runtime": 0,
+          "tagline": "",
+          "title": "怪物少女妮莫娜"
+        }
+      },
+      {
+        "iso_3166_1": "HR",
+        "iso_639_1": "hr",
+        "name": "Hrvatski",
+        "english_name": "Croatian",
+        "data": {
+          "homepage": "https://www.netflix.com/hr/title/81444554",
+          "overview": "Vitez kojemu su smjestili tragičan zločin udruži snage s tinejdžericom metamorfom kako bi dokazao da je nevin. No što ako je upravo ona čudovište koje se zakleo uništiti?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "DK",
+        "iso_639_1": "da",
+        "name": "Dansk",
+        "english_name": "Danish",
+        "data": {
+          "homepage": "https://www.netflix.com/dk/title/81444554",
+          "overview": "En ridder beskyldt for en tragisk forbrydelse går sammen med en sølle, formskiftende teenager for at bevise sin uskyld. Men hvad nu hvis hun er uhyret, han skal bekæmpe?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "IN",
+        "iso_639_1": "hi",
+        "name": "हिन्दी",
+        "english_name": "Hindi",
+        "data": {
+          "homepage": "https://www.netflix.com/in-hi/title/81444554",
+          "overview": "संगीन अपराध का आरोपी एक योद्धा, अपनी बेगुनाही साबित करने के लिए जिद्दी और रूप बदलने वाली एक टीनेजर से जा मिलता है. पर जिसे बर्बाद करने की उसने कसम खाई है, यही वह शैतान निकली तो?",
+          "runtime": 0,
+          "tagline": "",
+          "title": "निमोना"
+        }
+      },
+      {
+        "iso_3166_1": "ID",
+        "iso_639_1": "id",
+        "name": "Bahasa indonesia",
+        "english_name": "Indonesian",
+        "data": {
+          "homepage": "https://www.netflix.com/id/title/81444554",
+          "overview": "Demi membuktikan ia tak bersalah dalam kejahatan pilu, kesatria ini bermitra dengan gadis yang bisa berubah wujud. Bagaimana jika gadis itu monster yang ia ingin bantai?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "MY",
+        "iso_639_1": "ms",
+        "name": "Bahasa melayu",
+        "english_name": "Malay",
+        "data": {
+          "homepage": "https://www.netflix.com/my/title/81444554",
+          "overview": "Seorang kesateria yang difitnah bekerjasama dengan gadis pengubah bentuk yang lemah untuk membela dirinya. Namun bagaimana jika gadis itu raksasa yang perlu dibunuhnya?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "NO",
+        "iso_639_1": "no",
+        "name": "Norsk",
+        "english_name": "Norwegian",
+        "data": {
+          "homepage": "https://www.netflix.com/no/title/81444554",
+          "overview": "En ridder beskyldes for en tragisk forbrytelse og samarbeider med en tøff, hamskiftende tenåring for å bevise sin uskyld. Men hva om hun er monsteret han lovet å drepe?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "RO",
+        "iso_639_1": "ro",
+        "name": "Română",
+        "english_name": "Romanian",
+        "data": {
+          "homepage": "https://www.netflix.com/ro/title/81444554",
+          "overview": "Pentru a-și dovedi nevinovăția, un cavaler căruia i se înscenează o crimă face echipă cu o adolescentă metamorfă. Să fie oare aceasta monstrul pe care a jurat să-l ucidă?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      },
+      {
+        "iso_3166_1": "PH",
+        "iso_639_1": "tl",
+        "name": "",
+        "english_name": "Tagalog",
+        "data": {
+          "homepage": "https://www.netflix.com/ph/title/81444554",
+          "overview": "Isang na-frame up na knight ang kumampi sa sigang teen na nagbabagong-anyo para patunayang inosente siya. Pero paano kung siya pala ang halimaw na dapat niyang puksain?",
+          "runtime": 0,
+          "tagline": "",
+          "title": ""
+        }
+      }
+    ]
+  },
+  "similar": {
+    "page": 1,
+    "results": [
+      {
+        "adult": false,
+        "backdrop_path": "/gyl9OalxyaqUqX5eak5rIIs8tU3.jpg",
+        "genre_ids": [
+          16,
+          28,
+          14,
+          878
+        ],
+        "id": 829241,
+        "original_language": "ja",
+        "original_title": "ヘアピンダブル",
+        "overview": "",
+        "popularity": 0.8183,
+        "poster_path": "/j0UF4vDdTzskJRuDj2hdMjuQlYG.jpg",
+        "release_date": "2022-03-25",
+        "title": "Hairpin Double",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/eK5HN0iW5Y5W71RFyLtbVxJi3v3.jpg",
+        "genre_ids": [
+          35,
+          18,
+          10749
+        ],
+        "id": 1027822,
+        "original_language": "en",
+        "original_title": "Barrio Boy",
+        "overview": "A Latino barber in a macho world faces a tough road ahead when an attraction develops for a handsome stranger during a hot and sweaty summer in Brooklyn.",
+        "popularity": 1.6078,
+        "poster_path": "/uVxHn09akxWvl7w3pdGpYVUETE5.jpg",
+        "release_date": "2022-10-14",
+        "title": "Barrio Boy",
+        "video": false,
+        "vote_average": 4.2,
+        "vote_count": 8
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/wdUnHg8bOmTkHzkvxSY9sCeqJ6q.jpg",
+        "genre_ids": [
+          16,
+          878,
+          10751,
+          28
+        ],
+        "id": 829402,
+        "original_language": "en",
+        "original_title": "Ultraman: Rising",
+        "overview": "A star athlete reluctantly returns home to take over his father's duties as Ultraman, shielding Tokyo from giant monsters as he becomes a legendary hero.",
+        "popularity": 7.631,
+        "poster_path": "/j886YEkIUsiImY53px5VHKD4lRa.jpg",
+        "release_date": "2024-06-14",
+        "title": "Ultraman: Rising",
+        "video": false,
+        "vote_average": 8.192,
+        "vote_count": 354
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/fkMOzJXhgCx1bhKoJjdZPgzncWi.jpg",
+        "genre_ids": [
+          16,
+          28,
+          12
+        ],
+        "id": 1363717,
+        "original_language": "en",
+        "original_title": "The Old Knight",
+        "overview": "An old knight goes on a journey to rescue his horse from the jaws of a dragon.",
+        "popularity": 1.8563,
+        "poster_path": "/kBmSszvahqwKUR3spxQSpmkYeUG.jpg",
+        "release_date": "2024-08-30",
+        "title": "The Old Knight",
+        "video": false,
+        "vote_average": 5,
+        "vote_count": 1
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/25nOvfL58giuSMedaLmwaoBTXD8.jpg",
+        "genre_ids": [
+          10749,
+          35
+        ],
+        "id": 1363879,
+        "original_language": "en",
+        "original_title": "Last ExMas",
+        "overview": "Maggie and Julianne are ex-girlfriends who unexpectedly rekindle the spark during a hometown visit for the holidays. Are they meant to be? They'll have to navigate their feelings, the gossiping town, and ghosts of exes past to find out.",
+        "popularity": 0.655,
+        "poster_path": "/ewoUfKevP5A7x4GyJ6nhw3BbjlQ.jpg",
+        "release_date": "2024-10-14",
+        "title": "Last ExMas",
+        "video": false,
+        "vote_average": 6.4,
+        "vote_count": 10
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/wyVURHxepjKTjf7PIs1NR5A5qtZ.jpg",
+        "genre_ids": [
+          18,
+          16,
+          10751
+        ],
+        "id": 976729,
+        "original_language": "en",
+        "original_title": "A Spot for Frog",
+        "overview": "Locked out of the school art room, a creative non-binary teen named Frog grapples with anxiety as they seek a new place to eat lunch. Imagination blurs with reality in this hybrid work of live action and animation about finding a place to belong.",
+        "popularity": 1.0289,
+        "poster_path": "/mfVe4L0SiUzjm6ujO7GAMtO4JkW.jpg",
+        "release_date": "2022-06-01",
+        "title": "A Spot for Frog",
+        "video": false,
+        "vote_average": 8,
+        "vote_count": 2
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/k3sU9wEQMSoTpU0EwLp2DeOndw5.jpg",
+        "genre_ids": [
+          28,
+          18,
+          10749
+        ],
+        "id": 976792,
+        "original_language": "id",
+        "original_title": "Argantara",
+        "overview": "Young marriage never crossed Arga's mind, Arga don't know what his parents were thinking of, until he was able to marry himself to the son of his father's best friend. Or as a will that must be fulfilled when Arga is eighteen years old.",
+        "popularity": 0.4565,
+        "poster_path": "/ytU9KYVflrKyz2jQhg4euEeu3rj.jpg",
+        "release_date": "2022-12-29",
+        "title": "Argantara",
+        "video": false,
+        "vote_average": 2.5,
+        "vote_count": 3
+      },
+      {
+        "adult": false,
+        "backdrop_path": null,
+        "genre_ids": [
+          35,
+          18
+        ],
+        "id": 1365117,
+        "original_language": "pl",
+        "original_title": "Lovetown",
+        "overview": "Based on Michal Witkowski's bestseller, communism transforms into capitalism as seen from the perspective of 17-year-old Michaska, who enters the gay community of 1980s Poland.",
+        "popularity": 0.1734,
+        "poster_path": null,
+        "release_date": "",
+        "title": "Lovetown",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/n5g4Pko2dpG7UWVSOZCAsmBxiqD.jpg",
+        "genre_ids": [
+          35,
+          27
+        ],
+        "id": 1325785,
+        "original_language": "en",
+        "original_title": "I Hope He Doesn't Kill Me",
+        "overview": "Buzz waits outside the apartment building of his anonymous Grindr hookup, imagining all the depraved ways this night could end. Horrified yet horny, Buzz buzzes the buzzer.",
+        "popularity": 0.691,
+        "poster_path": "/tPg98VRbLMaCRg6PKnXo7hgVpzJ.jpg",
+        "release_date": "2024-06-14",
+        "title": "I Hope He Doesn't Kill Me",
+        "video": false,
+        "vote_average": 6.667,
+        "vote_count": 3
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/sIUzCwQDgQQUvEobokAgMfsIn9D.jpg",
+        "genre_ids": [
+          35,
+          28,
+          12
+        ],
+        "id": 1327145,
+        "original_language": "pl",
+        "original_title": "100 dni do matury",
+        "overview": "Kapsel is a high school senior party animal who values ​​his close friends more than his final exams. When he realizes that finishing high school also means the breakup of his crew, he decides to ruin everyone's student plans and give them one more year of carefree fun. In order to save his friends from the hardships of entering adulthood, he plans to hack into the innovative system of the Ministry of Education and change the results of their final exams. In this daring action, he involves a group of high school students with the smallest chances of passing their final exams and... his long-lost grandfather, full of controversial life wisdom. Will Kapsel's brilliant plan succeed? Will the boy manage to change the course of events and keep his friends by his side?",
+        "popularity": 0.2496,
+        "poster_path": "/vxS3Jx24pThJb3p9FbacVdBxtCy.jpg",
+        "release_date": "2025-02-28",
+        "title": "Graduation Heist",
+        "video": false,
+        "vote_average": 5.4,
+        "vote_count": 10
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/zljWvpNDPW7ZPeI2d1ku1vcp7Lx.jpg",
+        "genre_ids": [
+          16,
+          10751,
+          10770
+        ],
+        "id": 1336859,
+        "original_language": "en",
+        "original_title": "Monster High: Howliday Special",
+        "overview": "Draculaura has a fright idea when her dad lectures her class on human holidays! She convinces the Monster High students that it's time for their own holiday - a Howliday! But, the students have different, competing ideas for the howliday, causing chaos. Now the ghouls must use their abilities to unite the students with the message: Holidays are about family and togetherness.",
+        "popularity": 1.014,
+        "poster_path": "/qNmfX0zO4HFCibJVnEwaRhjbg4q.jpg",
+        "release_date": "2017-10-29",
+        "title": "Monster High: Howliday Special",
+        "video": false,
+        "vote_average": 10,
+        "vote_count": 2
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/rS0ewRtB2ugDvbaVUoCXOpBOppM.jpg",
+        "genre_ids": [
+          16,
+          35,
+          878
+        ],
+        "id": 1333141,
+        "original_language": "en",
+        "original_title": "Lesbian Space Princess",
+        "overview": "A space princess is thrust out of her sheltered life and into a galactic quest to save her bounty hunter ex-girlfriend from evil incel aliens.",
+        "popularity": 1.1468,
+        "poster_path": "/bmf6spk0WZ10lz4eAK95P1zRB4F.jpg",
+        "release_date": "2025-09-11",
+        "title": "Lesbian Space Princess",
+        "video": false,
+        "vote_average": 6,
+        "vote_count": 7
+      },
+      {
+        "adult": false,
+        "backdrop_path": null,
+        "genre_ids": [
+          16,
+          18,
+          27,
+          10402,
+          53,
+          878
+        ],
+        "id": 1515888,
+        "original_language": "en",
+        "original_title": "Crocodile Dance",
+        "overview": "When an ancient water goddess threatens her town, Roukia, a silenced musician must reclaim her voice to break a generational curse and save herself and her family.",
+        "popularity": 0.1518,
+        "poster_path": "/i50kJAHQP2d61BalxUrrMEsqXeh.jpg",
+        "release_date": "",
+        "title": "Crocodile Dance",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/pqWjHeRKQdd0uJ7FmVp2H8QOcZH.jpg",
+        "genre_ids": [
+          35
+        ],
+        "id": 1358951,
+        "original_language": "en",
+        "original_title": "Rachel Bloom: Death, Let Me Do My Special",
+        "overview": "Comedian and actor Rachel Bloom muses on birth, death, cosmic uncertainty and pungent trees in this whimsical and reflective musical comedy special.",
+        "popularity": 0.9624,
+        "poster_path": "/72tQ7KYfErinGWabfZmyGdOVRSv.jpg",
+        "release_date": "2024-10-15",
+        "title": "Rachel Bloom: Death, Let Me Do My Special",
+        "video": false,
+        "vote_average": 7,
+        "vote_count": 8
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/t9jGgUvyqs727IBoHrLuqr26l1M.jpg",
+        "genre_ids": [
+          12,
+          14
+        ],
+        "id": 1358491,
+        "original_language": "fr",
+        "original_title": "Yoroï",
+        "overview": "After a gruelling final tour, Aurélien decides to settle in Japan with his wife Nanako, who is pregnant with their first child. As the young couple move into a traditional house in the Japanese countryside, Aurélien discovers an ancient suit of armour in a well, which is about to awaken strange creatures known as Yokaïs.",
+        "popularity": 3.4015,
+        "poster_path": "/pZRZU9OjUtRbemQnEvsLlLW5SvM.jpg",
+        "release_date": "2025-10-18",
+        "title": "Yoroï",
+        "video": false,
+        "vote_average": 6.523,
+        "vote_count": 43
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/hg9zz8rjanBjQJHZnLzFlE1mqUg.jpg",
+        "genre_ids": [
+          35
+        ],
+        "id": 1357956,
+        "original_language": "en",
+        "original_title": "Where in the Hell",
+        "overview": "When her girlfriend disappears mid-road trip, sardonic prop master Kasey is left stranded in a California backwater. Panicked, she hitches a ride with cash-strapped actor Alan on his trek to an audition in Canada. Together, the unlikely duo dodges Reno psychics, stale corn nuts, and border security on a quest to find a missing soulmate and maybe validation.",
+        "popularity": 0.372,
+        "poster_path": "/3ggLYHuxNJnQdBEHsnh5S1kqdYG.jpg",
+        "release_date": "2024-11-10",
+        "title": "Where in the Hell",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/A21MkOfeQEwNRQl0YvlRwuUTZEF.jpg",
+        "genre_ids": [
+          14,
+          18
+        ],
+        "id": 1356499,
+        "original_language": "en",
+        "original_title": "Samu The Terrible and His Sin",
+        "overview": "A lonesome marine student receives strength from the freshwater realm to seek revenge against his rivals.",
+        "popularity": 0.239,
+        "poster_path": "/5KETGPtGYlFTOeWYKfNeCPFjH03.jpg",
+        "release_date": "2024-09-14",
+        "title": "Samu The Terrible and His Sin",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      },
+      {
+        "adult": false,
+        "backdrop_path": "/7JanH6Hb4Ps1TpvzxyBHhttX9Hr.jpg",
+        "genre_ids": [
+          18,
+          878,
+          10749
+        ],
+        "id": 1359543,
+        "original_language": "es",
+        "original_title": "No te vayas",
+        "overview": "Destiny sometimes knocks at the door and sometimes drops in without invitation. Maika believes that it is never too late to give fate a second chance. But can a heart that once fell apart put itself back together?",
+        "popularity": 0.1778,
+        "poster_path": "/6pfsSkTsme1ILEBQ4K8Jq7WsLNU.jpg",
+        "release_date": "2024-11-09",
+        "title": "Don't Go",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      },
+      {
+        "adult": false,
+        "backdrop_path": null,
+        "genre_ids": [
+          35,
+          878,
+          27
+        ],
+        "id": 1340105,
+        "original_language": "en",
+        "original_title": "Don't F**k with Ghosts",
+        "overview": "Filmmaking duo, Adam and Stu are convinced they need to capitalize on the next paranormal phenomenon, Adam and Stu embark on a journey to prove that ghosts are real.",
+        "popularity": 1.0542,
+        "poster_path": "/wyTbmCGSjoxPPATMU7eNkHIgomG.jpg",
+        "release_date": "2024-10-10",
+        "title": "Don't F**k with Ghosts",
+        "video": false,
+        "vote_average": 2,
+        "vote_count": 1
+      }
+    ],
+    "total_pages": 15929,
+    "total_results": 318577
+  }
+}
