@@ -14,6 +14,11 @@ class Config:
     # Paths
     BASE_DIR = Path(__file__).parent.parent
     LOGS_DIR = BASE_DIR / "logs"
+    
+    def __init__(self):
+        """Initialize config and ensure directories exist."""
+        # Create logs directory if it doesn't exist
+        self.LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
     # TMDB API
     TMDB_API_KEY: str = os.getenv("TMDB_API_KEY", "")

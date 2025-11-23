@@ -20,9 +20,8 @@ COPY entrypoint.sh /app/entrypoint.sh
 
 # Create non-root user
 RUN useradd -m -u 1000 appuser && \
+    mkdir -p /app/logs /app/data && \
     chown -R appuser:appuser /app && \
-    mkdir -p /app/logs && \
-    chown -R appuser:appuser /app/logs && \
     chmod +x /app/entrypoint.sh
 
 USER appuser
