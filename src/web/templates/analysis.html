@@ -5,25 +5,108 @@
 {% block content %}
 <div class="header">
     <h1 class="page-title">Data Analysis</h1>
+    <button class="btn btn-primary" onclick="loadAnalysis()" id="refreshBtn">
+        <i data-feather="refresh-cw" id="refreshIcon"></i> <span id="refreshText">Refresh</span>
+    </button>
+</div>
+
+<!-- Quick Stats -->
+<div class="grid-4" style="margin-bottom: 24px;">
+    <div class="card" style="text-align: center;">
+        <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 8px;">AVG MOVIE RATING</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--accent);" id="avgMovieRating">-</div>
+    </div>
+    <div class="card" style="text-align: center;">
+        <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 8px;">AVG TV RATING</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--accent);" id="avgTvRating">-</div>
+    </div>
+    <div class="card" style="text-align: center;">
+        <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 8px;">PROFITABLE MOVIES</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--success);" id="profitableCount">-</div>
+    </div>
+    <div class="card" style="text-align: center;">
+        <div style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 8px;">AVG ROI</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--warning);" id="avgRoi">-</div>
+    </div>
 </div>
 
 <div class="grid-2">
     <div class="card">
         <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Genres</h2>
-        <div style="height: 400px;">
+        <div style="height: 350px;">
             <canvas id="genreChart"></canvas>
         </div>
     </div>
 
     <div class="card">
-        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Most Prolific People</h2>
-        <div class="table-container" style="height: 400px; overflow-y: auto;">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Movies by Decade</h2>
+        <div style="height: 350px;">
+            <canvas id="decadeChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Movies by Year (Last 50)</h2>
+        <div style="height: 350px;">
+            <canvas id="yearChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Rating Distribution</h2>
+        <div style="height: 350px;">
+            <canvas id="ratingChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Original Languages</h2>
+        <div style="height: 350px;">
+            <canvas id="languageChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Runtime Distribution</h2>
+        <div style="height: 350px;">
+            <canvas id="runtimeChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Rated Movies</h2>
+        <div class="table-container" style="height: 350px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Title</th>
+                        <th>Rating</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody id="topRatedList">
+                    <tr><td colspan="4" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Most Prolific Actors/Directors</h2>
+        <div class="table-container" style="height: 350px; overflow-y: auto;">
             <table>
                 <thead>
                     <tr>
                         <th>Rank</th>
                         <th>Name</th>
-                        <th>Movie Count</th>
+                        <th>Movies</th>
                     </tr>
                 </thead>
                 <tbody id="peopleList">
@@ -36,16 +119,105 @@
 
 <div class="grid-2" style="margin-top: 24px;">
     <div class="card">
-        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Movies by Year</h2>
-        <div style="height: 400px;">
-            <canvas id="yearChart"></canvas>
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Production Companies</h2>
+        <div class="table-container" style="height: 350px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Company</th>
+                        <th>Movies</th>
+                    </tr>
+                </thead>
+                <tbody id="companiesList">
+                    <tr><td colspan="3" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="card">
-        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Rating Distribution</h2>
-        <div style="height: 400px;">
-            <canvas id="ratingChart"></canvas>
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Highest Grossing Movies</h2>
+        <div class="table-container" style="height: 350px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Title</th>
+                        <th>Revenue</th>
+                    </tr>
+                </thead>
+                <tbody id="topRevenueList">
+                    <tr><td colspan="3" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Best ROI Movies</h2>
+        <div class="table-container" style="height: 350px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Budget</th>
+                        <th>Revenue</th>
+                        <th>ROI</th>
+                    </tr>
+                </thead>
+                <tbody id="topRoiList">
+                    <tr><td colspan="4" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">TV Series Status</h2>
+        <div style="height: 350px;">
+            <canvas id="tvStatusChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-top: 24px;">
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Longest Running TV Shows</h2>
+        <div class="table-container" style="height: 350px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Seasons</th>
+                        <th>Episodes</th>
+                    </tr>
+                </thead>
+                <tbody id="longestTvList">
+                    <tr><td colspan="3" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Rated TV Shows</h2>
+        <div class="table-container" style="height: 350px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Rating</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody id="topRatedTvList">
+                    <tr><td colspan="4" class="loading">Loading...</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -53,20 +225,102 @@
 
 {% block scripts %}
 <script>
+    let isLoading = false;
+    let charts = {};
+
+    function setLoadingState(loading) {
+        isLoading = loading;
+        const btn = document.getElementById('refreshBtn');
+        const icon = document.getElementById('refreshIcon');
+        const text = document.getElementById('refreshText');
+        
+        if (loading) {
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            icon.style.animation = 'spin 1s linear infinite';
+            text.textContent = 'Loading...';
+        } else {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            icon.style.animation = 'none';
+            text.textContent = 'Refresh';
+        }
+    }
+
+    function formatCurrency(num) {
+        if (num >= 1e9) return '$' + (num / 1e9).toFixed(1) + 'B';
+        if (num >= 1e6) return '$' + (num / 1e6).toFixed(1) + 'M';
+        if (num >= 1e3) return '$' + (num / 1e3).toFixed(1) + 'K';
+        return '$' + num;
+    }
+
+    function destroyChart(id) {
+        if (charts[id]) {
+            charts[id].destroy();
+            charts[id] = null;
+        }
+    }
+
     async function loadAnalysis() {
-        // Load Genres
+        if (isLoading) return;
+        setLoadingState(true);
+
         try {
-            const resp = await fetch('/api/analysis/genres');
-            const data = await resp.json();
-            
-            const ctx = document.getElementById('genreChart').getContext('2d');
-            new Chart(ctx, {
+            // Fetch all data in parallel
+            const [
+                genresResp, peopleResp, yearsResp, ratingsResp,
+                topRatedResp, companiesResp, languagesResp, runtimeResp,
+                budgetResp, tvStatsResp, decadesResp
+            ] = await Promise.all([
+                fetch('/api/analysis/genres'),
+                fetch('/api/analysis/people'),
+                fetch('/api/analysis/years'),
+                fetch('/api/analysis/ratings'),
+                fetch('/api/analysis/top-rated-movies'),
+                fetch('/api/analysis/top-production-companies'),
+                fetch('/api/analysis/languages'),
+                fetch('/api/analysis/runtime'),
+                fetch('/api/analysis/budget-revenue'),
+                fetch('/api/analysis/tv-stats'),
+                fetch('/api/analysis/decades')
+            ]);
+
+            const [
+                genresData, peopleData, yearsData, ratingsData,
+                topRatedData, companiesData, languagesData, runtimeData,
+                budgetData, tvStatsData, decadesData
+            ] = await Promise.all([
+                genresResp.json(), peopleResp.json(), yearsResp.json(), ratingsResp.json(),
+                topRatedResp.json(), companiesResp.json(), languagesResp.json(), runtimeResp.json(),
+                budgetResp.json(), tvStatsResp.json(), decadesResp.json()
+            ]);
+
+            // Update quick stats
+            if (ratingsData.ratings.length > 0) {
+                const totalMovies = ratingsData.ratings.reduce((a, b) => a + b.count, 0);
+                const weightedSum = ratingsData.ratings.reduce((a, b) => a + (b.rating * b.count), 0);
+                document.getElementById('avgMovieRating').textContent = (weightedSum / totalMovies).toFixed(1);
+            }
+            if (tvStatsData.top_rated && tvStatsData.top_rated.length > 0) {
+                const avgTv = tvStatsData.top_rated.reduce((a, b) => a + b.rating, 0) / tvStatsData.top_rated.length;
+                document.getElementById('avgTvRating').textContent = avgTv.toFixed(1);
+            }
+            if (budgetData.stats) {
+                document.getElementById('profitableCount').textContent = 
+                    (budgetData.stats.profitable_count || 0).toLocaleString();
+                document.getElementById('avgRoi').textContent = 
+                    (budgetData.stats.avg_roi || 0).toFixed(0) + '%';
+            }
+
+            // Genre Chart
+            destroyChart('genreChart');
+            charts['genreChart'] = new Chart(document.getElementById('genreChart').getContext('2d'), {
                 type: 'bar',
                 data: {
-                    labels: data.genres.map(g => g.name),
+                    labels: genresData.genres.map(g => g.name),
                     datasets: [{
-                        label: 'Number of Movies',
-                        data: data.genres.map(g => g.count),
+                        label: 'Movies',
+                        data: genresData.genres.map(g => g.count),
                         backgroundColor: 'rgba(56, 189, 248, 0.6)',
                         borderColor: 'rgba(56, 189, 248, 1)',
                         borderWidth: 1
@@ -78,41 +332,55 @@
                     plugins: { legend: { display: false } },
                     scales: {
                         y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8', maxRotation: 45 } }
+                    }
+                }
+            });
+
+            // Decades Chart
+            destroyChart('decadeChart');
+            charts['decadeChart'] = new Chart(document.getElementById('decadeChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: decadesData.decades.map(d => d.decade),
+                    datasets: [{
+                        label: 'Movies',
+                        data: decadesData.decades.map(d => d.count),
+                        backgroundColor: 'rgba(168, 85, 247, 0.6)',
+                        borderColor: 'rgba(168, 85, 247, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'Avg Rating',
+                        data: decadesData.decades.map(d => d.avg_rating),
+                        type: 'line',
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                        yAxisID: 'y1',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#94a3b8' } } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#94a3b8' } },
+                        y1: { position: 'right', min: 0, max: 10, grid: { display: false }, ticks: { color: '#22c55e' } },
                         x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
                     }
                 }
             });
-        } catch (e) { console.error('Genre chart error:', e); }
 
-        // Load People
-        try {
-            const resp = await fetch('/api/analysis/people');
-            const data = await resp.json();
-            
-            const html = data.people.map((p, i) => `
-                <tr>
-                    <td style="color: var(--text-secondary);">#${i + 1}</td>
-                    <td style="font-weight: 500;">${p.name}</td>
-                    <td>${p.count.toLocaleString()}</td>
-                </tr>
-            `).join('');
-            
-            document.getElementById('peopleList').innerHTML = html;
-        } catch (e) { console.error('People list error:', e); }
-
-        // Load Years
-        try {
-            const resp = await fetch('/api/analysis/years');
-            const data = await resp.json();
-            
-            const ctx = document.getElementById('yearChart').getContext('2d');
-            new Chart(ctx, {
+            // Year Chart
+            destroyChart('yearChart');
+            charts['yearChart'] = new Chart(document.getElementById('yearChart').getContext('2d'), {
                 type: 'line',
                 data: {
-                    labels: data.years.map(y => y.year),
+                    labels: yearsData.years.map(y => y.year),
                     datasets: [{
                         label: 'Movies Released',
-                        data: data.years.map(y => y.count),
+                        data: yearsData.years.map(y => y.count),
                         borderColor: '#22c55e',
                         backgroundColor: 'rgba(34, 197, 94, 0.1)',
                         fill: true,
@@ -129,23 +397,70 @@
                     }
                 }
             });
-        } catch (e) { console.error('Year chart error:', e); }
 
-        // Load Ratings
-        try {
-            const resp = await fetch('/api/analysis/ratings');
-            const data = await resp.json();
-            
-            const ctx = document.getElementById('ratingChart').getContext('2d');
-            new Chart(ctx, {
+            // Rating Chart
+            destroyChart('ratingChart');
+            charts['ratingChart'] = new Chart(document.getElementById('ratingChart').getContext('2d'), {
                 type: 'bar',
                 data: {
-                    labels: data.ratings.map(r => r.rating),
+                    labels: ratingsData.ratings.map(r => r.rating),
                     datasets: [{
                         label: 'Movies',
-                        data: data.ratings.map(r => r.count),
+                        data: ratingsData.ratings.map(r => r.count),
                         backgroundColor: 'rgba(234, 179, 8, 0.6)',
                         borderColor: 'rgba(234, 179, 8, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' }, title: { display: true, text: 'Rating (0-10)', color: '#94a3b8' } }
+                    }
+                }
+            });
+
+            // Language Chart
+            destroyChart('languageChart');
+            const languageLabels = {
+                'en': 'English', 'es': 'Spanish', 'fr': 'French', 'de': 'German',
+                'ja': 'Japanese', 'ko': 'Korean', 'zh': 'Chinese', 'hi': 'Hindi',
+                'it': 'Italian', 'pt': 'Portuguese', 'ru': 'Russian', 'ar': 'Arabic'
+            };
+            charts['languageChart'] = new Chart(document.getElementById('languageChart').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: languagesData.languages.map(l => languageLabels[l.code] || l.code.toUpperCase()),
+                    datasets: [{
+                        data: languagesData.languages.map(l => l.count),
+                        backgroundColor: [
+                            '#38bdf8', '#22c55e', '#eab308', '#ef4444', '#a855f7',
+                            '#ec4899', '#f97316', '#14b8a6', '#6366f1', '#84cc16',
+                            '#06b6d4', '#f43f5e', '#8b5cf6', '#10b981', '#fbbf24'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right', labels: { color: '#94a3b8' } } }
+                }
+            });
+
+            // Runtime Chart
+            destroyChart('runtimeChart');
+            charts['runtimeChart'] = new Chart(document.getElementById('runtimeChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: runtimeData.runtime.map(r => r.bucket),
+                    datasets: [{
+                        label: 'Movies',
+                        data: runtimeData.runtime.map(r => r.count),
+                        backgroundColor: 'rgba(236, 72, 153, 0.6)',
+                        borderColor: 'rgba(236, 72, 153, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -159,8 +474,104 @@
                     }
                 }
             });
-        } catch (e) { console.error('Rating chart error:', e); }
+
+            // TV Status Chart
+            destroyChart('tvStatusChart');
+            charts['tvStatusChart'] = new Chart(document.getElementById('tvStatusChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: tvStatsData.status_distribution.map(s => s.status),
+                    datasets: [{
+                        data: tvStatsData.status_distribution.map(s => s.count),
+                        backgroundColor: ['#22c55e', '#ef4444', '#eab308', '#38bdf8', '#a855f7', '#f97316']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right', labels: { color: '#94a3b8' } } }
+                }
+            });
+
+            // Top Rated Movies Table
+            document.getElementById('topRatedList').innerHTML = topRatedData.movies.map((m, i) => `
+                <tr>
+                    <td style="color: var(--text-secondary);">#${i + 1}</td>
+                    <td style="font-weight: 500;">${m.title} ${m.year ? `(${m.year})` : ''}</td>
+                    <td><span style="color: var(--success);">★ ${m.rating.toFixed(1)}</span></td>
+                    <td>${m.votes.toLocaleString()}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="4">No data</td></tr>';
+
+            // People Table
+            document.getElementById('peopleList').innerHTML = peopleData.people.map((p, i) => `
+                <tr>
+                    <td style="color: var(--text-secondary);">#${i + 1}</td>
+                    <td style="font-weight: 500;">${p.name}</td>
+                    <td>${p.count.toLocaleString()}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No data</td></tr>';
+
+            // Companies Table
+            document.getElementById('companiesList').innerHTML = companiesData.companies.map((c, i) => `
+                <tr>
+                    <td style="color: var(--text-secondary);">#${i + 1}</td>
+                    <td style="font-weight: 500;">${c.name}</td>
+                    <td>${c.count.toLocaleString()}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No data</td></tr>';
+
+            // Top Revenue Table
+            document.getElementById('topRevenueList').innerHTML = budgetData.top_revenue.map((m, i) => `
+                <tr>
+                    <td style="color: var(--text-secondary);">#${i + 1}</td>
+                    <td style="font-weight: 500;">${m.title}</td>
+                    <td style="color: var(--success);">${formatCurrency(m.revenue)}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No data</td></tr>';
+
+            // Top ROI Table
+            document.getElementById('topRoiList').innerHTML = budgetData.top_roi.map(m => `
+                <tr>
+                    <td style="font-weight: 500;">${m.title}</td>
+                    <td>${formatCurrency(m.budget)}</td>
+                    <td style="color: var(--success);">${formatCurrency(m.revenue)}</td>
+                    <td style="color: var(--warning);">${m.roi.toFixed(0)}%</td>
+                </tr>
+            `).join('') || '<tr><td colspan="4">No data</td></tr>';
+
+            // Longest TV Shows Table
+            document.getElementById('longestTvList').innerHTML = tvStatsData.longest_running.map(t => `
+                <tr>
+                    <td style="font-weight: 500;">${t.name}</td>
+                    <td>${t.seasons}</td>
+                    <td>${t.episodes.toLocaleString()}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="3">No data</td></tr>';
+
+            // Top Rated TV Table
+            document.getElementById('topRatedTvList').innerHTML = tvStatsData.top_rated.map((t, i) => `
+                <tr>
+                    <td style="color: var(--text-secondary);">#${i + 1}</td>
+                    <td style="font-weight: 500;">${t.name}</td>
+                    <td><span style="color: var(--success);">★ ${t.rating.toFixed(1)}</span></td>
+                    <td>${t.votes.toLocaleString()}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="4">No data</td></tr>';
+
+            feather.replace();
+
+        } catch (e) {
+            console.error('Analysis error:', e);
+        } finally {
+            setLoadingState(false);
+        }
     }
+
+    // Add CSS for spin animation
+    const style = document.createElement('style');
+    style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+    document.head.appendChild(style);
 
     loadAnalysis();
 </script>

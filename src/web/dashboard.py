@@ -477,6 +477,283 @@ def api_analysis_ratings():
             return jsonify({"ratings": []})
 
 
+@app.route('/api/analysis/top-rated-movies')
+def api_analysis_top_rated():
+    """Return top rated movies with significant vote count."""
+    with get_db() as db:
+        try:
+            res = db.execute(text(
+                "SELECT id, title, vote_average, vote_count, release_date "
+                "FROM movies "
+                "WHERE vote_count >= 1000 AND vote_average IS NOT NULL "
+                "ORDER BY vote_average DESC, vote_count DESC "
+                "LIMIT 20"
+            )).fetchall()
+            return jsonify({
+                "movies": [
+                    {
+                        "id": r[0],
+                        "title": r[1],
+                        "rating": float(r[2]) if r[2] else 0,
+                        "votes": r[3],
+                        "year": r[4].year if r[4] else None
+                    }
+                    for r in res
+                ]
+            })
+        except Exception as e:
+            print(f"Error querying top rated: {e}")
+            return jsonify({"movies": []})
+
+
+@app.route('/api/analysis/top-production-companies')
+def api_analysis_top_companies():
+    """Return production companies with most movies."""
+    with get_db() as db:
+        try:
+            res = db.execute(text(
+                "SELECT pc.id, pc.name, COUNT(mpc.movie_id) as movie_count "
+                "FROM production_companies pc "
+                "JOIN movie_production_companies mpc ON pc.id = mpc.company_id "
+                "GROUP BY pc.id, pc.name "
+                "ORDER BY movie_count DESC "
+                "LIMIT 20"
+            )).fetchall()
+            return jsonify({
+                "companies": [
+                    {"id": r[0], "name": r[1], "count": r[2]}
+                    for r in res
+                ]
+            })
+        except Exception as e:
+            print(f"Error querying companies: {e}")
+            return jsonify({"companies": []})
+
+
+@app.route('/api/analysis/languages')
+def api_analysis_languages():
+    """Return movie distribution by original language."""
+    with get_db() as db:
+        try:
+            res = db.execute(text(
+                "SELECT original_language, COUNT(*) as count "
+                "FROM movies "
+                "WHERE original_language IS NOT NULL AND original_language != '' "
+                "GROUP BY original_language "
+                "ORDER BY count DESC "
+                "LIMIT 15"
+            )).fetchall()
+            return jsonify({
+                "languages": [
+                    {"code": r[0], "count": r[1]}
+                    for r in res
+                ]
+            })
+        except Exception as e:
+            print(f"Error querying languages: {e}")
+            return jsonify({"languages": []})
+
+
+@app.route('/api/analysis/runtime')
+def api_analysis_runtime():
+    """Return movie runtime distribution."""
+    with get_db() as db:
+        try:
+            # Group runtime into buckets
+            res = db.execute(text(
+                "SELECT "
+                "  CASE "
+                "    WHEN runtime < 60 THEN 'Under 1h' "
+                "    WHEN runtime < 90 THEN '1h - 1h30' "
+                "    WHEN runtime < 120 THEN '1h30 - 2h' "
+                "    WHEN runtime < 150 THEN '2h - 2h30' "
+                "    WHEN runtime < 180 THEN '2h30 - 3h' "
+                "    ELSE 'Over 3h' "
+                "  END as bucket, "
+                "  COUNT(*) as count "
+                "FROM movies "
+                "WHERE runtime IS NOT NULL AND runtime > 0 "
+                "GROUP BY bucket "
+                "ORDER BY MIN(runtime)"
+            )).fetchall()
+            return jsonify({
+                "runtime": [{"bucket": r[0], "count": r[1]} for r in res]
+            })
+        except Exception as e:
+            print(f"Error querying runtime: {e}")
+            return jsonify({"runtime": []})
+
+
+@app.route('/api/analysis/budget-revenue')
+def api_analysis_budget_revenue():
+    """Return budget vs revenue analysis for profitable movies."""
+    with get_db() as db:
+        try:
+            # Get average stats
+            stats = db.execute(text(
+                "SELECT "
+                "  AVG(budget) as avg_budget, "
+                "  AVG(revenue) as avg_revenue, "
+                "  AVG(CASE WHEN budget > 0 THEN (revenue - budget)::float / budget * 100 END) as avg_roi, "
+                "  COUNT(*) FILTER (WHERE revenue > budget AND budget > 0) as profitable_count, "
+                "  COUNT(*) FILTER (WHERE budget > 0 AND revenue > 0) as total_with_data "
+                "FROM movies "
+                "WHERE budget > 0 AND revenue > 0"
+            )).fetchone()
+            
+            # Get top ROI movies
+            top_roi = db.execute(text(
+                "SELECT title, budget, revenue, "
+                "  ((revenue - budget)::float / budget * 100) as roi "
+                "FROM movies "
+                "WHERE budget >= 1000000 AND revenue > 0 "
+                "ORDER BY roi DESC "
+                "LIMIT 10"
+            )).fetchall()
+            
+            # Get biggest box office
+            top_revenue = db.execute(text(
+                "SELECT title, budget, revenue "
+                "FROM movies "
+                "WHERE revenue > 0 "
+                "ORDER BY revenue DESC "
+                "LIMIT 10"
+            )).fetchall()
+            
+            return jsonify({
+                "stats": {
+                    "avg_budget": float(stats[0]) if stats[0] else 0,
+                    "avg_revenue": float(stats[1]) if stats[1] else 0,
+                    "avg_roi": float(stats[2]) if stats[2] else 0,
+                    "profitable_count": stats[3] or 0,
+                    "total_with_data": stats[4] or 0
+                },
+                "top_roi": [
+                    {
+                        "title": r[0],
+                        "budget": r[1],
+                        "revenue": r[2],
+                        "roi": float(r[3]) if r[3] else 0
+                    }
+                    for r in top_roi
+                ],
+                "top_revenue": [
+                    {"title": r[0], "budget": r[1], "revenue": r[2]}
+                    for r in top_revenue
+                ]
+            })
+        except Exception as e:
+            print(f"Error querying budget/revenue: {e}")
+            return jsonify({"stats": {}, "top_roi": [], "top_revenue": []})
+
+
+@app.route('/api/analysis/tv-stats')
+def api_analysis_tv_stats():
+    """Return TV series statistics."""
+    with get_db() as db:
+        try:
+            # Status distribution
+            status_dist = db.execute(text(
+                "SELECT status, COUNT(*) as count "
+                "FROM tv_series "
+                "WHERE status IS NOT NULL AND status != '' "
+                "GROUP BY status "
+                "ORDER BY count DESC"
+            )).fetchall()
+            
+            # Average seasons/episodes
+            avg_stats = db.execute(text(
+                "SELECT "
+                "  AVG(number_of_seasons) as avg_seasons, "
+                "  AVG(number_of_episodes) as avg_episodes, "
+                "  MAX(number_of_seasons) as max_seasons, "
+                "  MAX(number_of_episodes) as max_episodes "
+                "FROM tv_series "
+                "WHERE number_of_seasons > 0"
+            )).fetchone()
+            
+            # Longest running shows
+            longest = db.execute(text(
+                "SELECT name, number_of_seasons, number_of_episodes, first_air_date "
+                "FROM tv_series "
+                "WHERE number_of_episodes > 0 "
+                "ORDER BY number_of_episodes DESC "
+                "LIMIT 10"
+            )).fetchall()
+            
+            # Top rated TV shows
+            top_rated_tv = db.execute(text(
+                "SELECT name, vote_average, vote_count "
+                "FROM tv_series "
+                "WHERE vote_count >= 500 AND vote_average IS NOT NULL "
+                "ORDER BY vote_average DESC "
+                "LIMIT 10"
+            )).fetchall()
+            
+            return jsonify({
+                "status_distribution": [
+                    {"status": r[0], "count": r[1]} for r in status_dist
+                ],
+                "averages": {
+                    "avg_seasons": float(avg_stats[0]) if avg_stats[0] else 0,
+                    "avg_episodes": float(avg_stats[1]) if avg_stats[1] else 0,
+                    "max_seasons": avg_stats[2] or 0,
+                    "max_episodes": avg_stats[3] or 0
+                },
+                "longest_running": [
+                    {
+                        "name": r[0],
+                        "seasons": r[1],
+                        "episodes": r[2],
+                        "first_air_date": r[3].isoformat() if r[3] else None
+                    }
+                    for r in longest
+                ],
+                "top_rated": [
+                    {"name": r[0], "rating": float(r[1]) if r[1] else 0, "votes": r[2]}
+                    for r in top_rated_tv
+                ]
+            })
+        except Exception as e:
+            print(f"Error querying TV stats: {e}")
+            return jsonify({
+                "status_distribution": [],
+                "averages": {},
+                "longest_running": [],
+                "top_rated": []
+            })
+
+
+@app.route('/api/analysis/decades')
+def api_analysis_decades():
+    """Return movie distribution by decade."""
+    with get_db() as db:
+        try:
+            res = db.execute(text(
+                "SELECT "
+                "  (EXTRACT(YEAR FROM release_date)::int / 10 * 10) as decade, "
+                "  COUNT(*) as count, "
+                "  AVG(vote_average) as avg_rating "
+                "FROM movies "
+                "WHERE release_date IS NOT NULL "
+                "GROUP BY decade "
+                "ORDER BY decade"
+            )).fetchall()
+            return jsonify({
+                "decades": [
+                    {
+                        "decade": f"{int(r[0])}s",
+                        "count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0
+                    }
+                    for r in res if r[0] is not None
+                ]
+            })
+        except Exception as e:
+            print(f"Error querying decades: {e}")
+            return jsonify({"decades": []})
+
+
 @app.route('/api/system/stats')
 def api_system_stats():
     """Return system status."""

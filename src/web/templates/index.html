@@ -5,8 +5,8 @@
 {% block content %}
 <div class="header">
     <h1 class="page-title">Dashboard Overview</h1>
-    <button class="btn btn-primary" onclick="loadStats()">
-        <i data-feather="refresh-cw"></i> Refresh
+    <button class="btn btn-primary" onclick="loadStats()" id="refreshBtn">
+        <i data-feather="refresh-cw" id="refreshIcon"></i> <span id="refreshText">Refresh</span>
     </button>
 </div>
 
@@ -119,7 +119,31 @@
 
 {% block scripts %}
 <script>
+    let isLoading = false;
+
+    function setLoadingState(loading) {
+        isLoading = loading;
+        const btn = document.getElementById('refreshBtn');
+        const icon = document.getElementById('refreshIcon');
+        const text = document.getElementById('refreshText');
+        
+        if (loading) {
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            icon.style.animation = 'spin 1s linear infinite';
+            text.textContent = 'Loading...';
+        } else {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            icon.style.animation = 'none';
+            text.textContent = 'Refresh';
+        }
+    }
+
     async function loadStats() {
+        if (isLoading) return;
+        setLoadingState(true);
+        
         try {
             // Fetch both endpoints in parallel
             const [statsResp, systemResp] = await Promise.all([
@@ -198,8 +222,15 @@
 
         } catch (e) {
             console.error(e);
+        } finally {
+            setLoadingState(false);
         }
     }
+
+    // Add CSS for spin animation
+    const style = document.createElement('style');
+    style.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+    document.head.appendChild(style);
 
     loadStats();
     setInterval(loadStats, 30000);
