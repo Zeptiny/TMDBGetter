@@ -1,11 +1,16 @@
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:18.1-alpine
     container_name: tmdb_postgres
     environment:
       POSTGRES_DB: ${DB_NAME:-tmdb}
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      # Performance tuning
+      POSTGRES_SHARED_BUFFERS: ${POSTGRES_SHARED_BUFFERS:-512MB}
+      POSTGRES_EFFECTIVE_CACHE_SIZE: ${POSTGRES_EFFECTIVE_CACHE_SIZE:-2GB}
+      POSTGRES_MAINTENANCE_WORK_MEM: ${POSTGRES_MAINTENANCE_WORK_MEM:-256MB}
+      POSTGRES_WORK_MEM: ${POSTGRES_WORK_MEM:-32MB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
