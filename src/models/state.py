@@ -28,17 +28,18 @@ class ProcessingState(Base):
     __tablename__ = "processing_state"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    content_type = Column(SQLEnum("movie", "tv_series", name="content_type"), nullable=False)
+    content_type = Column(SQLEnum("movie", "tv_series", name="content_type"), nullable=False, index=True)
     content_id = Column(Integer, nullable=False)
     status = Column(
         SQLEnum("pending", "processing", "completed", "failed", name="processing_status"),
         nullable=False,
-        default="pending"
+        default="pending",
+        index=True
     )
     attempts = Column(Integer, default=0)
     last_error = Column(Text)
-    last_attempt_at = Column(DateTime)
-    completed_at = Column(DateTime)
+    last_attempt_at = Column(DateTime, index=True)
+    completed_at = Column(DateTime, index=True)
     created_at = Column(DateTime, default=utcnow)
 
 
