@@ -2,13 +2,13 @@
 import gzip
 import json
 import aiohttp
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Dict, Any
 from sqlalchemy.orm import Session
 
 from ..config import config
-from ..utils import setup_logger, format_date_for_url
+from ..utils import setup_logger, format_date_for_url, utcnow
 from ..models import DailyDump, ProcessingState
 
 
@@ -103,7 +103,7 @@ class DownloadManager:
             # Update dump record
             existing.download_status = "completed"
             existing.total_ids = len(ids)
-            existing.downloaded_at = datetime.utcnow()
+            existing.downloaded_at = utcnow()
             db.commit()
 
             # Clean up temp file

@@ -13,7 +13,7 @@ def test_parse_movie_basic(db_session, sample_movie_data):
     movie = parser.parse_movie(sample_movie_data)
     
     assert movie is not None
-    assert movie.tmdb_id == 550
+    assert movie.id == 550  # id is the TMDB ID (primary key)
     assert movie.title == "Fight Club"
     assert movie.original_title == "Fight Club"
     assert movie.release_date == datetime(1999, 10, 15).date()
@@ -30,8 +30,8 @@ def test_parse_movie_with_genres(db_session, sample_movie_data):
     movie = parser.parse_movie(sample_movie_data)
     db_session.commit()
     
-    # Check that genre was created
-    genre = db_session.query(Genre).filter_by(tmdb_id=18).first()
+    # Check that genre was created (Genre uses id as TMDB genre ID)
+    genre = db_session.query(Genre).filter_by(id=18).first()
     assert genre is not None
     assert genre.name == "Drama"
     
@@ -66,10 +66,10 @@ def test_parse_movie_handles_missing_fields(db_session):
     movie = parser.parse_movie(minimal_data)
     
     assert movie is not None
-    assert movie.tmdb_id == 123
+    assert movie.id == 123  # id is the TMDB ID
     assert movie.title == "Test Movie"
     assert movie.runtime is None
-    assert movie.budget is None
+    assert movie.budget == 0  # Default value
 
 
 def test_parse_tv_series_basic(db_session, sample_tv_data):
@@ -79,7 +79,7 @@ def test_parse_tv_series_basic(db_session, sample_tv_data):
     series = parser.parse_tv_series(sample_tv_data)
     
     assert series is not None
-    assert series.tmdb_id == 1396
+    assert series.id == 1396  # id is the TMDB ID
     assert series.name == "Breaking Bad"
     assert series.original_name == "Breaking Bad"
     assert series.number_of_episodes == 62
@@ -127,12 +127,12 @@ def test_parser_updates_existing_movie(db_session, sample_movie_data):
     movie2 = parser.parse_movie(sample_movie_data)
     db_session.commit()
     
-    # Should be same movie object
-    assert movie1.tmdb_id == movie2.tmdb_id
+    # Should be same movie (same id)
+    assert movie1.id == movie2.id
     assert movie2.title == "Fight Club - Updated"
     
     # Should only be one movie in database
-    count = db_session.query(Movie).filter_by(tmdb_id=550).count()
+    count = db_session.query(Movie).filter_by(id=550).count()
     assert count == 1
 
 

@@ -12,6 +12,14 @@ from .rate_limiter import RateLimiter
 logger = setup_logger(__name__, config.LOGS_DIR / "api.log", config.LOG_LEVEL)
 
 
+class TMDBAPIError(Exception):
+    """Custom exception for TMDB API errors."""
+    def __init__(self, message: str, status_code: Optional[int] = None):
+        self.message = message
+        self.status_code = status_code
+        super().__init__(self.message)
+
+
 class TMDBAPIClient:
     """Client for TMDB API."""
 
@@ -21,14 +29,21 @@ class TMDBAPIClient:
         self.api_key = config.TMDB_API_KEY
         self.rate_limiter = RateLimiter(rate=config.RATE_LIMIT, per=1.0)
         self.session: Optional[aiohttp.ClientSession] = None
+        
+        # Validate API key
+        if not self.api_key:
+            raise ValueError("TMDB API key is not configured")
 
     async def __aenter__(self):
         """Async context manager entry."""
+        timeout = aiohttp.ClientTimeout(total=60, connect=10)
         self.session = aiohttp.ClientSession(
             headers={
                 "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            timeout=timeout
         )
         return self
 
@@ -53,17 +68,28 @@ class TMDBAPIClient:
         logger.debug(f"Fetching: {url}")
 
         try:
-            async with self.session.get(url, timeout=30) as response:
+            async with self.session.get(url) as response:
                 if response.status == 429:
                     # Rate limit exceeded, wait and retry
                     retry_after = int(response.headers.get("Retry-After", 5))
                     logger.warning(f"Rate limit exceeded. Waiting {retry_after}s")
                     await asyncio.sleep(retry_after)
                     raise aiohttp.ClientError("Rate limit exceeded")
+                
+                if response.status == 404:
+                    logger.warning(f"Resource not found: {endpoint}")
+                    raise TMDBAPIError(f"Resource not found: {endpoint}", status_code=404)
+                
+                if response.status == 401:
+                    logger.error("Invalid API key")
+                    raise TMDBAPIError("Invalid API key", status_code=401)
 
                 response.raise_for_status()
                 return await response.json()
 
+        except aiohttp.ClientResponseError as e:
+            logger.error(f"API request failed for {endpoint}: HTTP {e.status} - {e.message}")
+            raise TMDBAPIError(f"HTTP {e.status}: {e.message}", status_code=e.status)
         except aiohttp.ClientError as e:
             logger.error(f"API request failed for {endpoint}: {str(e)}")
             raise

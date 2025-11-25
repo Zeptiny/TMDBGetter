@@ -2,7 +2,7 @@
 import subprocess
 from flask import Flask, render_template, jsonify, request, Response, stream_with_context
 from sqlalchemy import func, text, inspect
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from ..models import (
     get_db, ProcessingState, DailyDump, Movie, TVSeries,
@@ -10,6 +10,7 @@ from ..models import (
 )
 from ..services import StateManager
 from ..config import config
+from ..utils import utcnow
 
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -137,7 +138,7 @@ def processing_timeline():
     """Get processing timeline data."""
     with get_db() as db:
         # Get processing activity over the last 24 hours
-        cutoff = datetime.utcnow() - timedelta(hours=24)
+        cutoff = utcnow() - timedelta(hours=24)
 
         movie_timeline = (
             db.query(
@@ -433,13 +434,13 @@ def api_system_stats():
             return jsonify({
                 "db_size": size_res,
                 "status": "Connected",
-                "last_update": datetime.utcnow().isoformat()
+                "last_update": utcnow().isoformat()
             })
         except Exception as e:
             return jsonify({
                 "db_size": "Unknown",
                 "status": "Error",
-                "last_update": datetime.utcnow().isoformat()
+                "last_update": utcnow().isoformat()
             }), 500
 
 

@@ -2,6 +2,7 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime
 from datetime import datetime
 from .base import Base
+from ..utils import utcnow
 
 
 class SavedQuery(Base):
@@ -13,5 +14,5 @@ class SavedQuery(Base):
     name = Column(String(255), nullable=False)
     description = Column(Text)
     query_text = Column(Text, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=utcnow)
+    updated_at = Column(DateTime, default=utcnow, onupdate=utcnow)

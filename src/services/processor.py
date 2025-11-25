@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from ..config import config
 from ..utils import setup_logger
 from ..models import get_db, init_db
-from .api_client import TMDBAPIClient
+from .api_client import TMDBAPIClient, TMDBAPIError
 from .data_parser import DataParser
 from .state_manager import StateManager
 from .download_manager import DownloadManager
@@ -109,10 +109,8 @@ class ContentProcessor:
         content_id: int
     ):
         """Process a single content item."""
-        # Mark as processing
-        with get_db() as db:
-            state_manager = StateManager(db)
-            state_manager.mark_processing(state_id)
+        # Mark as processing (run in thread to not block event loop)
+        await asyncio.to_thread(self._mark_processing_sync, state_id)
 
         try:
             # Fetch data from API
@@ -121,32 +119,58 @@ class ContentProcessor:
             else:
                 data = await api_client.get_tv_series_details(content_id)
 
-            # Parse and save to database
-            with get_db() as db:
-                parser = DataParser(db)
-                if content_type == "movie":
-                    parser.parse_movie(data)
-                else:
-                    parser.parse_tv_series(data)
-
-                db.commit()
-
-                # Mark as completed
-                state_manager = StateManager(db)
-                state_manager.mark_completed(state_id)
+            # Parse and save to database (run in thread to not block event loop)
+            await asyncio.to_thread(self._save_content_sync, content_type, data, state_id)
 
             self.checkpoint_counter += 1
             if self.checkpoint_counter % config.CHECKPOINT_INTERVAL == 0:
                 logger.info(f"Checkpoint: Processed {self.checkpoint_counter} items")
 
+        except TMDBAPIError as e:
+            if e.status_code == 404:
+                # Content doesn't exist (deleted from TMDB), mark as completed to skip
+                logger.warning(f"{content_type} {content_id} not found on TMDB (404)")
+                await asyncio.to_thread(self._mark_completed_sync, state_id)
+            else:
+                error_msg = str(e)
+                logger.error(f"Failed to process {content_type} {content_id}: {error_msg}")
+                await asyncio.to_thread(self._mark_failed_sync, state_id, error_msg)
+
         except Exception as e:
             error_msg = str(e)
             logger.error(f"Failed to process {content_type} {content_id}: {error_msg}")
+            await asyncio.to_thread(self._mark_failed_sync, state_id, error_msg)
 
-            # Mark as failed
-            with get_db() as db:
-                state_manager = StateManager(db)
-                state_manager.mark_failed(state_id, error_msg)
+    def _mark_processing_sync(self, state_id: int):
+        """Synchronous helper to mark processing state."""
+        with get_db() as db:
+            state_manager = StateManager(db)
+            state_manager.mark_processing(state_id)
+
+    def _save_content_sync(self, content_type: str, data: dict, state_id: int):
+        """Synchronous helper to save content and mark completed."""
+        with get_db() as db:
+            parser = DataParser(db)
+            if content_type == "movie":
+                parser.parse_movie(data)
+            else:
+                parser.parse_tv_series(data)
+            db.commit()
+            
+            state_manager = StateManager(db)
+            state_manager.mark_completed(state_id)
+
+    def _mark_completed_sync(self, state_id: int):
+        """Synchronous helper to mark completed state."""
+        with get_db() as db:
+            state_manager = StateManager(db)
+            state_manager.mark_completed(state_id)
+
+    def _mark_failed_sync(self, state_id: int, error_msg: str):
+        """Synchronous helper to mark failed state."""
+        with get_db() as db:
+            state_manager = StateManager(db)
+            state_manager.mark_failed(state_id, error_msg)
 
     async def check_and_schedule_updates(self):
         """Check for content that needs updating and schedule them."""

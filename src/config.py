@@ -44,7 +44,7 @@ class Config:
     # Application settings
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
     MAX_WORKERS: int = int(os.getenv("MAX_WORKERS", "10"))
-    RATE_LIMIT: int = int(os.getenv("RATE_LIMIT", "29"))
+    RATE_LIMIT: int = int(os.getenv("RATE_LIMIT", "30"))  # TMDB allows 30 requests/second
     MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "3"))
     RETRY_DELAY: int = int(os.getenv("RETRY_DELAY", "5"))
     CHECKPOINT_INTERVAL: int = int(os.getenv("CHECKPOINT_INTERVAL", "100"))

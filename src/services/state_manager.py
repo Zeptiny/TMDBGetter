@@ -1,11 +1,11 @@
 """State manager for tracking processing state."""
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Tuple
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
 
 from ..models import ProcessingState, DailyDump
-from ..utils import setup_logger
+from ..utils import setup_logger, utcnow
 from ..config import config
 
 
@@ -54,7 +54,7 @@ class StateManager:
         if state:
             state.status = "processing"
             state.attempts += 1
-            state.last_attempt_at = datetime.utcnow()
+            state.last_attempt_at = utcnow()
             self.db.commit()
 
     def mark_completed(self, state_id: int):
@@ -62,7 +62,7 @@ class StateManager:
         state = self.db.query(ProcessingState).filter_by(id=state_id).first()
         if state:
             state.status = "completed"
-            state.completed_at = datetime.utcnow()
+            state.completed_at = utcnow()
             state.last_error = None
             self.db.commit()
 
@@ -72,7 +72,7 @@ class StateManager:
         if state:
             state.status = "failed"
             state.last_error = error[:1000]  # Limit error length
-            state.last_attempt_at = datetime.utcnow()
+            state.last_attempt_at = utcnow()
             self.db.commit()
 
     def get_statistics(self, content_type: str) -> dict:
@@ -101,8 +101,8 @@ class StateManager:
 
     def reset_stuck_processing(self, content_type: str, hours: int = 1):
         """Reset states that have been stuck in 'processing' for too long."""
-        cutoff = datetime.utcnow().timestamp() - (hours * 3600)
-        cutoff_dt = datetime.fromtimestamp(cutoff)
+        cutoff = utcnow().timestamp() - (hours * 3600)
+        cutoff_dt = datetime.fromtimestamp(cutoff, tz=timezone.utc)
 
         updated = (
             self.db.query(ProcessingState)
@@ -126,8 +126,8 @@ class StateManager:
         Check for content that needs updating (completed but old).
         Returns IDs that haven't been updated in the last 30 days.
         """
-        cutoff = datetime.utcnow().timestamp() - (30 * 24 * 3600)
-        cutoff_dt = datetime.fromtimestamp(cutoff)
+        cutoff = utcnow().timestamp() - (30 * 24 * 3600)
+        cutoff_dt = datetime.fromtimestamp(cutoff, tz=timezone.utc)
 
         # Get completed IDs that need updating
         if content_type == "movie":

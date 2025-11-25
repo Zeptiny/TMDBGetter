@@ -1,6 +1,11 @@
 """Utility helper functions."""
-from datetime import datetime
+from datetime import datetime, date, timezone
 from typing import Any, Optional
+
+
+def utcnow() -> datetime:
+    """Return timezone-aware current UTC datetime."""
+    return datetime.now(timezone.utc)
 
 
 def safe_get(data: dict, *keys: str, default: Any = None) -> Any:
@@ -13,12 +18,12 @@ def safe_get(data: dict, *keys: str, default: Any = None) -> Any:
     return data
 
 
-def parse_date(date_str: Optional[str]) -> Optional[datetime]:
-    """Parse date string to datetime object."""
+def parse_date(date_str: Optional[str]) -> Optional[date]:
+    """Parse date string to date object."""
     if not date_str:
         return None
     try:
-        return datetime.strptime(date_str, "%Y-%m-%d")
+        return datetime.strptime(date_str, "%Y-%m-%d").date()
     except (ValueError, TypeError):
         return None
 

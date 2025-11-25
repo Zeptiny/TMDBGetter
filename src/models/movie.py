@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 import enum
 from .base import Base
+from ..utils import utcnow
 
 
 class Movie(Base):
@@ -31,8 +32,8 @@ class Movie(Base):
     vote_count = Column(Integer)
     poster_path = Column(String(255))
     backdrop_path = Column(String(255))
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=utcnow)
+    updated_at = Column(DateTime, default=utcnow, onupdate=utcnow)
 
     # Relationships
     genres = relationship("Genre", secondary="movie_genres", lazy="joined")
@@ -50,7 +51,7 @@ class MovieCast(Base):
     movie_id = Column(Integer, ForeignKey("movies.id", ondelete="CASCADE"), nullable=False)
     person_id = Column(Integer, ForeignKey("people.id", ondelete="CASCADE"), nullable=False)
     character = Column(String(500))
-    credit_id = Column(String(50), unique=True)
+    credit_id = Column(String(50), index=True)  # Not unique - same credit may appear in re-processing
     cast_order = Column(Integer)
 
     # Relationships
@@ -68,7 +69,7 @@ class MovieCrew(Base):
     person_id = Column(Integer, ForeignKey("people.id", ondelete="CASCADE"), nullable=False)
     department = Column(String(100))
     job = Column(String(100))
-    credit_id = Column(String(50), unique=True)
+    credit_id = Column(String(50), index=True)  # Not unique - same credit may appear in re-processing
 
     # Relationships
     movie = relationship("Movie", back_populates="crew")

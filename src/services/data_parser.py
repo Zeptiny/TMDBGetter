@@ -1,6 +1,6 @@
 """Data parser for TMDB API responses."""
 from typing import Dict, Any, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 
@@ -13,11 +13,16 @@ from ..models import (
     Genre, ProductionCompany, ProductionCountry, SpokenLanguage,
     Keyword, WatchProvider, TVNetwork, Person
 )
-from ..utils import safe_get, parse_date, setup_logger
+from ..utils import safe_get, parse_date, setup_logger, utcnow
 from ..config import config
 
 
 logger = setup_logger(__name__, config.LOGS_DIR / "parser.log", config.LOG_LEVEL)
+
+
+def utcnow() -> datetime:
+    """Return current UTC datetime (timezone-aware)."""
+    return datetime.now(timezone.utc)
 
 
 class DataParser:
@@ -167,7 +172,7 @@ class DataParser:
         movie.vote_count = data.get("vote_count")
         movie.poster_path = data.get("poster_path")
         movie.backdrop_path = data.get("backdrop_path")
-        movie.updated_at = datetime.utcnow()
+        movie.updated_at = utcnow()
 
         # Genres
         movie.genres.clear()
@@ -353,7 +358,7 @@ class DataParser:
         tv_series.vote_count = data.get("vote_count")
         tv_series.poster_path = data.get("poster_path")
         tv_series.backdrop_path = data.get("backdrop_path")
-        tv_series.updated_at = datetime.utcnow()
+        tv_series.updated_at = utcnow()
 
         # Genres
         tv_series.genres.clear()

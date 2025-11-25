@@ -1,7 +1,6 @@
 """SQLAlchemy base and session management."""
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import sessionmaker, Session, DeclarativeBase
 from contextlib import contextmanager
 from typing import Generator
 
@@ -11,16 +10,18 @@ from ..config import config
 engine = create_engine(
     config.DATABASE_URL,
     pool_pre_ping=True,
-    pool_size=10,
-    max_overflow=20,
+    pool_size=20,
+    max_overflow=40,
     echo=False
 )
 
 # Create session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Create base class for models
-Base = declarative_base()
+
+# Create base class for models using SQLAlchemy 2.0 style
+class Base(DeclarativeBase):
+    pass
 
 
 @contextmanager

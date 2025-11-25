@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, Boolean, Float, Date, DateTime, 
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from .base import Base
+from ..utils import utcnow
 
 
 class TVSeries(Base):
@@ -11,7 +12,6 @@ class TVSeries(Base):
     __tablename__ = "tv_series"
 
     id = Column(Integer, primary_key=True)
-    imdb_id = Column(String(20), unique=True, index=True)
     name = Column(String(500), nullable=False)
     original_name = Column(String(500))
     original_language = Column(String(10))
@@ -31,8 +31,8 @@ class TVSeries(Base):
     vote_count = Column(Integer)
     poster_path = Column(String(255))
     backdrop_path = Column(String(255))
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=utcnow)
+    updated_at = Column(DateTime, default=utcnow, onupdate=utcnow)
 
     # Relationships
     genres = relationship("Genre", secondary="tv_series_genres", lazy="joined")
@@ -53,7 +53,7 @@ class TVSeriesCast(Base):
     tv_series_id = Column(Integer, ForeignKey("tv_series.id", ondelete="CASCADE"), nullable=False)
     person_id = Column(Integer, ForeignKey("people.id", ondelete="CASCADE"), nullable=False)
     character = Column(String(500))
-    credit_id = Column(String(50), unique=True)
+    credit_id = Column(String(50), index=True)  # Not unique - same credit may appear in re-processing
     cast_order = Column(Integer)
 
     # Relationships
@@ -71,7 +71,7 @@ class TVSeriesCrew(Base):
     person_id = Column(Integer, ForeignKey("people.id", ondelete="CASCADE"), nullable=False)
     department = Column(String(100))
     job = Column(String(100))
-    credit_id = Column(String(50), unique=True)
+    credit_id = Column(String(50), index=True)  # Not unique - same credit may appear in re-processing
 
     # Relationships
     tv_series = relationship("TVSeries", back_populates="crew")
@@ -85,7 +85,7 @@ class TVSeriesCreator(Base):
 
     tv_series_id = Column(Integer, ForeignKey("tv_series.id", ondelete="CASCADE"), primary_key=True)
     person_id = Column(Integer, ForeignKey("people.id", ondelete="CASCADE"), primary_key=True)
-    credit_id = Column(String(50), unique=True)
+    credit_id = Column(String(50), index=True)  # Not unique - same credit may appear in re-processing
 
     # Relationships
     tv_series = relationship("TVSeries", back_populates="creators")

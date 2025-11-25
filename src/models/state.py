@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Date, Text, Enum as SQ
 from datetime import datetime
 from enum import Enum
 from .base import Base
+from ..utils import utcnow
 
 
 class ProcessingStatus(str, Enum):
@@ -38,7 +39,7 @@ class ProcessingState(Base):
     last_error = Column(Text)
     last_attempt_at = Column(DateTime)
     completed_at = Column(DateTime)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utcnow)
 
 
 class DailyDump(Base):
@@ -58,4 +59,4 @@ class DailyDump(Base):
     total_ids = Column(Integer, default=0)
     processed_ids = Column(Integer, default=0)
     downloaded_at = Column(DateTime)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=utcnow)
