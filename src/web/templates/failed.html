@@ -5,12 +5,22 @@
 {% block content %}
 <div class="header">
     <h1 class="page-title">Failed Items</h1>
+    <div>
+        <button class="btn btn-primary" onclick="retryAll()" id="retryAllBtn">
+            <i data-feather="refresh-cw"></i> Retry All Failed
+        </button>
+    </div>
 </div>
 
 <div class="card">
-    <div class="search-bar">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search by ID or Error message...">
+    <div class="search-bar" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by ID or Error message..." style="flex: 1; min-width: 200px;">
         <button class="btn btn-primary" onclick="search()">Search</button>
+        <select id="typeFilter" onchange="search()" style="padding: 8px 12px; border-radius: 6px; background: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border);">
+            <option value="">All Types</option>
+            <option value="movie">Movies</option>
+            <option value="tv_series">TV Series</option>
+        </select>
     </div>
 
     <div class="table-container">
@@ -22,10 +32,11 @@
                     <th>Attempts</th>
                     <th>Last Error</th>
                     <th>Last Attempt</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="itemsList">
-                <tr><td colspan="5" class="loading">Loading...</td></tr>
+                <tr><td colspan="6" class="loading">Loading...</td></tr>
             </tbody>
         </table>
     </div>
@@ -34,6 +45,8 @@
         <!-- Pagination controls will be inserted here -->
     </div>
 </div>
+
+<div id="toast" style="position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; border-radius: 6px; display: none; z-index: 1000;"></div>
 {% endblock %}
 
 {% block scripts %}
@@ -41,14 +54,24 @@
     let currentPage = 1;
     let currentSearch = '';
 
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.style.background = type === 'success' ? 'var(--success)' : 'var(--danger)';
+        toast.style.color = '#fff';
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+
     async function loadItems(page = 1, search = '') {
         currentPage = page;
         currentSearch = search;
         
         const tbody = document.getElementById('itemsList');
-        tbody.innerHTML = '<tr><td colspan="5" class="loading">Loading...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="loading">Loading...</td></tr>';
 
         try {
+            const typeFilter = document.getElementById('typeFilter').value;
             const params = new URLSearchParams({
                 page: page,
                 q: search
@@ -57,24 +80,36 @@
             const resp = await fetch(`/api/failed?${params}`);
             const data = await resp.json();
             
-            if (data.items.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No failed items found.</td></tr>';
+            // Filter by type if selected (client-side for now, could be done server-side)
+            let items = data.items;
+            if (typeFilter) {
+                items = items.filter(item => item.type === typeFilter);
+            }
+            
+            if (items.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 20px;">No failed items found.</td></tr>';
             } else {
-                tbody.innerHTML = data.items.map(item => `
+                tbody.innerHTML = items.map(item => `
                     <tr>
                         <td><span class="status-badge status-warning">${item.type}</span></td>
                         <td>${item.id}</td>
                         <td>${item.attempts}</td>
-                        <td style="color: var(--danger); font-size: 0.9em;">${item.last_error || 'Unknown'}</td>
+                        <td style="color: var(--danger); font-size: 0.9em; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${(item.last_error || 'Unknown').replace(/"/g, '&quot;')}">${item.last_error || 'Unknown'}</td>
                         <td>${formatDate(item.last_attempt_at)}</td>
+                        <td>
+                            <button class="btn" style="font-size: 0.8rem; padding: 4px 8px;" onclick="retrySingle(${item.id}, '${item.type}')">
+                                <i data-feather="refresh-cw" style="width: 14px; height: 14px;"></i> Retry
+                            </button>
+                        </td>
                     </tr>
                 `).join('');
             }
 
             renderPagination(data.pagination);
+            feather.replace();
         } catch (e) {
             console.error(e);
-            tbody.innerHTML = '<tr><td colspan="5" style="color: var(--danger);">Error loading data</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" style="color: var(--danger);">Error loading data</td></tr>';
         }
     }
 
@@ -86,7 +121,7 @@
             html += `<button class="btn" onclick="loadItems(${pagination.page - 1}, '${currentSearch}')">Previous</button>`;
         }
         
-        html += `<span style="color: var(--text-secondary);">Page ${pagination.page} of ${pagination.pages}</span>`;
+        html += `<span style="color: var(--text-secondary);">Page ${pagination.page} of ${pagination.pages} (${pagination.total} total)</span>`;
         
         if (pagination.page < pagination.pages) {
             html += `<button class="btn" onclick="loadItems(${pagination.page + 1}, '${currentSearch}')">Next</button>`;
@@ -98,6 +133,64 @@
     function search() {
         const q = document.getElementById('searchInput').value;
         loadItems(1, q);
+    }
+
+    async function retrySingle(contentId, contentType) {
+        try {
+            const resp = await fetch('/api/failed/retry', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content_id: contentId, content_type: contentType })
+            });
+            const data = await resp.json();
+            
+            if (resp.ok) {
+                showToast(`Item ${contentId} queued for retry`);
+                loadItems(currentPage, currentSearch);
+            } else {
+                showToast(data.error || 'Failed to retry item', 'error');
+            }
+        } catch (e) {
+            console.error(e);
+            showToast('Error retrying item', 'error');
+        }
+    }
+
+    async function retryAll() {
+        if (!confirm('Are you sure you want to retry all failed items? This will reset them to pending status.')) {
+            return;
+        }
+        
+        const btn = document.getElementById('retryAllBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i data-feather="loader"></i> Retrying...';
+        feather.replace();
+        
+        try {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const body = typeFilter ? { content_type: typeFilter } : {};
+            
+            const resp = await fetch('/api/failed/retry-all', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            const data = await resp.json();
+            
+            if (resp.ok) {
+                showToast(`${data.reset_count} items queued for retry`);
+                loadItems(1, currentSearch);
+            } else {
+                showToast(data.error || 'Failed to retry items', 'error');
+            }
+        } catch (e) {
+            console.error(e);
+            showToast('Error retrying items', 'error');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i data-feather="refresh-cw"></i> Retry All Failed';
+            feather.replace();
+        }
     }
 
     document.getElementById('searchInput').addEventListener('keypress', function (e) {

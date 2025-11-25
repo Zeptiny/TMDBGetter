@@ -153,7 +153,9 @@ class DataParser:
             self.db.add(movie)
 
         # Update basic fields
-        movie.imdb_id = data.get("imdb_id")
+        # Convert empty string to None for imdb_id (unique constraint)
+        imdb_id = data.get("imdb_id")
+        movie.imdb_id = imdb_id if imdb_id else None
         movie.title = data["title"]
         movie.original_title = data.get("original_title")
         movie.original_language = data.get("original_language")

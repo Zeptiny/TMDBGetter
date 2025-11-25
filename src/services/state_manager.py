@@ -82,22 +82,67 @@ class StateManager:
             content_type=content_type,
             status="completed"
         ).count()
-        failed = self.db.query(ProcessingState).filter(
+        # Count all items with status='failed' (regardless of attempts)
+        failed = self.db.query(ProcessingState).filter_by(
+            content_type=content_type,
+            status="failed"
+        ).count()
+        # Count permanently failed (max retries reached)
+        permanently_failed = self.db.query(ProcessingState).filter(
             and_(
                 ProcessingState.content_type == content_type,
                 ProcessingState.status == "failed",
                 ProcessingState.attempts >= config.MAX_RETRIES
             )
         ).count()
-        pending = total - completed - failed
+        pending = self.db.query(ProcessingState).filter_by(
+            content_type=content_type,
+            status="pending"
+        ).count()
+        processing = self.db.query(ProcessingState).filter_by(
+            content_type=content_type,
+            status="processing"
+        ).count()
 
         return {
             "total": total,
             "completed": completed,
             "failed": failed,
+            "permanently_failed": permanently_failed,
             "pending": pending,
+            "processing": processing,
             "completion_rate": (completed / total * 100) if total > 0 else 0
         }
+
+    def retry_all_failed(self, content_type: str = None) -> int:
+        """
+        Reset all failed items to pending status for retry.
+        
+        Args:
+            content_type: Optional filter by content type ('movie' or 'tv_series')
+            
+        Returns:
+            Number of items reset
+        """
+        query = self.db.query(ProcessingState).filter(
+            ProcessingState.status == "failed"
+        )
+        
+        if content_type:
+            query = query.filter(ProcessingState.content_type == content_type)
+        
+        updated = query.update(
+            {
+                "status": "pending",
+                "attempts": 0,
+                "last_error": None
+            },
+            synchronize_session=False
+        )
+        
+        self.db.commit()
+        logger.info(f"Reset {updated} failed items to pending for retry")
+        return updated
 
     def reset_stuck_processing(self, content_type: str, hours: int = 1):
         """Reset states that have been stuck in 'processing' for too long."""

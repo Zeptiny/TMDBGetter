@@ -232,6 +232,60 @@ def api_failed():
         })
 
 
+@app.route("/api/failed/retry", methods=["POST"])
+def api_failed_retry_single():
+    """Retry a single failed item."""
+    data = request.get_json()
+    content_id = data.get("content_id")
+    content_type = data.get("content_type")
+    
+    if not content_id or not content_type:
+        return jsonify({"error": "content_id and content_type are required"}), 400
+    
+    with get_db() as db:
+        try:
+            state = db.query(ProcessingState).filter(
+                ProcessingState.content_id == content_id,
+                ProcessingState.content_type == content_type,
+                ProcessingState.status == "failed"
+            ).first()
+            
+            if not state:
+                return jsonify({"error": "Failed item not found"}), 404
+            
+            state.status = "pending"
+            state.attempts = 0
+            state.last_error = None
+            db.commit()
+            
+            return jsonify({
+                "message": f"Item {content_id} reset to pending for retry",
+                "reset_count": 1
+            })
+        except Exception as e:
+            db.rollback()
+            return jsonify({"error": str(e)}), 400
+
+
+@app.route("/api/failed/retry-all", methods=["POST"])
+def api_failed_retry_all():
+    """Retry all failed items."""
+    data = request.get_json() or {}
+    content_type = data.get("content_type")  # Optional filter
+    
+    with get_db() as db:
+        try:
+            state_manager = StateManager(db)
+            reset_count = state_manager.retry_all_failed(content_type)
+            
+            return jsonify({
+                "message": f"Reset {reset_count} failed items to pending for retry",
+                "reset_count": reset_count
+            })
+        except Exception as e:
+            return jsonify({"error": str(e)}), 400
+
+
 @app.route("/api/dumps")
 def dumps():
     """Get daily dump information."""
