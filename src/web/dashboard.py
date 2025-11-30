@@ -46,6 +46,12 @@ def analysis_page():
     return render_template("analysis.html")
 
 
+@app.route("/insights")
+def insights_page():
+    """Industry insights page."""
+    return render_template("insights.html")
+
+
 @app.route("/system")
 def system_page():
     """System status page."""
@@ -752,6 +758,749 @@ def api_analysis_decades():
         except Exception as e:
             print(f"Error querying decades: {e}")
             return jsonify({"decades": []})
+
+
+# ============================================================================
+# INSIGHTS API ENDPOINTS
+# ============================================================================
+
+@app.route("/insights")
+def insights_page():
+    """Industry insights page."""
+    return render_template("insights.html")
+
+
+@app.route('/api/insights/genre-roi')
+def api_insights_genre_roi():
+    """ROI analysis by genre."""
+    with get_db() as db:
+        try:
+            res = db.execute(text("""
+                SELECT 
+                    g.name as genre,
+                    COUNT(DISTINCT m.id) as movie_count,
+                    AVG(m.budget) as avg_budget,
+                    AVG(m.revenue) as avg_revenue,
+                    AVG(CASE WHEN m.budget > 0 THEN (m.revenue - m.budget)::float / m.budget * 100 END) as avg_roi,
+                    SUM(m.revenue) as total_revenue,
+                    COUNT(*) FILTER (WHERE m.revenue > m.budget AND m.budget > 0) as profitable_count
+                FROM genres g
+                JOIN movie_genres mg ON g.id = mg.genre_id
+                JOIN movies m ON mg.movie_id = m.id
+                WHERE m.budget >= 1000000 AND m.revenue > 0
+                GROUP BY g.id, g.name
+                HAVING COUNT(DISTINCT m.id) >= 10
+                ORDER BY avg_roi DESC
+            """)).fetchall()
+            
+            return jsonify({
+                "genres": [
+                    {
+                        "genre": r[0],
+                        "movie_count": r[1],
+                        "avg_budget": float(r[2]) if r[2] else 0,
+                        "avg_revenue": float(r[3]) if r[3] else 0,
+                        "avg_roi": round(float(r[4]), 1) if r[4] else 0,
+                        "total_revenue": float(r[5]) if r[5] else 0,
+                        "profitable_count": r[6] or 0
+                    }
+                    for r in res
+                ]
+            })
+        except Exception as e:
+            print(f"Error in genre ROI: {e}")
+            return jsonify({"genres": []})
+
+
+@app.route('/api/insights/release-timing')
+def api_insights_release_timing():
+    """Best release months by genre."""
+    with get_db() as db:
+        try:
+            # Overall monthly performance
+            monthly = db.execute(text("""
+                SELECT 
+                    EXTRACT(MONTH FROM release_date) as month,
+                    COUNT(*) as movie_count,
+                    AVG(revenue) as avg_revenue,
+                    AVG(vote_average) as avg_rating,
+                    AVG(CASE WHEN budget > 0 THEN (revenue - budget)::float / budget * 100 END) as avg_roi
+                FROM movies
+                WHERE release_date IS NOT NULL 
+                    AND budget >= 1000000 AND revenue > 0
+                GROUP BY month
+                ORDER BY month
+            """)).fetchall()
+            
+            month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            
+            # Best months by genre
+            genre_months = db.execute(text("""
+                SELECT 
+                    g.name as genre,
+                    EXTRACT(MONTH FROM m.release_date) as month,
+                    AVG(m.revenue) as avg_revenue,
+                    COUNT(*) as count
+                FROM genres g
+                JOIN movie_genres mg ON g.id = mg.genre_id
+                JOIN movies m ON mg.movie_id = m.id
+                WHERE m.release_date IS NOT NULL 
+                    AND m.budget >= 1000000 AND m.revenue > 0
+                GROUP BY g.name, month
+                HAVING COUNT(*) >= 5
+                ORDER BY g.name, avg_revenue DESC
+            """)).fetchall()
+            
+            # Process to get best month per genre
+            genre_best = {}
+            for r in genre_months:
+                genre = r[0]
+                if genre not in genre_best:
+                    genre_best[genre] = {
+                        "genre": genre,
+                        "best_month": month_names[int(r[1]) - 1],
+                        "avg_revenue": float(r[2]) if r[2] else 0,
+                        "count": r[3]
+                    }
+            
+            return jsonify({
+                "monthly": [
+                    {
+                        "month": month_names[int(r[0]) - 1],
+                        "movie_count": r[1],
+                        "avg_revenue": float(r[2]) if r[2] else 0,
+                        "avg_rating": round(float(r[3]), 2) if r[3] else 0,
+                        "avg_roi": round(float(r[4]), 1) if r[4] else 0
+                    }
+                    for r in monthly
+                ],
+                "genre_best_months": list(genre_best.values())
+            })
+        except Exception as e:
+            print(f"Error in release timing: {e}")
+            return jsonify({"monthly": [], "genre_best_months": []})
+
+
+@app.route('/api/insights/studio-analysis')
+def api_insights_studio_analysis():
+    """Production company market share and performance."""
+    with get_db() as db:
+        try:
+            # Top studios by revenue
+            studios = db.execute(text("""
+                SELECT 
+                    pc.name,
+                    COUNT(DISTINCT m.id) as movie_count,
+                    SUM(m.revenue) as total_revenue,
+                    AVG(m.revenue) as avg_revenue,
+                    AVG(m.vote_average) as avg_rating,
+                    AVG(CASE WHEN m.budget > 0 THEN (m.revenue - m.budget)::float / m.budget * 100 END) as avg_roi,
+                    MIN(m.release_date) as first_movie,
+                    MAX(m.release_date) as last_movie
+                FROM production_companies pc
+                JOIN movie_production_companies mpc ON pc.id = mpc.company_id
+                JOIN movies m ON mpc.movie_id = m.id
+                WHERE m.revenue > 0
+                GROUP BY pc.id, pc.name
+                HAVING COUNT(DISTINCT m.id) >= 20
+                ORDER BY total_revenue DESC
+                LIMIT 25
+            """)).fetchall()
+            
+            # Studio genre specialization
+            studio_genres = db.execute(text("""
+                SELECT 
+                    pc.name as studio,
+                    g.name as genre,
+                    COUNT(*) as count
+                FROM production_companies pc
+                JOIN movie_production_companies mpc ON pc.id = mpc.company_id
+                JOIN movies m ON mpc.movie_id = m.id
+                JOIN movie_genres mg ON m.id = mg.movie_id
+                JOIN genres g ON mg.genre_id = g.id
+                WHERE pc.name IN (
+                    SELECT pc2.name FROM production_companies pc2
+                    JOIN movie_production_companies mpc2 ON pc2.id = mpc2.company_id
+                    GROUP BY pc2.name
+                    HAVING COUNT(*) >= 50
+                    ORDER BY COUNT(*) DESC
+                    LIMIT 10
+                )
+                GROUP BY pc.name, g.name
+                ORDER BY pc.name, count DESC
+            """)).fetchall()
+            
+            # Process genre specialization
+            specialization = {}
+            for r in studio_genres:
+                studio = r[0]
+                if studio not in specialization:
+                    specialization[studio] = []
+                if len(specialization[studio]) < 3:
+                    specialization[studio].append({"genre": r[1], "count": r[2]})
+            
+            return jsonify({
+                "studios": [
+                    {
+                        "name": r[0],
+                        "movie_count": r[1],
+                        "total_revenue": float(r[2]) if r[2] else 0,
+                        "avg_revenue": float(r[3]) if r[3] else 0,
+                        "avg_rating": round(float(r[4]), 2) if r[4] else 0,
+                        "avg_roi": round(float(r[5]), 1) if r[5] else 0,
+                        "years_active": f"{r[6].year if r[6] else '?'} - {r[7].year if r[7] else '?'}"
+                    }
+                    for r in studios
+                ],
+                "genre_specialization": specialization
+            })
+        except Exception as e:
+            print(f"Error in studio analysis: {e}")
+            return jsonify({"studios": [], "genre_specialization": {}})
+
+
+@app.route('/api/insights/talent-network')
+def api_insights_talent_network():
+    """Actor/director collaboration analysis."""
+    with get_db() as db:
+        try:
+            # Most prolific by decade
+            prolific_by_decade = db.execute(text("""
+                SELECT 
+                    (EXTRACT(YEAR FROM m.release_date)::int / 10 * 10) as decade,
+                    p.name,
+                    COUNT(DISTINCT m.id) as movie_count,
+                    AVG(m.vote_average) as avg_rating
+                FROM people p
+                JOIN movie_cast mc ON p.id = mc.person_id
+                JOIN movies m ON mc.movie_id = m.id
+                WHERE m.release_date IS NOT NULL
+                GROUP BY decade, p.id, p.name
+                HAVING COUNT(DISTINCT m.id) >= 10
+                ORDER BY decade DESC, movie_count DESC
+            """)).fetchall()
+            
+            # Process by decade (top 5 per decade)
+            by_decade = {}
+            for r in prolific_by_decade:
+                decade = f"{int(r[0])}s" if r[0] else "Unknown"
+                if decade not in by_decade:
+                    by_decade[decade] = []
+                if len(by_decade[decade]) < 5:
+                    by_decade[decade].append({
+                        "name": r[1],
+                        "movie_count": r[2],
+                        "avg_rating": round(float(r[3]), 2) if r[3] else 0
+                    })
+            
+            # Top director-actor collaborations
+            collaborations = db.execute(text("""
+                SELECT 
+                    d.name as director,
+                    a.name as actor,
+                    COUNT(DISTINCT m.id) as collab_count,
+                    AVG(m.vote_average) as avg_rating,
+                    AVG(m.revenue) as avg_revenue
+                FROM movie_crew mc_d
+                JOIN people d ON mc_d.person_id = d.id
+                JOIN movie_cast mc_a ON mc_d.movie_id = mc_a.movie_id
+                JOIN people a ON mc_a.person_id = a.id
+                JOIN movies m ON mc_d.movie_id = m.id
+                WHERE mc_d.job = 'Director'
+                GROUP BY d.id, d.name, a.id, a.name
+                HAVING COUNT(DISTINCT m.id) >= 3
+                ORDER BY collab_count DESC, avg_rating DESC
+                LIMIT 30
+            """)).fetchall()
+            
+            # Career longevity
+            longevity = db.execute(text("""
+                SELECT 
+                    p.name,
+                    MIN(EXTRACT(YEAR FROM m.release_date)) as start_year,
+                    MAX(EXTRACT(YEAR FROM m.release_date)) as end_year,
+                    MAX(EXTRACT(YEAR FROM m.release_date)) - MIN(EXTRACT(YEAR FROM m.release_date)) as career_span,
+                    COUNT(DISTINCT m.id) as movie_count,
+                    AVG(m.vote_average) as avg_rating
+                FROM people p
+                JOIN movie_cast mc ON p.id = mc.person_id
+                JOIN movies m ON mc.movie_id = m.id
+                WHERE m.release_date IS NOT NULL
+                GROUP BY p.id, p.name
+                HAVING COUNT(DISTINCT m.id) >= 20
+                    AND MAX(EXTRACT(YEAR FROM m.release_date)) - MIN(EXTRACT(YEAR FROM m.release_date)) >= 20
+                ORDER BY career_span DESC, movie_count DESC
+                LIMIT 20
+            """)).fetchall()
+            
+            return jsonify({
+                "prolific_by_decade": by_decade,
+                "top_collaborations": [
+                    {
+                        "director": r[0],
+                        "actor": r[1],
+                        "collab_count": r[2],
+                        "avg_rating": round(float(r[3]), 2) if r[3] else 0,
+                        "avg_revenue": float(r[4]) if r[4] else 0
+                    }
+                    for r in collaborations
+                ],
+                "career_longevity": [
+                    {
+                        "name": r[0],
+                        "start_year": int(r[1]) if r[1] else None,
+                        "end_year": int(r[2]) if r[2] else None,
+                        "career_span": int(r[3]) if r[3] else 0,
+                        "movie_count": r[4],
+                        "avg_rating": round(float(r[5]), 2) if r[5] else 0
+                    }
+                    for r in longevity
+                ]
+            })
+        except Exception as e:
+            print(f"Error in talent network: {e}")
+            return jsonify({"prolific_by_decade": {}, "top_collaborations": [], "career_longevity": []})
+
+
+@app.route('/api/insights/franchise-analysis')
+def api_insights_franchise_analysis():
+    """Franchise and sequel performance analysis."""
+    with get_db() as db:
+        try:
+            # Find collections/franchises by looking at movies with similar titles
+            # or belonging to collections
+            franchises = db.execute(text("""
+                SELECT 
+                    mc.name as collection_name,
+                    COUNT(m.id) as movie_count,
+                    MIN(m.release_date) as first_release,
+                    MAX(m.release_date) as last_release,
+                    SUM(m.revenue) as total_revenue,
+                    AVG(m.revenue) as avg_revenue,
+                    AVG(m.vote_average) as avg_rating,
+                    AVG(m.budget) as avg_budget
+                FROM movie_collections mc
+                JOIN movies m ON mc.id = m.collection_id
+                WHERE m.revenue > 0
+                GROUP BY mc.id, mc.name
+                HAVING COUNT(m.id) >= 2
+                ORDER BY total_revenue DESC
+                LIMIT 30
+            """)).fetchall()
+            
+            # Sequel degradation analysis (rating drop per sequel)
+            sequel_quality = db.execute(text("""
+                WITH franchise_movies AS (
+                    SELECT 
+                        mc.name as collection,
+                        m.title,
+                        m.release_date,
+                        m.vote_average,
+                        m.revenue,
+                        ROW_NUMBER() OVER (PARTITION BY mc.id ORDER BY m.release_date) as movie_num
+                    FROM movie_collections mc
+                    JOIN movies m ON mc.id = m.collection_id
+                    WHERE m.vote_average IS NOT NULL
+                )
+                SELECT 
+                    movie_num,
+                    COUNT(*) as count,
+                    AVG(vote_average) as avg_rating,
+                    AVG(revenue) as avg_revenue
+                FROM franchise_movies
+                WHERE movie_num <= 10
+                GROUP BY movie_num
+                ORDER BY movie_num
+            """)).fetchall()
+            
+            return jsonify({
+                "top_franchises": [
+                    {
+                        "name": r[0],
+                        "movie_count": r[1],
+                        "first_release": r[2].year if r[2] else None,
+                        "last_release": r[3].year if r[3] else None,
+                        "total_revenue": float(r[4]) if r[4] else 0,
+                        "avg_revenue": float(r[5]) if r[5] else 0,
+                        "avg_rating": round(float(r[6]), 2) if r[6] else 0,
+                        "avg_budget": float(r[7]) if r[7] else 0
+                    }
+                    for r in franchises
+                ],
+                "sequel_degradation": [
+                    {
+                        "movie_number": r[0],
+                        "sample_size": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "avg_revenue": float(r[3]) if r[3] else 0
+                    }
+                    for r in sequel_quality
+                ]
+            })
+        except Exception as e:
+            print(f"Error in franchise analysis: {e}")
+            return jsonify({"top_franchises": [], "sequel_degradation": []})
+
+
+@app.route('/api/insights/international')
+def api_insights_international():
+    """International cinema trends."""
+    with get_db() as db:
+        try:
+            # Language codes to names
+            lang_names = {
+                'en': 'English', 'es': 'Spanish', 'fr': 'French', 'de': 'German',
+                'ja': 'Japanese', 'ko': 'Korean', 'zh': 'Chinese', 'hi': 'Hindi',
+                'it': 'Italian', 'pt': 'Portuguese', 'ru': 'Russian', 'ar': 'Arabic',
+                'th': 'Thai', 'tr': 'Turkish', 'pl': 'Polish', 'nl': 'Dutch',
+                'sv': 'Swedish', 'da': 'Danish', 'no': 'Norwegian', 'fi': 'Finnish',
+                'id': 'Indonesian', 'ms': 'Malay', 'tl': 'Filipino', 'vi': 'Vietnamese'
+            }
+            
+            # Production by language over decades
+            lang_decades = db.execute(text("""
+                SELECT 
+                    original_language,
+                    (EXTRACT(YEAR FROM release_date)::int / 10 * 10) as decade,
+                    COUNT(*) as count,
+                    AVG(vote_average) as avg_rating
+                FROM movies
+                WHERE release_date IS NOT NULL 
+                    AND original_language IS NOT NULL
+                    AND original_language != ''
+                GROUP BY original_language, decade
+                HAVING COUNT(*) >= 10
+                ORDER BY decade, count DESC
+            """)).fetchall()
+            
+            # Process by decade
+            by_decade = {}
+            for r in lang_decades:
+                decade = f"{int(r[1])}s" if r[1] else "Unknown"
+                if decade not in by_decade:
+                    by_decade[decade] = []
+                lang_code = r[0]
+                by_decade[decade].append({
+                    "language": lang_names.get(lang_code, lang_code.upper()),
+                    "code": lang_code,
+                    "count": r[2],
+                    "avg_rating": round(float(r[3]), 2) if r[3] else 0
+                })
+            
+            # Non-English growth
+            non_english = db.execute(text("""
+                SELECT 
+                    (EXTRACT(YEAR FROM release_date)::int / 10 * 10) as decade,
+                    COUNT(*) FILTER (WHERE original_language != 'en') as non_english,
+                    COUNT(*) as total,
+                    ROUND(COUNT(*) FILTER (WHERE original_language != 'en')::numeric / COUNT(*) * 100, 1) as pct
+                FROM movies
+                WHERE release_date IS NOT NULL
+                GROUP BY decade
+                ORDER BY decade
+            """)).fetchall()
+            
+            # Top non-English movies by revenue
+            top_non_english = db.execute(text("""
+                SELECT 
+                    title,
+                    original_language,
+                    release_date,
+                    revenue,
+                    vote_average,
+                    vote_count
+                FROM movies
+                WHERE original_language != 'en' 
+                    AND revenue > 0
+                    AND vote_count >= 100
+                ORDER BY revenue DESC
+                LIMIT 20
+            """)).fetchall()
+            
+            # Country production (using production countries)
+            country_production = db.execute(text("""
+                SELECT 
+                    pc.name as country,
+                    COUNT(DISTINCT m.id) as movie_count,
+                    AVG(m.vote_average) as avg_rating,
+                    SUM(m.revenue) as total_revenue
+                FROM production_countries pc
+                JOIN movie_production_countries mpc ON pc.iso_3166_1 = mpc.country_code
+                JOIN movies m ON mpc.movie_id = m.id
+                GROUP BY pc.iso_3166_1, pc.name
+                HAVING COUNT(DISTINCT m.id) >= 50
+                ORDER BY movie_count DESC
+                LIMIT 20
+            """)).fetchall()
+            
+            return jsonify({
+                "language_by_decade": by_decade,
+                "non_english_growth": [
+                    {
+                        "decade": f"{int(r[0])}s" if r[0] else "Unknown",
+                        "non_english": r[1],
+                        "total": r[2],
+                        "percentage": float(r[3]) if r[3] else 0
+                    }
+                    for r in non_english
+                ],
+                "top_non_english": [
+                    {
+                        "title": r[0],
+                        "language": lang_names.get(r[1], r[1].upper() if r[1] else 'Unknown'),
+                        "year": r[2].year if r[2] else None,
+                        "revenue": float(r[3]) if r[3] else 0,
+                        "rating": round(float(r[4]), 1) if r[4] else 0,
+                        "votes": r[5]
+                    }
+                    for r in top_non_english
+                ],
+                "country_production": [
+                    {
+                        "country": r[0],
+                        "movie_count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "total_revenue": float(r[3]) if r[3] else 0
+                    }
+                    for r in country_production
+                ]
+            })
+        except Exception as e:
+            print(f"Error in international analysis: {e}")
+            return jsonify({
+                "language_by_decade": {},
+                "non_english_growth": [],
+                "top_non_english": [],
+                "country_production": []
+            })
+
+
+@app.route('/api/insights/tv-trends')
+def api_insights_tv_trends():
+    """TV series trends and patterns."""
+    with get_db() as db:
+        try:
+            # Optimal season count (rating by number of seasons)
+            season_ratings = db.execute(text("""
+                SELECT 
+                    number_of_seasons,
+                    COUNT(*) as show_count,
+                    AVG(vote_average) as avg_rating,
+                    AVG(vote_count) as avg_votes
+                FROM tv_series
+                WHERE number_of_seasons > 0 
+                    AND number_of_seasons <= 20
+                    AND vote_count >= 50
+                GROUP BY number_of_seasons
+                ORDER BY number_of_seasons
+            """)).fetchall()
+            
+            # Episode runtime trends by decade
+            runtime_trends = db.execute(text("""
+                SELECT 
+                    (EXTRACT(YEAR FROM first_air_date)::int / 10 * 10) as decade,
+                    AVG(episode_run_time) as avg_runtime,
+                    COUNT(*) as show_count
+                FROM tv_series
+                WHERE first_air_date IS NOT NULL 
+                    AND episode_run_time > 0
+                    AND episode_run_time < 180
+                GROUP BY decade
+                ORDER BY decade
+            """)).fetchall()
+            
+            # Network performance
+            networks = db.execute(text("""
+                SELECT 
+                    n.name,
+                    COUNT(DISTINCT ts.id) as show_count,
+                    AVG(ts.vote_average) as avg_rating,
+                    AVG(ts.number_of_seasons) as avg_seasons
+                FROM networks n
+                JOIN tv_series_networks tsn ON n.id = tsn.network_id
+                JOIN tv_series ts ON tsn.tv_series_id = ts.id
+                WHERE ts.vote_count >= 50
+                GROUP BY n.id, n.name
+                HAVING COUNT(DISTINCT ts.id) >= 10
+                ORDER BY show_count DESC
+                LIMIT 20
+            """)).fetchall()
+            
+            # Genre trends for TV
+            tv_genres = db.execute(text("""
+                SELECT 
+                    g.name,
+                    COUNT(DISTINCT ts.id) as show_count,
+                    AVG(ts.vote_average) as avg_rating,
+                    AVG(ts.number_of_seasons) as avg_seasons
+                FROM genres g
+                JOIN tv_series_genres tsg ON g.id = tsg.genre_id
+                JOIN tv_series ts ON tsg.tv_series_id = ts.id
+                WHERE ts.vote_count >= 50
+                GROUP BY g.id, g.name
+                ORDER BY show_count DESC
+            """)).fetchall()
+            
+            # Limited series vs ongoing
+            series_types = db.execute(text("""
+                SELECT 
+                    CASE 
+                        WHEN number_of_seasons = 1 AND status IN ('Ended', 'Canceled') THEN 'Limited Series'
+                        WHEN status = 'Returning Series' THEN 'Ongoing'
+                        WHEN status = 'Ended' THEN 'Completed'
+                        WHEN status = 'Canceled' THEN 'Canceled'
+                        ELSE 'Other'
+                    END as series_type,
+                    COUNT(*) as count,
+                    AVG(vote_average) as avg_rating
+                FROM tv_series
+                WHERE status IS NOT NULL AND vote_count >= 20
+                GROUP BY series_type
+            """)).fetchall()
+            
+            return jsonify({
+                "season_ratings": [
+                    {
+                        "seasons": r[0],
+                        "show_count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "avg_votes": int(r[3]) if r[3] else 0
+                    }
+                    for r in season_ratings
+                ],
+                "runtime_trends": [
+                    {
+                        "decade": f"{int(r[0])}s" if r[0] else "Unknown",
+                        "avg_runtime": round(float(r[1]), 0) if r[1] else 0,
+                        "show_count": r[2]
+                    }
+                    for r in runtime_trends
+                ],
+                "top_networks": [
+                    {
+                        "name": r[0],
+                        "show_count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "avg_seasons": round(float(r[3]), 1) if r[3] else 0
+                    }
+                    for r in networks
+                ],
+                "genre_distribution": [
+                    {
+                        "genre": r[0],
+                        "show_count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "avg_seasons": round(float(r[3]), 1) if r[3] else 0
+                    }
+                    for r in tv_genres
+                ],
+                "series_types": [
+                    {
+                        "type": r[0],
+                        "count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0
+                    }
+                    for r in series_types
+                ]
+            })
+        except Exception as e:
+            print(f"Error in TV trends: {e}")
+            return jsonify({
+                "season_ratings": [],
+                "runtime_trends": [],
+                "top_networks": [],
+                "genre_distribution": [],
+                "series_types": []
+            })
+
+
+@app.route('/api/insights/genre-evolution')
+def api_insights_genre_evolution():
+    """Genre popularity and evolution over time."""
+    with get_db() as db:
+        try:
+            # Genre popularity by decade
+            evolution = db.execute(text("""
+                SELECT 
+                    g.name as genre,
+                    (EXTRACT(YEAR FROM m.release_date)::int / 10 * 10) as decade,
+                    COUNT(*) as count,
+                    AVG(m.vote_average) as avg_rating
+                FROM genres g
+                JOIN movie_genres mg ON g.id = mg.genre_id
+                JOIN movies m ON mg.movie_id = m.id
+                WHERE m.release_date IS NOT NULL
+                GROUP BY g.name, decade
+                ORDER BY genre, decade
+            """)).fetchall()
+            
+            # Process into nested structure
+            genre_data = {}
+            for r in evolution:
+                genre = r[0]
+                if genre not in genre_data:
+                    genre_data[genre] = []
+                genre_data[genre].append({
+                    "decade": f"{int(r[1])}s" if r[1] else "Unknown",
+                    "count": r[2],
+                    "avg_rating": round(float(r[3]), 2) if r[3] else 0
+                })
+            
+            # Genre blending (co-occurrence)
+            blending = db.execute(text("""
+                SELECT 
+                    g1.name as genre1,
+                    g2.name as genre2,
+                    COUNT(*) as count
+                FROM movie_genres mg1
+                JOIN movie_genres mg2 ON mg1.movie_id = mg2.movie_id AND mg1.genre_id < mg2.genre_id
+                JOIN genres g1 ON mg1.genre_id = g1.id
+                JOIN genres g2 ON mg2.genre_id = g2.id
+                GROUP BY g1.name, g2.name
+                HAVING COUNT(*) >= 100
+                ORDER BY count DESC
+                LIMIT 30
+            """)).fetchall()
+            
+            # Average runtime by genre
+            runtime_by_genre = db.execute(text("""
+                SELECT 
+                    g.name,
+                    AVG(m.runtime) as avg_runtime,
+                    COUNT(*) as count
+                FROM genres g
+                JOIN movie_genres mg ON g.id = mg.genre_id
+                JOIN movies m ON mg.movie_id = m.id
+                WHERE m.runtime > 0 AND m.runtime < 300
+                GROUP BY g.name
+                HAVING COUNT(*) >= 100
+                ORDER BY avg_runtime DESC
+            """)).fetchall()
+            
+            return jsonify({
+                "evolution": genre_data,
+                "genre_blending": [
+                    {
+                        "genres": f"{r[0]} + {r[1]}",
+                        "genre1": r[0],
+                        "genre2": r[1],
+                        "count": r[2]
+                    }
+                    for r in blending
+                ],
+                "runtime_by_genre": [
+                    {
+                        "genre": r[0],
+                        "avg_runtime": round(float(r[1]), 0) if r[1] else 0,
+                        "count": r[2]
+                    }
+                    for r in runtime_by_genre
+                ]
+            })
+        except Exception as e:
+            print(f"Error in genre evolution: {e}")
+            return jsonify({"evolution": {}, "genre_blending": [], "runtime_by_genre": []})
 
 
 @app.route('/api/system/stats')

@@ -1,0 +1,905 @@
+{% extends "layout.html" %}
+
+{% block title %}Industry Insights{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1 class="page-title">Industry Insights</h1>
+    <button class="btn btn-primary" onclick="loadAllInsights()" id="refreshBtn">
+        <i data-feather="refresh-cw" id="refreshIcon"></i> <span id="refreshText">Refresh</span>
+    </button>
+</div>
+
+<!-- Navigation Tabs -->
+<div class="tabs" style="margin-bottom: 24px; display: flex; gap: 8px; flex-wrap: wrap;">
+    <button class="btn tab-btn active" onclick="showTab('financial')">💰 Financial</button>
+    <button class="btn tab-btn" onclick="showTab('studios')">🎬 Studios</button>
+    <button class="btn tab-btn" onclick="showTab('talent')">⭐ Talent</button>
+    <button class="btn tab-btn" onclick="showTab('franchises')">🎭 Franchises</button>
+    <button class="btn tab-btn" onclick="showTab('international')">🌍 International</button>
+    <button class="btn tab-btn" onclick="showTab('genres')">🎪 Genres</button>
+    <button class="btn tab-btn" onclick="showTab('tv')">📺 TV Trends</button>
+</div>
+
+<!-- Financial Tab -->
+<div id="tab-financial" class="tab-content">
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">💰 ROI by Genre</h2>
+            <div style="height: 400px;">
+                <canvas id="genreRoiChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📊 Genre Profitability</h2>
+            <div class="table-container" style="height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Genre</th>
+                            <th>Movies</th>
+                            <th>Avg ROI</th>
+                            <th>Profitable</th>
+                        </tr>
+                    </thead>
+                    <tbody id="genreRoiTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid-2">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📅 Best Release Months</h2>
+            <div style="height: 350px;">
+                <canvas id="releaseMonthChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🎯 Best Month by Genre</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Genre</th>
+                            <th>Best Month</th>
+                            <th>Avg Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody id="genreBestMonthTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Studios Tab -->
+<div id="tab-studios" class="tab-content" style="display: none;">
+    <div class="card" style="margin-bottom: 24px;">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🏢 Top Studios by Revenue</h2>
+        <div style="height: 400px;">
+            <canvas id="studioRevenueChart"></canvas>
+        </div>
+    </div>
+    
+    <div class="grid-2">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📈 Studio Performance</h2>
+            <div class="table-container" style="height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Studio</th>
+                            <th>Movies</th>
+                            <th>Total Revenue</th>
+                            <th>Avg Rating</th>
+                            <th>ROI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studioTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🎨 Genre Specialization</h2>
+            <div class="table-container" style="height: 400px; overflow-y: auto;" id="studioGenres">
+                <p style="color: var(--text-secondary);">Loading...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Talent Tab -->
+<div id="tab-talent" class="tab-content" style="display: none;">
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🤝 Top Director-Actor Collaborations</h2>
+            <div class="table-container" style="height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Director</th>
+                            <th>Actor</th>
+                            <th>Films</th>
+                            <th>Avg Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="collaborationsTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🏆 Career Longevity</h2>
+            <div class="table-container" style="height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Career Span</th>
+                            <th>Movies</th>
+                            <th>Avg Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="longevityTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📅 Most Prolific by Decade</h2>
+        <div id="prolificByDecade" style="display: flex; gap: 16px; overflow-x: auto; padding-bottom: 16px;">
+            <p style="color: var(--text-secondary);">Loading...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Franchises Tab -->
+<div id="tab-franchises" class="tab-content" style="display: none;">
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🎬 Top Franchises by Revenue</h2>
+            <div class="table-container" style="height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Franchise</th>
+                            <th>Movies</th>
+                            <th>Total Revenue</th>
+                            <th>Avg Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="franchisesTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📉 Sequel Quality Degradation</h2>
+            <div style="height: 400px;">
+                <canvas id="sequelChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- International Tab -->
+<div id="tab-international" class="tab-content" style="display: none;">
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🌐 Non-English Cinema Growth</h2>
+            <div style="height: 350px;">
+                <canvas id="nonEnglishChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🏆 Top Non-English Films</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Language</th>
+                            <th>Revenue</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topNonEnglishTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid-2">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🗺️ Production by Country</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Movies</th>
+                            <th>Total Revenue</th>
+                            <th>Avg Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="countryTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📊 Language Distribution by Decade</h2>
+            <div id="languageByDecade" style="height: 350px; overflow-y: auto;">
+                <p style="color: var(--text-secondary);">Loading...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Genres Tab -->
+<div id="tab-genres" class="tab-content" style="display: none;">
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🔄 Genre Blending</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Combination</th>
+                            <th>Movies</th>
+                        </tr>
+                    </thead>
+                    <tbody id="genreBlendingTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">⏱️ Runtime by Genre</h2>
+            <div style="height: 350px;">
+                <canvas id="runtimeGenreChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📈 Genre Evolution Over Decades</h2>
+        <div style="height: 400px;">
+            <canvas id="genreEvolutionChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- TV Tab -->
+<div id="tab-tv" class="tab-content" style="display: none;">
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📊 Optimal Season Count</h2>
+            <div style="height: 350px;">
+                <canvas id="seasonRatingChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📺 Series Types</h2>
+            <div style="height: 350px;">
+                <canvas id="seriesTypeChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📡 Top Networks</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Network</th>
+                            <th>Shows</th>
+                            <th>Avg Rating</th>
+                            <th>Avg Seasons</th>
+                        </tr>
+                    </thead>
+                    <tbody id="networksTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">⏱️ Episode Runtime Trends</h2>
+            <div style="height: 350px;">
+                <canvas id="tvRuntimeChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🎭 TV Genre Distribution</h2>
+        <div style="height: 350px;">
+            <canvas id="tvGenreChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tabs {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 16px;
+    }
+    .tab-btn {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+    }
+    .tab-btn.active {
+        background: var(--accent);
+        color: #000;
+        border-color: var(--accent);
+    }
+    .tab-btn:hover:not(.active) {
+        background: var(--bg-primary);
+    }
+    .decade-card {
+        background: var(--bg-secondary);
+        border-radius: 8px;
+        padding: 16px;
+        min-width: 200px;
+    }
+    .decade-card h4 {
+        color: var(--accent);
+        margin-bottom: 12px;
+    }
+    .decade-card li {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let isLoading = false;
+    let charts = {};
+    let insightsData = {};
+
+    function setLoadingState(loading) {
+        isLoading = loading;
+        const btn = document.getElementById('refreshBtn');
+        const icon = document.getElementById('refreshIcon');
+        const text = document.getElementById('refreshText');
+        
+        if (loading) {
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            icon.style.animation = 'spin 1s linear infinite';
+            text.textContent = 'Loading...';
+        } else {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            icon.style.animation = 'none';
+            text.textContent = 'Refresh';
+        }
+    }
+
+    function showTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + tabName).style.display = 'block';
+        event.target.classList.add('active');
+    }
+
+    function formatCurrency(num) {
+        if (!num) return '$0';
+        if (num >= 1e9) return '$' + (num / 1e9).toFixed(1) + 'B';
+        if (num >= 1e6) return '$' + (num / 1e6).toFixed(1) + 'M';
+        if (num >= 1e3) return '$' + (num / 1e3).toFixed(1) + 'K';
+        return '$' + num.toLocaleString();
+    }
+
+    function destroyChart(id) {
+        if (charts[id]) {
+            charts[id].destroy();
+            charts[id] = null;
+        }
+    }
+
+    async function loadAllInsights() {
+        if (isLoading) return;
+        setLoadingState(true);
+
+        try {
+            const [genreRoi, timing, studios, talent, franchises, international, genres, tv] = await Promise.all([
+                fetch('/api/insights/genre-roi').then(r => r.json()),
+                fetch('/api/insights/release-timing').then(r => r.json()),
+                fetch('/api/insights/studio-analysis').then(r => r.json()),
+                fetch('/api/insights/talent-network').then(r => r.json()),
+                fetch('/api/insights/franchise-analysis').then(r => r.json()),
+                fetch('/api/insights/international').then(r => r.json()),
+                fetch('/api/insights/genre-evolution').then(r => r.json()),
+                fetch('/api/insights/tv-trends').then(r => r.json())
+            ]);
+
+            insightsData = { genreRoi, timing, studios, talent, franchises, international, genres, tv };
+            
+            renderFinancialTab(genreRoi, timing);
+            renderStudiosTab(studios);
+            renderTalentTab(talent);
+            renderFranchisesTab(franchises);
+            renderInternationalTab(international);
+            renderGenresTab(genres);
+            renderTvTab(tv);
+            
+            feather.replace();
+        } catch (e) {
+            console.error('Error loading insights:', e);
+        } finally {
+            setLoadingState(false);
+        }
+    }
+
+    function renderFinancialTab(genreRoi, timing) {
+        // Genre ROI Chart
+        destroyChart('genreRoiChart');
+        const topGenres = genreRoi.genres.slice(0, 12);
+        charts['genreRoiChart'] = new Chart(document.getElementById('genreRoiChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: topGenres.map(g => g.genre),
+                datasets: [{
+                    label: 'Avg ROI %',
+                    data: topGenres.map(g => g.avg_roi),
+                    backgroundColor: topGenres.map(g => g.avg_roi > 0 ? 'rgba(34, 197, 94, 0.6)' : 'rgba(239, 68, 68, 0.6)'),
+                    borderColor: topGenres.map(g => g.avg_roi > 0 ? '#22c55e' : '#ef4444'),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8', callback: v => v + '%' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8', maxRotation: 45 } }
+                }
+            }
+        });
+
+        // Genre ROI Table
+        document.getElementById('genreRoiTable').innerHTML = genreRoi.genres.map(g => `
+            <tr>
+                <td>${g.genre}</td>
+                <td>${g.movie_count}</td>
+                <td style="color: ${g.avg_roi > 0 ? 'var(--success)' : 'var(--danger)'}">${g.avg_roi.toFixed(1)}%</td>
+                <td>${g.profitable_count}</td>
+            </tr>
+        `).join('');
+
+        // Release Month Chart
+        destroyChart('releaseMonthChart');
+        charts['releaseMonthChart'] = new Chart(document.getElementById('releaseMonthChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: timing.monthly.map(m => m.month),
+                datasets: [{
+                    label: 'Avg Revenue',
+                    data: timing.monthly.map(m => m.avg_revenue / 1e6),
+                    backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                    borderColor: '#38bdf8',
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                }, {
+                    label: 'Avg ROI %',
+                    data: timing.monthly.map(m => m.avg_roi),
+                    type: 'line',
+                    borderColor: '#22c55e',
+                    yAxisID: 'y1',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                scales: {
+                    y: { position: 'left', grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8', callback: v => '$' + v + 'M' } },
+                    y1: { position: 'right', grid: { display: false }, ticks: { color: '#22c55e', callback: v => v + '%' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Best Month by Genre
+        document.getElementById('genreBestMonthTable').innerHTML = timing.genre_best_months.slice(0, 15).map(g => `
+            <tr>
+                <td>${g.genre}</td>
+                <td><strong>${g.best_month}</strong></td>
+                <td>${formatCurrency(g.avg_revenue)}</td>
+            </tr>
+        `).join('');
+    }
+
+    function renderStudiosTab(studios) {
+        // Studio Revenue Chart
+        destroyChart('studioRevenueChart');
+        const topStudios = studios.studios.slice(0, 15);
+        charts['studioRevenueChart'] = new Chart(document.getElementById('studioRevenueChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: topStudios.map(s => s.name.length > 20 ? s.name.substring(0, 20) + '...' : s.name),
+                datasets: [{
+                    label: 'Total Revenue',
+                    data: topStudios.map(s => s.total_revenue / 1e9),
+                    backgroundColor: 'rgba(168, 85, 247, 0.6)',
+                    borderColor: '#a855f7',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8', callback: v => '$' + v + 'B' } },
+                    y: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Studio Table
+        document.getElementById('studioTable').innerHTML = studios.studios.map(s => `
+            <tr>
+                <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;">${s.name}</td>
+                <td>${s.movie_count}</td>
+                <td>${formatCurrency(s.total_revenue)}</td>
+                <td>★ ${s.avg_rating}</td>
+                <td style="color: ${s.avg_roi > 0 ? 'var(--success)' : 'var(--danger)'}">${s.avg_roi.toFixed(0)}%</td>
+            </tr>
+        `).join('');
+
+        // Genre Specialization
+        let specHtml = '';
+        for (const [studio, genres] of Object.entries(studios.genre_specialization)) {
+            specHtml += `<div style="margin-bottom: 16px;">
+                <strong style="color: var(--accent);">${studio}</strong>
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                    ${genres.map(g => `${g.genre} (${g.count})`).join(' • ')}
+                </div>
+            </div>`;
+        }
+        document.getElementById('studioGenres').innerHTML = specHtml || '<p style="color: var(--text-secondary);">No data</p>';
+    }
+
+    function renderTalentTab(talent) {
+        // Collaborations Table
+        document.getElementById('collaborationsTable').innerHTML = talent.top_collaborations.map(c => `
+            <tr>
+                <td>${c.director}</td>
+                <td>${c.actor}</td>
+                <td><strong>${c.collab_count}</strong></td>
+                <td>★ ${c.avg_rating}</td>
+            </tr>
+        `).join('');
+
+        // Longevity Table
+        document.getElementById('longevityTable').innerHTML = talent.career_longevity.map(p => `
+            <tr>
+                <td>${p.name}</td>
+                <td>${p.start_year} - ${p.end_year} <span style="color: var(--text-secondary);">(${p.career_span}y)</span></td>
+                <td>${p.movie_count}</td>
+                <td>★ ${p.avg_rating}</td>
+            </tr>
+        `).join('');
+
+        // Prolific by Decade
+        let decadeHtml = '';
+        const decades = Object.keys(talent.prolific_by_decade).sort().reverse().slice(0, 6);
+        for (const decade of decades) {
+            const people = talent.prolific_by_decade[decade];
+            decadeHtml += `<div class="decade-card">
+                <h4>${decade}</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    ${people.map(p => `<li>${p.name} (${p.movie_count})</li>`).join('')}
+                </ul>
+            </div>`;
+        }
+        document.getElementById('prolificByDecade').innerHTML = decadeHtml || '<p style="color: var(--text-secondary);">No data</p>';
+    }
+
+    function renderFranchisesTab(franchises) {
+        // Franchises Table
+        document.getElementById('franchisesTable').innerHTML = franchises.top_franchises.map(f => `
+            <tr>
+                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">${f.name}</td>
+                <td>${f.movie_count}</td>
+                <td style="color: var(--success);">${formatCurrency(f.total_revenue)}</td>
+                <td>★ ${f.avg_rating}</td>
+            </tr>
+        `).join('');
+
+        // Sequel Degradation Chart
+        destroyChart('sequelChart');
+        if (franchises.sequel_degradation.length > 0) {
+            charts['sequelChart'] = new Chart(document.getElementById('sequelChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: franchises.sequel_degradation.map(s => 'Movie #' + s.movie_number),
+                    datasets: [{
+                        label: 'Avg Rating',
+                        data: franchises.sequel_degradation.map(s => s.avg_rating),
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'Avg Revenue',
+                        data: franchises.sequel_degradation.map(s => s.avg_revenue / 1e6),
+                        borderColor: '#38bdf8',
+                        yAxisID: 'y1',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#94a3b8' } } },
+                    scales: {
+                        y: { position: 'left', min: 5, max: 8, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#ef4444' } },
+                        y1: { position: 'right', grid: { display: false }, ticks: { color: '#38bdf8', callback: v => '$' + v + 'M' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        }
+    }
+
+    function renderInternationalTab(international) {
+        // Non-English Growth Chart
+        destroyChart('nonEnglishChart');
+        charts['nonEnglishChart'] = new Chart(document.getElementById('nonEnglishChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: international.non_english_growth.map(d => d.decade),
+                datasets: [{
+                    label: '% Non-English',
+                    data: international.non_english_growth.map(d => d.percentage),
+                    borderColor: '#22c55e',
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8', callback: v => v + '%' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Top Non-English Table
+        document.getElementById('topNonEnglishTable').innerHTML = international.top_non_english.map(m => `
+            <tr>
+                <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;">${m.title}</td>
+                <td>${m.language}</td>
+                <td style="color: var(--success);">${formatCurrency(m.revenue)}</td>
+                <td>★ ${m.rating}</td>
+            </tr>
+        `).join('');
+
+        // Country Table
+        document.getElementById('countryTable').innerHTML = international.country_production.map(c => `
+            <tr>
+                <td>${c.country}</td>
+                <td>${c.movie_count.toLocaleString()}</td>
+                <td>${formatCurrency(c.total_revenue)}</td>
+                <td>★ ${c.avg_rating}</td>
+            </tr>
+        `).join('');
+
+        // Language by Decade
+        let langHtml = '';
+        const langDecades = Object.keys(international.language_by_decade).sort().reverse().slice(0, 5);
+        for (const decade of langDecades) {
+            const langs = international.language_by_decade[decade].slice(0, 5);
+            langHtml += `<div style="margin-bottom: 12px;">
+                <strong style="color: var(--accent);">${decade}</strong>: 
+                <span style="color: var(--text-secondary);">${langs.map(l => `${l.language} (${l.count})`).join(' • ')}</span>
+            </div>`;
+        }
+        document.getElementById('languageByDecade').innerHTML = langHtml || '<p style="color: var(--text-secondary);">No data</p>';
+    }
+
+    function renderGenresTab(genres) {
+        // Genre Blending Table
+        document.getElementById('genreBlendingTable').innerHTML = genres.genre_blending.map(g => `
+            <tr>
+                <td>${g.genres}</td>
+                <td>${g.count.toLocaleString()}</td>
+            </tr>
+        `).join('');
+
+        // Runtime by Genre Chart
+        destroyChart('runtimeGenreChart');
+        charts['runtimeGenreChart'] = new Chart(document.getElementById('runtimeGenreChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: genres.runtime_by_genre.slice(0, 15).map(g => g.genre),
+                datasets: [{
+                    label: 'Avg Runtime (min)',
+                    data: genres.runtime_by_genre.slice(0, 15).map(g => g.avg_runtime),
+                    backgroundColor: 'rgba(236, 72, 153, 0.6)',
+                    borderColor: '#ec4899',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Genre Evolution Chart (select top 5 genres)
+        destroyChart('genreEvolutionChart');
+        const topGenres = ['Drama', 'Comedy', 'Action', 'Horror', 'Romance'];
+        const decades = [...new Set(Object.values(genres.evolution).flat().map(d => d.decade))].sort();
+        
+        const datasets = topGenres.filter(g => genres.evolution[g]).map((genre, i) => {
+            const colors = ['#38bdf8', '#22c55e', '#ef4444', '#a855f7', '#eab308'];
+            const genreData = genres.evolution[genre] || [];
+            return {
+                label: genre,
+                data: decades.map(d => {
+                    const found = genreData.find(x => x.decade === d);
+                    return found ? found.count : 0;
+                }),
+                borderColor: colors[i],
+                tension: 0.4,
+                fill: false
+            };
+        });
+
+        charts['genreEvolutionChart'] = new Chart(document.getElementById('genreEvolutionChart').getContext('2d'), {
+            type: 'line',
+            data: { labels: decades, datasets },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    }
+
+    function renderTvTab(tv) {
+        // Season Rating Chart
+        destroyChart('seasonRatingChart');
+        charts['seasonRatingChart'] = new Chart(document.getElementById('seasonRatingChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: tv.season_ratings.map(s => s.seasons + ' seasons'),
+                datasets: [{
+                    label: 'Avg Rating',
+                    data: tv.season_ratings.map(s => s.avg_rating),
+                    backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                    borderColor: '#38bdf8',
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                }, {
+                    label: 'Show Count',
+                    data: tv.season_ratings.map(s => s.show_count),
+                    type: 'line',
+                    borderColor: '#94a3b8',
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                scales: {
+                    y: { position: 'left', min: 5, max: 9, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    y1: { position: 'right', grid: { display: false }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Series Type Chart
+        destroyChart('seriesTypeChart');
+        charts['seriesTypeChart'] = new Chart(document.getElementById('seriesTypeChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: tv.series_types.map(t => t.type),
+                datasets: [{
+                    data: tv.series_types.map(t => t.count),
+                    backgroundColor: ['#22c55e', '#38bdf8', '#ef4444', '#eab308', '#a855f7']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'right', labels: { color: '#94a3b8' } } }
+            }
+        });
+
+        // Networks Table
+        document.getElementById('networksTable').innerHTML = tv.top_networks.map(n => `
+            <tr>
+                <td>${n.name}</td>
+                <td>${n.show_count}</td>
+                <td>★ ${n.avg_rating}</td>
+                <td>${n.avg_seasons}</td>
+            </tr>
+        `).join('');
+
+        // TV Runtime Trends Chart
+        destroyChart('tvRuntimeChart');
+        charts['tvRuntimeChart'] = new Chart(document.getElementById('tvRuntimeChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: tv.runtime_trends.map(r => r.decade),
+                datasets: [{
+                    label: 'Avg Episode Runtime (min)',
+                    data: tv.runtime_trends.map(r => r.avg_runtime),
+                    borderColor: '#a855f7',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // TV Genre Chart
+        destroyChart('tvGenreChart');
+        charts['tvGenreChart'] = new Chart(document.getElementById('tvGenreChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: tv.genre_distribution.slice(0, 12).map(g => g.genre),
+                datasets: [{
+                    label: 'Shows',
+                    data: tv.genre_distribution.slice(0, 12).map(g => g.show_count),
+                    backgroundColor: 'rgba(34, 197, 94, 0.6)',
+                    borderColor: '#22c55e',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8', maxRotation: 45 } }
+                }
+            }
+        });
+    }
+
+    // Load on page load
+    loadAllInsights();
+</script>
+{% endblock %}
