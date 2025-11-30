@@ -48,6 +48,12 @@ class Config:
     MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "3"))
     RETRY_DELAY: int = int(os.getenv("RETRY_DELAY", "5"))
     CHECKPOINT_INTERVAL: int = int(os.getenv("CHECKPOINT_INTERVAL", "100"))
+    
+    # Scheduling settings
+    # How often to check for new dumps (in seconds). Default: 6 hours
+    DUMP_CHECK_INTERVAL: int = int(os.getenv("DUMP_CHECK_INTERVAL", "21600"))
+    # How often to check for content updates (in seconds). Default: 1 hour  
+    UPDATE_CHECK_INTERVAL: int = int(os.getenv("UPDATE_CHECK_INTERVAL", "3600"))
 
     # Web Dashboard
     WEB_HOST: str = os.getenv("WEB_HOST", "0.0.0.0")

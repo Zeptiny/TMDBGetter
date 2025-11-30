@@ -193,7 +193,15 @@ class ContentProcessor:
 
     async def run(self, download_dumps: bool = True, process_movies: bool = True, process_tv: bool = True):
         """
-        Run the full processing pipeline.
+        Run the full processing pipeline continuously.
+
+        The processor will:
+        1. Download daily dumps and process all pending content
+        2. Once complete, sleep and periodically check for:
+           - New daily dumps (every DUMP_CHECK_INTERVAL seconds)
+           - Content that needs updating (every UPDATE_CHECK_INTERVAL seconds)
+        3. Process any new pending content
+        4. Repeat
 
         Args:
             download_dumps: Whether to download daily dumps
@@ -204,24 +212,66 @@ class ContentProcessor:
             # Initialize database
             init_db()
 
-            # Download daily dumps
-            if download_dumps:
-                await self.download_daily_dumps()
+            logger.info("Starting continuous processing mode")
+            
+            last_dump_check = 0
+            last_update_check = 0
 
-            # Check for updates (incremental)
-            await self.check_and_schedule_updates()
+            while self.running:
+                current_time = asyncio.get_event_loop().time()
+                has_work = False
 
-            # Process content in parallel
-            tasks = []
-            if process_movies:
-                tasks.append(self.process_content("movie"))
-            if process_tv:
-                tasks.append(self.process_content("tv_series"))
+                # Check if it's time to download new dumps
+                if download_dumps and (current_time - last_dump_check) >= config.DUMP_CHECK_INTERVAL:
+                    logger.info("Checking for new daily dumps...")
+                    await self.download_daily_dumps()
+                    last_dump_check = current_time
+                    has_work = True
 
-            if tasks:
-                await asyncio.gather(*tasks)
+                # Check if it's time to look for updates
+                if (current_time - last_update_check) >= config.UPDATE_CHECK_INTERVAL:
+                    await self.check_and_schedule_updates()
+                    last_update_check = current_time
 
-            logger.info("Processing pipeline completed successfully")
+                # Check if there's pending work
+                with get_db() as db:
+                    state_manager = StateManager(db)
+                    movie_stats = state_manager.get_statistics("movie") if process_movies else {"pending": 0}
+                    tv_stats = state_manager.get_statistics("tv_series") if process_tv else {"pending": 0}
+                    pending_count = movie_stats.get("pending", 0) + tv_stats.get("pending", 0)
+
+                if pending_count > 0:
+                    has_work = True
+                    logger.info(f"Found {pending_count} pending items to process")
+
+                    # Process content in parallel
+                    tasks = []
+                    if process_movies and movie_stats.get("pending", 0) > 0:
+                        tasks.append(self.process_content("movie"))
+                    if process_tv and tv_stats.get("pending", 0) > 0:
+                        tasks.append(self.process_content("tv_series"))
+
+                    if tasks:
+                        await asyncio.gather(*tasks)
+
+                    logger.info("Processing batch completed")
+
+                if not has_work:
+                    # No work to do, sleep before next check
+                    sleep_time = min(config.DUMP_CHECK_INTERVAL, config.UPDATE_CHECK_INTERVAL)
+                    logger.info(f"No pending work. Sleeping for {sleep_time // 60} minutes...")
+                    
+                    # Sleep in smaller intervals to allow graceful shutdown
+                    for _ in range(sleep_time // 60):
+                        if not self.running:
+                            break
+                        await asyncio.sleep(60)
+                    
+                    # Sleep remaining seconds
+                    if self.running:
+                        await asyncio.sleep(sleep_time % 60)
+
+            logger.info("Processor stopped")
 
         except KeyboardInterrupt:
             logger.info("Received interrupt signal, shutting down gracefully...")
