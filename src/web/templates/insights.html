@@ -12,26 +12,28 @@
 
 <!-- Navigation Tabs -->
 <div class="tabs" style="margin-bottom: 24px; display: flex; gap: 8px; flex-wrap: wrap;">
-    <button class="btn tab-btn active" onclick="showTab('financial')">💰 Financial</button>
-    <button class="btn tab-btn" onclick="showTab('studios')">🎬 Studios</button>
-    <button class="btn tab-btn" onclick="showTab('talent')">⭐ Talent</button>
-    <button class="btn tab-btn" onclick="showTab('franchises')">🎭 Franchises</button>
-    <button class="btn tab-btn" onclick="showTab('international')">🌍 International</button>
-    <button class="btn tab-btn" onclick="showTab('genres')">🎪 Genres</button>
-    <button class="btn tab-btn" onclick="showTab('tv')">📺 TV Trends</button>
+    <button class="btn tab-btn active" onclick="showTab('financial')">Financial</button>
+    <button class="btn tab-btn" onclick="showTab('studios')">Studios</button>
+    <button class="btn tab-btn" onclick="showTab('talent')">Talent</button>
+    <button class="btn tab-btn" onclick="showTab('franchises')">Franchises</button>
+    <button class="btn tab-btn" onclick="showTab('international')">International</button>
+    <button class="btn tab-btn" onclick="showTab('genres')">Genres</button>
+    <button class="btn tab-btn" onclick="showTab('streaming')">Streaming</button>
+    <button class="btn tab-btn" onclick="showTab('advanced')">Advanced</button>
+    <button class="btn tab-btn" onclick="showTab('tv')">TV Trends</button>
 </div>
 
 <!-- Financial Tab -->
 <div id="tab-financial" class="tab-content">
     <div class="grid-2" style="margin-bottom: 24px;">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">💰 ROI by Genre</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">ROI by Genre</h2>
             <div style="height: 400px;">
                 <canvas id="genreRoiChart"></canvas>
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📊 Genre Profitability</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Genre Profitability</h2>
             <div class="table-container" style="height: 400px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -50,13 +52,13 @@
     
     <div class="grid-2">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📅 Best Release Months</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Best Release Months</h2>
             <div style="height: 350px;">
                 <canvas id="releaseMonthChart"></canvas>
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🎯 Best Month by Genre</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Best Month by Genre</h2>
             <div class="table-container" style="height: 350px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -76,7 +78,7 @@
 <!-- Studios Tab -->
 <div id="tab-studios" class="tab-content" style="display: none;">
     <div class="card" style="margin-bottom: 24px;">
-        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🏢 Top Studios by Revenue</h2>
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Studios by Revenue</h2>
         <div style="height: 400px;">
             <canvas id="studioRevenueChart"></canvas>
         </div>
@@ -84,7 +86,7 @@
     
     <div class="grid-2">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📈 Studio Performance</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Studio Performance</h2>
             <div class="table-container" style="height: 400px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -101,7 +103,7 @@
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🎨 Genre Specialization</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Genre Specialization</h2>
             <div class="table-container" style="height: 400px; overflow-y: auto;" id="studioGenres">
                 <p style="color: var(--text-secondary);">Loading...</p>
             </div>
@@ -113,7 +115,7 @@
 <div id="tab-talent" class="tab-content" style="display: none;">
     <div class="grid-2" style="margin-bottom: 24px;">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🤝 Top Director-Actor Collaborations</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Director-Actor Collaborations</h2>
             <div class="table-container" style="height: 400px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -129,7 +131,7 @@
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🏆 Career Longevity</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Career Longevity</h2>
             <div class="table-container" style="height: 400px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -147,7 +149,7 @@
     </div>
     
     <div class="card">
-        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📅 Most Prolific by Decade</h2>
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Most Prolific by Decade</h2>
         <div id="prolificByDecade" style="display: flex; gap: 16px; overflow-x: auto; padding-bottom: 16px;">
             <p style="color: var(--text-secondary);">Loading...</p>
         </div>
@@ -158,7 +160,7 @@
 <div id="tab-franchises" class="tab-content" style="display: none;">
     <div class="grid-2" style="margin-bottom: 24px;">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🎬 Top Franchises by Revenue</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Franchises by Revenue</h2>
             <div class="table-container" style="height: 400px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -174,7 +176,7 @@
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📉 Sequel Quality Degradation</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Sequel Quality Trends</h2>
             <div style="height: 400px;">
                 <canvas id="sequelChart"></canvas>
             </div>
@@ -186,13 +188,13 @@
 <div id="tab-international" class="tab-content" style="display: none;">
     <div class="grid-2" style="margin-bottom: 24px;">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🌐 Non-English Cinema Growth</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Non-English Cinema Growth</h2>
             <div style="height: 350px;">
                 <canvas id="nonEnglishChart"></canvas>
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🏆 Top Non-English Films</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Non-English Films</h2>
             <div class="table-container" style="height: 350px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -211,7 +213,7 @@
     
     <div class="grid-2">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🗺️ Production by Country</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Production by Country</h2>
             <div class="table-container" style="height: 350px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -227,7 +229,7 @@
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📊 Language Distribution by Decade</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Language Distribution by Decade</h2>
             <div id="languageByDecade" style="height: 350px; overflow-y: auto;">
                 <p style="color: var(--text-secondary);">Loading...</p>
             </div>
@@ -239,7 +241,7 @@
 <div id="tab-genres" class="tab-content" style="display: none;">
     <div class="grid-2" style="margin-bottom: 24px;">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🔄 Genre Blending</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Genre Blending</h2>
             <div class="table-container" style="height: 350px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -253,7 +255,7 @@
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">⏱️ Runtime by Genre</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Runtime by Genre</h2>
             <div style="height: 350px;">
                 <canvas id="runtimeGenreChart"></canvas>
             </div>
@@ -261,7 +263,7 @@
     </div>
     
     <div class="card">
-        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📈 Genre Evolution Over Decades</h2>
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Genre Evolution Over Decades</h2>
         <div style="height: 400px;">
             <canvas id="genreEvolutionChart"></canvas>
         </div>
@@ -272,13 +274,13 @@
 <div id="tab-tv" class="tab-content" style="display: none;">
     <div class="grid-2" style="margin-bottom: 24px;">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📊 Optimal Season Count</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Optimal Season Count</h2>
             <div style="height: 350px;">
                 <canvas id="seasonRatingChart"></canvas>
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📺 Series Types</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Series Types</h2>
             <div style="height: 350px;">
                 <canvas id="seriesTypeChart"></canvas>
             </div>
@@ -287,7 +289,7 @@
     
     <div class="grid-2" style="margin-bottom: 24px;">
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">📡 Top Networks</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Networks</h2>
             <div class="table-container" style="height: 350px; overflow-y: auto;">
                 <table>
                     <thead>
@@ -303,7 +305,7 @@
             </div>
         </div>
         <div class="card">
-            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">⏱️ Episode Runtime Trends</h2>
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Episode Runtime Trends</h2>
             <div style="height: 350px;">
                 <canvas id="tvRuntimeChart"></canvas>
             </div>
@@ -311,9 +313,167 @@
     </div>
     
     <div class="card">
-        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">🎭 TV Genre Distribution</h2>
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">TV Genre Distribution</h2>
         <div style="height: 350px;">
             <canvas id="tvGenreChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Streaming Tab -->
+<div id="tab-streaming" class="tab-content" style="display: none;">
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Movie Streaming Platforms</h2>
+            <div style="height: 400px;">
+                <canvas id="movieProvidersChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Platform Content Quality</h2>
+            <div class="table-container" style="height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Platform</th>
+                            <th>Content</th>
+                            <th>Avg Rating</th>
+                            <th>Avg Votes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="providerQualityTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid-2">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">TV Streaming Platforms</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Platform</th>
+                            <th>Shows</th>
+                            <th>Avg Rating</th>
+                            <th>Subscription</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tvProvidersTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Platform Genre Focus</h2>
+            <div id="providerGenresContainer" style="height: 350px; overflow-y: auto;">
+                <p style="color: var(--text-secondary);">Loading...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Advanced Tab -->
+<div id="tab-advanced" class="tab-content" style="display: none;">
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Budget Efficiency Analysis</h2>
+            <div style="height: 400px;">
+                <canvas id="budgetEfficiencyChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Budget Tier Performance</h2>
+            <div class="table-container" style="height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Movies</th>
+                            <th>Avg Rating</th>
+                            <th>Avg ROI</th>
+                            <th>Median ROI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="budgetTierTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Genre Combinations (Best ROI)</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Combination</th>
+                            <th>Movies</th>
+                            <th>Avg ROI</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="genreCombosTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Emerging Genre Combinations</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Combination</th>
+                            <th>Recent</th>
+                            <th>Historical</th>
+                            <th>Growth</th>
+                        </tr>
+                    </thead>
+                    <tbody id="emergingCombosTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Rating vs Revenue Correlation</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Genre</th>
+                            <th>Correlation</th>
+                            <th>Sample Size</th>
+                        </tr>
+                    </thead>
+                    <tbody id="correlationTable"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Top Directors by ROI</h2>
+            <div class="table-container" style="height: 350px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Director</th>
+                            <th>Films</th>
+                            <th>Success Rate</th>
+                            <th>Avg ROI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="directorsTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--accent);">Industry Revenue Trends</h2>
+        <div style="height: 400px;">
+            <canvas id="yearlyTrendsChart"></canvas>
         </div>
     </div>
 </div>
@@ -409,7 +569,7 @@
         setLoadingState(true);
 
         try {
-            const [genreRoi, timing, studios, talent, franchises, international, genres, tv] = await Promise.all([
+            const [genreRoi, timing, studios, talent, franchises, international, genres, tv, streaming, combos, advanced] = await Promise.all([
                 fetch('/api/insights/genre-roi').then(r => r.json()),
                 fetch('/api/insights/release-timing').then(r => r.json()),
                 fetch('/api/insights/studio-analysis').then(r => r.json()),
@@ -417,10 +577,13 @@
                 fetch('/api/insights/franchise-analysis').then(r => r.json()),
                 fetch('/api/insights/international').then(r => r.json()),
                 fetch('/api/insights/genre-evolution').then(r => r.json()),
-                fetch('/api/insights/tv-trends').then(r => r.json())
+                fetch('/api/insights/tv-trends').then(r => r.json()),
+                fetch('/api/insights/watch-providers').then(r => r.json()),
+                fetch('/api/insights/genre-combinations').then(r => r.json()),
+                fetch('/api/insights/advanced-analytics').then(r => r.json())
             ]);
 
-            insightsData = { genreRoi, timing, studios, talent, franchises, international, genres, tv };
+            insightsData = { genreRoi, timing, studios, talent, franchises, international, genres, tv, streaming, combos, advanced };
             
             renderFinancialTab(genreRoi, timing);
             renderStudiosTab(studios);
@@ -429,6 +592,8 @@
             renderInternationalTab(international);
             renderGenresTab(genres);
             renderTvTab(tv);
+            renderStreamingTab(streaming);
+            renderAdvancedTab(combos, advanced);
             
             feather.replace();
         } catch (e) {
@@ -894,6 +1059,186 @@
                 scales: {
                     y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
                     x: { grid: { display: false }, ticks: { color: '#94a3b8', maxRotation: 45 } }
+                }
+            }
+        });
+    }
+
+    function renderStreamingTab(streaming) {
+        // Movie Providers Chart
+        destroyChart('movieProvidersChart');
+        const topProviders = streaming.movie_providers.slice(0, 12);
+        charts['movieProvidersChart'] = new Chart(document.getElementById('movieProvidersChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: topProviders.map(p => p.name),
+                datasets: [{
+                    label: 'Movies',
+                    data: topProviders.map(p => p.movie_count),
+                    backgroundColor: 'rgba(168, 85, 247, 0.6)',
+                    borderColor: '#a855f7',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Provider Quality Table
+        document.getElementById('providerQualityTable').innerHTML = streaming.quality_comparison.map(p => `
+            <tr>
+                <td>${p.name}</td>
+                <td>${p.content_count.toLocaleString()}</td>
+                <td style="color: var(--success);">${p.avg_rating}</td>
+                <td>${p.avg_votes.toLocaleString()}</td>
+            </tr>
+        `).join('');
+
+        // TV Providers Table
+        document.getElementById('tvProvidersTable').innerHTML = streaming.tv_providers.map(p => `
+            <tr>
+                <td>${p.name}</td>
+                <td>${p.show_count}</td>
+                <td>${p.avg_rating}</td>
+                <td>${p.flatrate}</td>
+            </tr>
+        `).join('');
+
+        // Provider Genre Focus
+        let genreHtml = '';
+        for (const [provider, genres] of Object.entries(streaming.provider_genres).slice(0, 8)) {
+            genreHtml += `<div style="margin-bottom: 16px;">
+                <strong style="color: var(--accent);">${provider}</strong>
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                    ${genres.map(g => g.genre).join(' / ')}
+                </div>
+            </div>`;
+        }
+        document.getElementById('providerGenresContainer').innerHTML = genreHtml || '<p style="color: var(--text-secondary);">No data</p>';
+    }
+
+    function renderAdvancedTab(combos, advanced) {
+        // Budget Efficiency Chart
+        destroyChart('budgetEfficiencyChart');
+        charts['budgetEfficiencyChart'] = new Chart(document.getElementById('budgetEfficiencyChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: advanced.budget_efficiency.map(b => b.tier),
+                datasets: [{
+                    label: 'Avg ROI %',
+                    data: advanced.budget_efficiency.map(b => b.avg_roi),
+                    backgroundColor: advanced.budget_efficiency.map(b => b.avg_roi > 0 ? 'rgba(34, 197, 94, 0.6)' : 'rgba(239, 68, 68, 0.6)'),
+                    borderColor: advanced.budget_efficiency.map(b => b.avg_roi > 0 ? '#22c55e' : '#ef4444'),
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                }, {
+                    label: 'Avg Rating',
+                    data: advanced.budget_efficiency.map(b => b.avg_rating),
+                    type: 'line',
+                    borderColor: '#38bdf8',
+                    yAxisID: 'y1',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                scales: {
+                    y: { position: 'left', grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8', callback: v => v + '%' } },
+                    y1: { position: 'right', min: 5, max: 8, grid: { display: false }, ticks: { color: '#38bdf8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Budget Tier Table
+        document.getElementById('budgetTierTable').innerHTML = advanced.budget_efficiency.map(b => `
+            <tr>
+                <td>${b.tier}</td>
+                <td>${b.movie_count.toLocaleString()}</td>
+                <td>${b.avg_rating}</td>
+                <td style="color: ${b.avg_roi > 0 ? 'var(--success)' : 'var(--danger)'}">${b.avg_roi.toFixed(0)}%</td>
+                <td style="color: ${b.median_roi > 0 ? 'var(--success)' : 'var(--danger)'}">${b.median_roi.toFixed(0)}%</td>
+            </tr>
+        `).join('');
+
+        // Genre Combinations Table
+        document.getElementById('genreCombosTable').innerHTML = combos.genre_pairs_roi.slice(0, 15).map(c => `
+            <tr>
+                <td>${c.combination}</td>
+                <td>${c.movie_count}</td>
+                <td style="color: ${c.avg_roi > 0 ? 'var(--success)' : 'var(--danger)'}">${c.avg_roi.toFixed(0)}%</td>
+                <td>${c.avg_rating}</td>
+            </tr>
+        `).join('');
+
+        // Emerging Combinations Table
+        document.getElementById('emergingCombosTable').innerHTML = combos.emerging_combinations.slice(0, 12).map(c => `
+            <tr>
+                <td>${c.combination}</td>
+                <td>${c.recent_count}</td>
+                <td>${c.historical_count}</td>
+                <td style="color: var(--success);">+${c.growth_pct.toFixed(0)}%</td>
+            </tr>
+        `).join('');
+
+        // Correlation Table
+        document.getElementById('correlationTable').innerHTML = advanced.rating_revenue_correlation.map(c => `
+            <tr>
+                <td>${c.genre}</td>
+                <td style="color: ${c.correlation > 0.3 ? 'var(--success)' : c.correlation < 0 ? 'var(--danger)' : 'var(--text-secondary)'}">${c.correlation.toFixed(3)}</td>
+                <td>${c.sample_size.toLocaleString()}</td>
+            </tr>
+        `).join('');
+
+        // Directors Table
+        document.getElementById('directorsTable').innerHTML = advanced.top_directors.slice(0, 15).map(d => `
+            <tr>
+                <td>${d.name}</td>
+                <td>${d.movie_count}</td>
+                <td>${d.success_rate.toFixed(0)}%</td>
+                <td style="color: ${d.avg_roi > 0 ? 'var(--success)' : 'var(--danger)'}">${d.avg_roi.toFixed(0)}%</td>
+            </tr>
+        `).join('');
+
+        // Yearly Trends Chart
+        destroyChart('yearlyTrendsChart');
+        const recentYears = advanced.yearly_trends.slice(-30);
+        charts['yearlyTrendsChart'] = new Chart(document.getElementById('yearlyTrendsChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: recentYears.map(y => y.year),
+                datasets: [{
+                    label: 'Total Revenue ($B)',
+                    data: recentYears.map(y => y.total_revenue / 1e9),
+                    borderColor: '#22c55e',
+                    yAxisID: 'y',
+                    tension: 0.4
+                }, {
+                    label: 'Avg Rating',
+                    data: recentYears.map(y => y.avg_rating),
+                    borderColor: '#38bdf8',
+                    yAxisID: 'y1',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                scales: {
+                    y: { position: 'left', grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#22c55e', callback: v => '$' + v + 'B' } },
+                    y1: { position: 'right', min: 5, max: 8, grid: { display: false }, ticks: { color: '#38bdf8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
                 }
             }
         });

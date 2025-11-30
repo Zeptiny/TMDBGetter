@@ -762,11 +762,12 @@ def api_analysis_decades():
 
 # ============================================================================
 # INSIGHTS API ENDPOINTS
+# All financial insights exclude movies with budget=0 or revenue=0
 # ============================================================================
 
 @app.route('/api/insights/genre-roi')
 def api_insights_genre_roi():
-    """ROI analysis by genre."""
+    """ROI analysis by genre - excludes movies with zero budget or revenue."""
     with get_db() as db:
         try:
             res = db.execute(text("""
@@ -775,13 +776,14 @@ def api_insights_genre_roi():
                     COUNT(DISTINCT m.id) as movie_count,
                     AVG(m.budget) as avg_budget,
                     AVG(m.revenue) as avg_revenue,
-                    AVG(CASE WHEN m.budget > 0 THEN (m.revenue - m.budget)::float / m.budget * 100 END) as avg_roi,
+                    AVG((m.revenue - m.budget)::float / m.budget * 100) as avg_roi,
                     SUM(m.revenue) as total_revenue,
-                    COUNT(*) FILTER (WHERE m.revenue > m.budget AND m.budget > 0) as profitable_count
+                    COUNT(*) FILTER (WHERE m.revenue > m.budget) as profitable_count,
+                    STDDEV((m.revenue - m.budget)::float / m.budget * 100) as roi_stddev
                 FROM genres g
                 JOIN movie_genres mg ON g.id = mg.genre_id
                 JOIN movies m ON mg.movie_id = m.id
-                WHERE m.budget >= 1000000 AND m.revenue > 0
+                WHERE m.budget > 0 AND m.revenue > 0
                 GROUP BY g.id, g.name
                 HAVING COUNT(DISTINCT m.id) >= 10
                 ORDER BY avg_roi DESC
@@ -796,7 +798,8 @@ def api_insights_genre_roi():
                         "avg_revenue": float(r[3]) if r[3] else 0,
                         "avg_roi": round(float(r[4]), 1) if r[4] else 0,
                         "total_revenue": float(r[5]) if r[5] else 0,
-                        "profitable_count": r[6] or 0
+                        "profitable_count": r[6] or 0,
+                        "roi_stddev": round(float(r[7]), 1) if r[7] else 0
                     }
                     for r in res
                 ]
@@ -808,7 +811,7 @@ def api_insights_genre_roi():
 
 @app.route('/api/insights/release-timing')
 def api_insights_release_timing():
-    """Best release months by genre."""
+    """Best release months by genre - excludes movies with zero budget or revenue."""
     with get_db() as db:
         try:
             # Overall monthly performance
@@ -818,10 +821,10 @@ def api_insights_release_timing():
                     COUNT(*) as movie_count,
                     AVG(revenue) as avg_revenue,
                     AVG(vote_average) as avg_rating,
-                    AVG(CASE WHEN budget > 0 THEN (revenue - budget)::float / budget * 100 END) as avg_roi
+                    AVG((revenue - budget)::float / budget * 100) as avg_roi
                 FROM movies
                 WHERE release_date IS NOT NULL 
-                    AND budget >= 1000000 AND revenue > 0
+                    AND budget > 0 AND revenue > 0
                 GROUP BY month
                 ORDER BY month
             """)).fetchall()
@@ -840,7 +843,7 @@ def api_insights_release_timing():
                 JOIN movie_genres mg ON g.id = mg.genre_id
                 JOIN movies m ON mg.movie_id = m.id
                 WHERE m.release_date IS NOT NULL 
-                    AND m.budget >= 1000000 AND m.revenue > 0
+                    AND m.budget > 0 AND m.revenue > 0
                 GROUP BY g.name, month
                 HAVING COUNT(*) >= 5
                 ORDER BY g.name, avg_revenue DESC
@@ -878,7 +881,7 @@ def api_insights_release_timing():
 
 @app.route('/api/insights/studio-analysis')
 def api_insights_studio_analysis():
-    """Production company market share and performance."""
+    """Production company market share and performance - excludes movies with zero revenue."""
     with get_db() as db:
         try:
             # Top studios by revenue
@@ -897,7 +900,7 @@ def api_insights_studio_analysis():
                 JOIN movies m ON mpc.movie_id = m.id
                 WHERE m.revenue > 0
                 GROUP BY pc.id, pc.name
-                HAVING COUNT(DISTINCT m.id) >= 20
+                HAVING COUNT(DISTINCT m.id) >= 10
                 ORDER BY total_revenue DESC
                 LIMIT 25
             """)).fetchall()
@@ -917,7 +920,7 @@ def api_insights_studio_analysis():
                     SELECT pc2.name FROM production_companies pc2
                     JOIN movie_production_companies mpc2 ON pc2.id = mpc2.company_id
                     GROUP BY pc2.name
-                    HAVING COUNT(*) >= 50
+                    HAVING COUNT(*) >= 20
                     ORDER BY COUNT(*) DESC
                     LIMIT 10
                 )
@@ -1059,11 +1062,10 @@ def api_insights_talent_network():
 
 @app.route('/api/insights/franchise-analysis')
 def api_insights_franchise_analysis():
-    """Franchise and sequel performance analysis."""
+    """Franchise and sequel performance analysis - excludes movies with zero revenue."""
     with get_db() as db:
         try:
-            # Find collections/franchises by looking at movies with similar titles
-            # or belonging to collections
+            # Find collections/franchises
             franchises = db.execute(text("""
                 SELECT 
                     mc.name as collection_name,
@@ -1073,29 +1075,33 @@ def api_insights_franchise_analysis():
                     SUM(m.revenue) as total_revenue,
                     AVG(m.revenue) as avg_revenue,
                     AVG(m.vote_average) as avg_rating,
-                    AVG(m.budget) as avg_budget
+                    SUM(m.budget) as total_budget
                 FROM movie_collections mc
                 JOIN movies m ON mc.id = m.collection_id
-                WHERE m.revenue > 0
+                WHERE m.budget > 0 AND m.revenue > 0
                 GROUP BY mc.id, mc.name
                 HAVING COUNT(m.id) >= 2
                 ORDER BY total_revenue DESC
                 LIMIT 30
             """)).fetchall()
             
-            # Sequel degradation analysis (rating drop per sequel)
+            # Sequel degradation analysis (rating and revenue by sequel number)
             sequel_quality = db.execute(text("""
                 WITH franchise_movies AS (
                     SELECT 
+                        mc.id as collection_id,
                         mc.name as collection,
                         m.title,
                         m.release_date,
                         m.vote_average,
                         m.revenue,
+                        m.budget,
                         ROW_NUMBER() OVER (PARTITION BY mc.id ORDER BY m.release_date) as movie_num
                     FROM movie_collections mc
                     JOIN movies m ON mc.id = m.collection_id
-                    WHERE m.vote_average IS NOT NULL
+                    WHERE m.vote_average IS NOT NULL 
+                        AND m.vote_average > 0
+                        AND m.revenue > 0
                 )
                 SELECT 
                     movie_num,
@@ -1103,8 +1109,9 @@ def api_insights_franchise_analysis():
                     AVG(vote_average) as avg_rating,
                     AVG(revenue) as avg_revenue
                 FROM franchise_movies
-                WHERE movie_num <= 10
+                WHERE movie_num <= 8
                 GROUP BY movie_num
+                HAVING COUNT(*) >= 5
                 ORDER BY movie_num
             """)).fetchall()
             
@@ -1118,13 +1125,13 @@ def api_insights_franchise_analysis():
                         "total_revenue": float(r[4]) if r[4] else 0,
                         "avg_revenue": float(r[5]) if r[5] else 0,
                         "avg_rating": round(float(r[6]), 2) if r[6] else 0,
-                        "avg_budget": float(r[7]) if r[7] else 0
+                        "total_budget": float(r[7]) if r[7] else 0
                     }
                     for r in franchises
                 ],
                 "sequel_degradation": [
                     {
-                        "movie_number": r[0],
+                        "movie_number": int(r[0]),
                         "sample_size": r[1],
                         "avg_rating": round(float(r[2]), 2) if r[2] else 0,
                         "avg_revenue": float(r[3]) if r[3] else 0
@@ -1495,6 +1502,436 @@ def api_insights_genre_evolution():
         except Exception as e:
             print(f"Error in genre evolution: {e}")
             return jsonify({"evolution": {}, "genre_blending": [], "runtime_by_genre": []})
+
+
+@app.route('/api/insights/watch-providers')
+def api_insights_watch_providers():
+    """Streaming platform analysis for movies and TV."""
+    with get_db() as db:
+        try:
+            # Top streaming providers by content count
+            movie_providers = db.execute(text("""
+                SELECT 
+                    wp.provider_name,
+                    COUNT(DISTINCT mwp.movie_id) as movie_count,
+                    AVG(m.vote_average) as avg_rating,
+                    COUNT(DISTINCT mwp.movie_id) FILTER (WHERE mwp.type = 'flatrate') as flatrate_count,
+                    COUNT(DISTINCT mwp.movie_id) FILTER (WHERE mwp.type = 'rent') as rent_count,
+                    COUNT(DISTINCT mwp.movie_id) FILTER (WHERE mwp.type = 'buy') as buy_count
+                FROM watch_providers wp
+                JOIN movie_watch_providers mwp ON wp.id = mwp.provider_id
+                JOIN movies m ON mwp.movie_id = m.id
+                WHERE mwp.country_code = 'US'
+                GROUP BY wp.id, wp.provider_name
+                HAVING COUNT(DISTINCT mwp.movie_id) >= 50
+                ORDER BY movie_count DESC
+                LIMIT 20
+            """)).fetchall()
+            
+            # TV providers
+            tv_providers = db.execute(text("""
+                SELECT 
+                    wp.provider_name,
+                    COUNT(DISTINCT twp.tv_series_id) as show_count,
+                    AVG(ts.vote_average) as avg_rating,
+                    COUNT(DISTINCT twp.tv_series_id) FILTER (WHERE twp.type = 'flatrate') as flatrate_count
+                FROM watch_providers wp
+                JOIN tv_series_watch_providers twp ON wp.id = twp.provider_id
+                JOIN tv_series ts ON twp.tv_series_id = ts.id
+                WHERE twp.country_code = 'US'
+                GROUP BY wp.id, wp.provider_name
+                HAVING COUNT(DISTINCT twp.tv_series_id) >= 20
+                ORDER BY show_count DESC
+                LIMIT 20
+            """)).fetchall()
+            
+            # Provider genre focus (what genres each provider specializes in)
+            provider_genres = db.execute(text("""
+                SELECT 
+                    wp.provider_name,
+                    g.name as genre,
+                    COUNT(*) as count
+                FROM watch_providers wp
+                JOIN movie_watch_providers mwp ON wp.id = mwp.provider_id
+                JOIN movies m ON mwp.movie_id = m.id
+                JOIN movie_genres mg ON m.id = mg.movie_id
+                JOIN genres g ON mg.genre_id = g.id
+                WHERE mwp.country_code = 'US' AND mwp.type = 'flatrate'
+                GROUP BY wp.provider_name, g.name
+                ORDER BY wp.provider_name, count DESC
+            """)).fetchall()
+            
+            # Process provider genres
+            provider_genre_map = {}
+            for r in provider_genres:
+                provider = r[0]
+                if provider not in provider_genre_map:
+                    provider_genre_map[provider] = []
+                if len(provider_genre_map[provider]) < 5:
+                    provider_genre_map[provider].append({"genre": r[1], "count": r[2]})
+            
+            # Provider quality comparison (avg rating of exclusive content)
+            quality_comparison = db.execute(text("""
+                WITH provider_ratings AS (
+                    SELECT 
+                        wp.provider_name,
+                        AVG(m.vote_average) as avg_rating,
+                        AVG(m.vote_count) as avg_votes,
+                        COUNT(DISTINCT m.id) as content_count
+                    FROM watch_providers wp
+                    JOIN movie_watch_providers mwp ON wp.id = mwp.provider_id
+                    JOIN movies m ON mwp.movie_id = m.id
+                    WHERE mwp.country_code = 'US' 
+                        AND mwp.type = 'flatrate'
+                        AND m.vote_count >= 100
+                    GROUP BY wp.id, wp.provider_name
+                    HAVING COUNT(DISTINCT m.id) >= 100
+                )
+                SELECT * FROM provider_ratings
+                ORDER BY avg_rating DESC
+                LIMIT 15
+            """)).fetchall()
+            
+            return jsonify({
+                "movie_providers": [
+                    {
+                        "name": r[0],
+                        "movie_count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "flatrate": r[3] or 0,
+                        "rent": r[4] or 0,
+                        "buy": r[5] or 0
+                    }
+                    for r in movie_providers
+                ],
+                "tv_providers": [
+                    {
+                        "name": r[0],
+                        "show_count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "flatrate": r[3] or 0
+                    }
+                    for r in tv_providers
+                ],
+                "provider_genres": provider_genre_map,
+                "quality_comparison": [
+                    {
+                        "name": r[0],
+                        "avg_rating": round(float(r[1]), 2) if r[1] else 0,
+                        "avg_votes": int(r[2]) if r[2] else 0,
+                        "content_count": r[3]
+                    }
+                    for r in quality_comparison
+                ]
+            })
+        except Exception as e:
+            print(f"Error in watch providers: {e}")
+            return jsonify({
+                "movie_providers": [],
+                "tv_providers": [],
+                "provider_genres": {},
+                "quality_comparison": []
+            })
+
+
+@app.route('/api/insights/genre-combinations')
+def api_insights_genre_combinations():
+    """Advanced genre combination analysis with ROI."""
+    with get_db() as db:
+        try:
+            # Genre pairs with financial performance
+            genre_pairs_roi = db.execute(text("""
+                SELECT 
+                    g1.name as genre1,
+                    g2.name as genre2,
+                    COUNT(DISTINCT m.id) as movie_count,
+                    AVG(m.vote_average) as avg_rating,
+                    AVG(m.revenue) as avg_revenue,
+                    AVG((m.revenue - m.budget)::float / m.budget * 100) as avg_roi,
+                    SUM(m.revenue) as total_revenue
+                FROM movie_genres mg1
+                JOIN movie_genres mg2 ON mg1.movie_id = mg2.movie_id AND mg1.genre_id < mg2.genre_id
+                JOIN genres g1 ON mg1.genre_id = g1.id
+                JOIN genres g2 ON mg2.genre_id = g2.id
+                JOIN movies m ON mg1.movie_id = m.id
+                WHERE m.budget > 0 AND m.revenue > 0
+                GROUP BY g1.name, g2.name
+                HAVING COUNT(DISTINCT m.id) >= 20
+                ORDER BY avg_roi DESC
+                LIMIT 30
+            """)).fetchall()
+            
+            # Emerging combinations (last 10 years vs historical)
+            emerging = db.execute(text("""
+                WITH recent AS (
+                    SELECT 
+                        g1.name as g1, g2.name as g2,
+                        COUNT(*) as recent_count
+                    FROM movie_genres mg1
+                    JOIN movie_genres mg2 ON mg1.movie_id = mg2.movie_id AND mg1.genre_id < mg2.genre_id
+                    JOIN genres g1 ON mg1.genre_id = g1.id
+                    JOIN genres g2 ON mg2.genre_id = g2.id
+                    JOIN movies m ON mg1.movie_id = m.id
+                    WHERE m.release_date >= '2015-01-01'
+                    GROUP BY g1.name, g2.name
+                    HAVING COUNT(*) >= 10
+                ),
+                historical AS (
+                    SELECT 
+                        g1.name as g1, g2.name as g2,
+                        COUNT(*) as hist_count
+                    FROM movie_genres mg1
+                    JOIN movie_genres mg2 ON mg1.movie_id = mg2.movie_id AND mg1.genre_id < mg2.genre_id
+                    JOIN genres g1 ON mg1.genre_id = g1.id
+                    JOIN genres g2 ON mg2.genre_id = g2.id
+                    JOIN movies m ON mg1.movie_id = m.id
+                    WHERE m.release_date < '2015-01-01'
+                    GROUP BY g1.name, g2.name
+                )
+                SELECT 
+                    r.g1, r.g2,
+                    r.recent_count,
+                    COALESCE(h.hist_count, 0) as hist_count,
+                    CASE WHEN COALESCE(h.hist_count, 0) > 0 
+                        THEN (r.recent_count::float / h.hist_count - 1) * 100 
+                        ELSE 100 END as growth_pct
+                FROM recent r
+                LEFT JOIN historical h ON r.g1 = h.g1 AND r.g2 = h.g2
+                ORDER BY growth_pct DESC
+                LIMIT 20
+            """)).fetchall()
+            
+            # Triple genre combinations
+            triple_combos = db.execute(text("""
+                SELECT 
+                    g1.name as genre1,
+                    g2.name as genre2,
+                    g3.name as genre3,
+                    COUNT(DISTINCT m.id) as movie_count,
+                    AVG(m.vote_average) as avg_rating
+                FROM movie_genres mg1
+                JOIN movie_genres mg2 ON mg1.movie_id = mg2.movie_id AND mg1.genre_id < mg2.genre_id
+                JOIN movie_genres mg3 ON mg1.movie_id = mg3.movie_id AND mg2.genre_id < mg3.genre_id
+                JOIN genres g1 ON mg1.genre_id = g1.id
+                JOIN genres g2 ON mg2.genre_id = g2.id
+                JOIN genres g3 ON mg3.genre_id = g3.id
+                JOIN movies m ON mg1.movie_id = m.id
+                WHERE m.vote_count >= 50
+                GROUP BY g1.name, g2.name, g3.name
+                HAVING COUNT(DISTINCT m.id) >= 20
+                ORDER BY movie_count DESC
+                LIMIT 20
+            """)).fetchall()
+            
+            return jsonify({
+                "genre_pairs_roi": [
+                    {
+                        "combination": f"{r[0]} + {r[1]}",
+                        "genre1": r[0],
+                        "genre2": r[1],
+                        "movie_count": r[2],
+                        "avg_rating": round(float(r[3]), 2) if r[3] else 0,
+                        "avg_revenue": float(r[4]) if r[4] else 0,
+                        "avg_roi": round(float(r[5]), 1) if r[5] else 0,
+                        "total_revenue": float(r[6]) if r[6] else 0
+                    }
+                    for r in genre_pairs_roi
+                ],
+                "emerging_combinations": [
+                    {
+                        "combination": f"{r[0]} + {r[1]}",
+                        "recent_count": r[2],
+                        "historical_count": r[3],
+                        "growth_pct": round(float(r[4]), 1) if r[4] else 0
+                    }
+                    for r in emerging
+                ],
+                "triple_combinations": [
+                    {
+                        "combination": f"{r[0]} + {r[1]} + {r[2]}",
+                        "movie_count": r[3],
+                        "avg_rating": round(float(r[4]), 2) if r[4] else 0
+                    }
+                    for r in triple_combos
+                ]
+            })
+        except Exception as e:
+            print(f"Error in genre combinations: {e}")
+            return jsonify({
+                "genre_pairs_roi": [],
+                "emerging_combinations": [],
+                "triple_combinations": []
+            })
+
+
+@app.route('/api/insights/advanced-analytics')
+def api_insights_advanced_analytics():
+    """Complex financial and performance analytics."""
+    with get_db() as db:
+        try:
+            # Budget efficiency analysis (best rated movies per budget tier)
+            budget_efficiency = db.execute(text("""
+                SELECT 
+                    CASE 
+                        WHEN budget < 1000000 THEN 'Micro (<$1M)'
+                        WHEN budget < 10000000 THEN 'Low ($1-10M)'
+                        WHEN budget < 50000000 THEN 'Medium ($10-50M)'
+                        WHEN budget < 100000000 THEN 'High ($50-100M)'
+                        ELSE 'Blockbuster ($100M+)'
+                    END as budget_tier,
+                    COUNT(*) as movie_count,
+                    AVG(vote_average) as avg_rating,
+                    AVG(revenue) as avg_revenue,
+                    AVG((revenue - budget)::float / budget * 100) as avg_roi,
+                    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY (revenue - budget)::float / budget * 100) as median_roi
+                FROM movies
+                WHERE budget > 0 AND revenue > 0
+                GROUP BY budget_tier
+                ORDER BY MIN(budget)
+            """)).fetchall()
+            
+            # Seasonal genre performance
+            seasonal_genres = db.execute(text("""
+                SELECT 
+                    g.name as genre,
+                    CASE 
+                        WHEN EXTRACT(MONTH FROM m.release_date) IN (12, 1, 2) THEN 'Winter'
+                        WHEN EXTRACT(MONTH FROM m.release_date) IN (3, 4, 5) THEN 'Spring'
+                        WHEN EXTRACT(MONTH FROM m.release_date) IN (6, 7, 8) THEN 'Summer'
+                        ELSE 'Fall'
+                    END as season,
+                    COUNT(*) as count,
+                    AVG(m.revenue) as avg_revenue,
+                    AVG((m.revenue - m.budget)::float / m.budget * 100) as avg_roi
+                FROM genres g
+                JOIN movie_genres mg ON g.id = mg.genre_id
+                JOIN movies m ON mg.movie_id = m.id
+                WHERE m.release_date IS NOT NULL 
+                    AND m.budget > 0 AND m.revenue > 0
+                GROUP BY g.name, season
+                HAVING COUNT(*) >= 20
+                ORDER BY g.name, avg_roi DESC
+            """)).fetchall()
+            
+            # Process seasonal data by genre
+            seasonal_by_genre = {}
+            for r in seasonal_genres:
+                genre = r[0]
+                if genre not in seasonal_by_genre:
+                    seasonal_by_genre[genre] = []
+                seasonal_by_genre[genre].append({
+                    "season": r[1],
+                    "count": r[2],
+                    "avg_revenue": float(r[3]) if r[3] else 0,
+                    "avg_roi": round(float(r[4]), 1) if r[4] else 0
+                })
+            
+            # Rating vs Revenue correlation by genre
+            rating_revenue = db.execute(text("""
+                SELECT 
+                    g.name as genre,
+                    CORR(m.vote_average, m.revenue) as correlation,
+                    COUNT(*) as sample_size
+                FROM genres g
+                JOIN movie_genres mg ON g.id = mg.genre_id
+                JOIN movies m ON mg.movie_id = m.id
+                WHERE m.revenue > 0 AND m.vote_average > 0
+                GROUP BY g.name
+                HAVING COUNT(*) >= 100
+                ORDER BY correlation DESC
+            """)).fetchall()
+            
+            # Year-over-year industry growth
+            yoy_growth = db.execute(text("""
+                SELECT 
+                    EXTRACT(YEAR FROM release_date)::int as year,
+                    COUNT(*) as movie_count,
+                    SUM(revenue) as total_revenue,
+                    AVG(budget) as avg_budget,
+                    AVG(revenue) as avg_revenue,
+                    AVG(vote_average) as avg_rating
+                FROM movies
+                WHERE release_date IS NOT NULL
+                    AND EXTRACT(YEAR FROM release_date) >= 1980
+                    AND budget > 0 AND revenue > 0
+                GROUP BY year
+                ORDER BY year
+            """)).fetchall()
+            
+            # Director success rate analysis
+            director_success = db.execute(text("""
+                SELECT 
+                    p.name as director,
+                    COUNT(DISTINCT m.id) as movie_count,
+                    AVG(m.vote_average) as avg_rating,
+                    COUNT(*) FILTER (WHERE m.revenue > m.budget) as hits,
+                    COUNT(*) FILTER (WHERE m.revenue <= m.budget) as misses,
+                    AVG((m.revenue - m.budget)::float / m.budget * 100) as avg_roi
+                FROM movie_crew mc
+                JOIN people p ON mc.person_id = p.id
+                JOIN movies m ON mc.movie_id = m.id
+                WHERE mc.job = 'Director'
+                    AND m.budget > 0 AND m.revenue > 0
+                GROUP BY p.id, p.name
+                HAVING COUNT(DISTINCT m.id) >= 5
+                ORDER BY avg_roi DESC
+                LIMIT 30
+            """)).fetchall()
+            
+            return jsonify({
+                "budget_efficiency": [
+                    {
+                        "tier": r[0],
+                        "movie_count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "avg_revenue": float(r[3]) if r[3] else 0,
+                        "avg_roi": round(float(r[4]), 1) if r[4] else 0,
+                        "median_roi": round(float(r[5]), 1) if r[5] else 0
+                    }
+                    for r in budget_efficiency
+                ],
+                "seasonal_performance": seasonal_by_genre,
+                "rating_revenue_correlation": [
+                    {
+                        "genre": r[0],
+                        "correlation": round(float(r[1]), 3) if r[1] else 0,
+                        "sample_size": r[2]
+                    }
+                    for r in rating_revenue
+                ],
+                "yearly_trends": [
+                    {
+                        "year": r[0],
+                        "movie_count": r[1],
+                        "total_revenue": float(r[2]) if r[2] else 0,
+                        "avg_budget": float(r[3]) if r[3] else 0,
+                        "avg_revenue": float(r[4]) if r[4] else 0,
+                        "avg_rating": round(float(r[5]), 2) if r[5] else 0
+                    }
+                    for r in yoy_growth
+                ],
+                "top_directors": [
+                    {
+                        "name": r[0],
+                        "movie_count": r[1],
+                        "avg_rating": round(float(r[2]), 2) if r[2] else 0,
+                        "hits": r[3],
+                        "misses": r[4],
+                        "success_rate": round(r[3] / (r[3] + r[4]) * 100, 1) if (r[3] + r[4]) > 0 else 0,
+                        "avg_roi": round(float(r[5]), 1) if r[5] else 0
+                    }
+                    for r in director_success
+                ]
+            })
+        except Exception as e:
+            print(f"Error in advanced analytics: {e}")
+            return jsonify({
+                "budget_efficiency": [],
+                "seasonal_performance": {},
+                "rating_revenue_correlation": [],
+                "yearly_trends": [],
+                "top_directors": []
+            })
 
 
 @app.route('/api/system/stats')
