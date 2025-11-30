@@ -764,12 +764,6 @@ def api_analysis_decades():
 # INSIGHTS API ENDPOINTS
 # ============================================================================
 
-@app.route("/insights")
-def insights_page():
-    """Industry insights page."""
-    return render_template("insights.html")
-
-
 @app.route('/api/insights/genre-roi')
 def api_insights_genre_roi():
     """ROI analysis by genre."""
